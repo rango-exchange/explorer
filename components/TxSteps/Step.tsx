@@ -81,7 +81,7 @@ const Step: React.FC<PropsType> = ({ step, index }) => {
 
       <div
         onClick={() => !isOpen && setIsOpen(true)}
-        className={`relative border border-neutral-600 rounded-md p-5 lg:p-6 mt-1 relative ${
+        className={`relative border border-neutral-600 rounded-md p-5 lg:p-6 mt-1 ${
           isOpen ? 'mt-7' : 'cursor-pointer'
         }`}
       >

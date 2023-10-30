@@ -10,7 +10,6 @@
   },
   "dependencies": {
     "@react-spring/web": "^9.5.5",
-    "@types/react-dom": "18.0.9",
     "@visx/curve": "^2.1.0",
     "@visx/xychart": "^2.16.0",
     "dayjs": "^1.11.6",
@@ -27,7 +26,8 @@
   "devDependencies": {
     "@next/eslint-plugin-next": "^13.0.7",
     "@types/node": "18.11.9",
-    "@types/react": "18.0.25",
+    "@types/react": "18.2.33",
+    "@types/react-dom": "18.2.14",
     "@typescript-eslint/eslint-plugin": "^5.43.0",
     "autoprefixer": "^10.4.13",
     "eslint": "^8.28.0",
