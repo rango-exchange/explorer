@@ -7,6 +7,7 @@ module.exports = {
     'plugin:react/recommended',
     'standard-with-typescript',
     'plugin:@next/next/recommended',
+    'plugin:prettier/recommended',
   ],
   overrides: [],
   parserOptions: {
@@ -14,11 +15,11 @@ module.exports = {
     sourceType: 'module',
     project: 'tsconfig.json',
   },
-  plugins: ['react'],
+  plugins: ['react','prettier'],
   rules: {
     // React scope no longer necessary with new JSX transform\
-    'multiline-ternary': ['error', 'never'],
     'react/react-in-jsx-scope': 'off',
+    "@typescript-eslint/explicit-function-return-type": 'off',
     '@typescript-eslint/no-misused-promises': [
       'error',
       {

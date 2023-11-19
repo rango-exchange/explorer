@@ -4,13 +4,12 @@ const Loading: React.FC = () => (
     style={{
       margin: 'auto',
       display: 'block',
-      shapeRendering: 'auto'
+      shapeRendering: 'auto',
     }}
     width={90}
     height={90}
     viewBox="0 0 100 100"
-    preserveAspectRatio="xMidYMid"
-  >
+    preserveAspectRatio="xMidYMid">
     <g transform="matrix(.8 0 0 .8 10 10)">
       <animateTransform
         attributeName="transform"
@@ -31,5 +30,5 @@ const Loading: React.FC = () => (
       />
     </g>
   </svg>
-)
-export default Loading
+);
+export default Loading;

@@ -17,6 +17,6 @@
     "incremental": true,
     "allowSyntheticDefaultImports": true,
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "components/Summary/SummaryItem.tss"],
   "exclude": ["node_modules"]
 }

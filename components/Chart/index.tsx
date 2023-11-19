@@ -1,4 +1,4 @@
-import { curveCardinal } from '@visx/curve'
+import { curveCardinal } from '@visx/curve';
 import {
   AnimatedGrid,
   XYChart,
@@ -6,55 +6,31 @@ import {
   Axis,
   AnimatedAreaSeries,
   AnimatedAreaStack,
-  buildChartTheme
-} from '@visx/xychart'
-import dayjs from 'dayjs'
-import { DailyIntervalType } from '../types'
-import isMobile from 'is-mobile'
+} from '@visx/xychart';
+import dayjs from 'dayjs';
+import isMobile from 'is-mobile';
+import { ChartProps } from './Chart.type';
+import { customTheme, monthsShort } from './Chart.helper';
 
-const monthsShort = [
-  'Jan',
-  'Feb',
-  'Mar',
-  'Apr',
-  'May',
-  'Jun',
-  'Jul',
-  'Aug',
-  'Sep',
-  'Oct',
-  'Nov',
-  'Dec'
-]
-interface ChartProps {
-  data: DailyIntervalType[]
-}
-
-const customTheme = buildChartTheme({
-  backgroundColor: '#fff',
-  colors: ['rgba(0, 169, 187, 0.5)'],
-  gridColor: '#00A9BB',
-  tickLength: 8,
-  gridColorDark: ''
-})
-
-const Chart = ({ data }: ChartProps): JSX.Element => {
-  const IsMobile = isMobile()
+function Chart(props: ChartProps) {
+  const { data } = props;
+  const IsMobile = isMobile();
   return (
     <div className="relative flex justify-center overflow-hidden">
       <XYChart
         height={350}
         theme={customTheme}
         xScale={{ type: 'band' }}
-        yScale={{ type: 'linear' }}
-      >
+        yScale={{ type: 'linear' }}>
         <Axis
           orientation="bottom"
           hideAxisLine
           hideTicks
           hideZero
           numTicks={IsMobile ? 4 : 8}
-          tickFormat={(d) => `${monthsShort[dayjs(d).month()]} ${dayjs(d).year()}`}
+          tickFormat={(d) =>
+            `${monthsShort[dayjs(d).month()]} ${dayjs(d).year()}`
+          }
         />
         <Axis
           orientation="left"
@@ -92,18 +68,20 @@ const Chart = ({ data }: ChartProps): JSX.Element => {
               <div className="mb-1">Swaps</div>
 
               <div className="mb-1">
-                {dayjs(tooltipData.nearestDatum.datum.date.split('T')[0]).format(
-                  'dddd, YYYY MMMM DD'
-                )}
+                {dayjs(
+                  tooltipData.nearestDatum.datum.date.split('T')[0],
+                ).format('dddd, YYYY MMMM DD')}
               </div>
-              <div className="mb-1">Count: {tooltipData.nearestDatum.datum.count}</div>
+              <div className="mb-1">
+                Count: {tooltipData.nearestDatum.datum.count}
+              </div>
             </div>
           )}
         />
       </XYChart>
       <div className="w-full h-12 absolute bottom-12 from-[#00a9bb00] to-[#fff] bg-gradient-to-b" />
     </div>
-  )
+  );
 }
 
-export default Chart
+export default Chart;

@@ -1,10 +1,10 @@
-import React from 'react'
-import { AmountConverter } from '../utils/amountConverter'
-import { SummaryType } from '../types'
-import Chart from './Chart'
+import React from 'react';
+import { AmountConverter } from '../utils/amountConverter';
+import { SummaryType } from '../types';
+import Chart from './Chart';
 
 interface PropsType {
-  summary: SummaryType
+  summary: SummaryType;
 }
 
 const ChartBox: React.FC<PropsType> = ({ summary }) => {
@@ -54,7 +54,7 @@ const ChartBox: React.FC<PropsType> = ({ summary }) => {
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default ChartBox
+export default ChartBox;
