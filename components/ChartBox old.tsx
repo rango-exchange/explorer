@@ -1,7 +1,7 @@
 import React from 'react';
 import { AmountConverter } from '../utils/amountConverter';
 import { SummaryType } from '../types';
-import Chart from './Chart';
+import Chart from './ChartBox';
 
 interface PropsType {
   summary: SummaryType;

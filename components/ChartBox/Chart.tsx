@@ -14,11 +14,11 @@ import { customTheme, monthsShort } from './Chart.helper';
 
 function Chart(props: ChartProps) {
   const { data } = props;
+
   const IsMobile = isMobile();
   return (
     <div className="relative flex justify-center overflow-hidden">
       <XYChart
-        height={350}
         theme={customTheme}
         xScale={{ type: 'band' }}
         yScale={{ type: 'linear' }}>
@@ -52,10 +52,10 @@ function Chart(props: ChartProps) {
         <AnimatedAreaStack curve={curveCardinal} renderLine>
           <AnimatedAreaSeries
             dataKey="Daily Interval"
-            data={data}
+            data={data.slice(0, 15)}
             xAccessor={(d) => d.date}
             yAccessor={(d) => d.count}
-            fillOpacity={0.3}
+            fillOpacity={0}
           />
         </AnimatedAreaStack>
 
@@ -79,7 +79,7 @@ function Chart(props: ChartProps) {
           )}
         />
       </XYChart>
-      <div className="w-full h-12 absolute bottom-12 from-[#00a9bb00] to-[#fff] bg-gradient-to-b" />
+      <div className="w-full h-12 absolute bottom-12" />
     </div>
   );
 }

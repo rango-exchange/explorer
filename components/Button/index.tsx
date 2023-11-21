@@ -24,7 +24,9 @@ export function Button(props: PropsWithChildren<ButtonProps>) {
   return (
     <button
       onClick={handleClick}
-      className={`transition-all hover:bg-opacity-90 overflow-hidden relative py-3 flex items-center justify-center px-4 text-md font-semibold md:leading-snug text-baseForeground bg-secondary-500 rounded-micro ${props.className}`}>
+      className={`transition-all hover:bg-opacity-90 overflow-hidden relative py-3 flex items-center justify-center px-4 text-md font-semibold md:leading-snug text-baseForeground bg-secondary-500 rounded-micro ${
+        props.className || ''
+      }`}>
       {props.children}
     </button>
   );

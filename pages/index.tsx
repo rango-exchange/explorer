@@ -1,7 +1,7 @@
 import { makeColumns } from '../components/MakeColumns';
 import SearchBox from '../components/SearchBox';
 import Table from '../components/Table';
-import { GetServerSideProps, NextPage } from 'next';
+import { GetServerSideProps } from 'next';
 import { useRouter } from 'next/router';
 import { useCallback, useEffect, useState } from 'react';
 import { getLastSwaps, getSummary } from '../services';
@@ -9,7 +9,7 @@ import { SummaryType, SwapType } from '../types';
 import Error from 'next/error';
 import Layout from 'components/Layout';
 import Summary from 'components/Summary';
-import Chart from 'components/Chart';
+import ChartBox from 'components/ChartBox';
 
 interface PropsType {
   swaps: SwapType[];
@@ -17,7 +17,9 @@ interface PropsType {
   status: number;
 }
 
-const Home: NextPage<PropsType> = ({ swaps, summary, status }: PropsType) => {
+function Home(props: PropsType) {
+  const { swaps, summary, status } = props;
+  console.log('summary ============>', summary);
   const [lastSwaps, setLastSwaps] = useState<SwapType[]>([]);
   const [second, setSecond] = useState(30);
 
@@ -59,12 +61,12 @@ const Home: NextPage<PropsType> = ({ swaps, summary, status }: PropsType) => {
             <SearchBox />
           </div>
 
-          <div className="container bg-neutral-500 absolute p-[40px] flex items-center bottom-0 translate-y-[50%]">
+          <div className="container bg-neutral-500 absolute p-[40px] flex items-center justify-between bottom-0 translate-y-[50%]">
             <div className="w-[36%]">
               <Summary summary={summary} />
             </div>
             <div className="w-[51%]">
-              <Chart data={summary.dailyInterval} />
+              <ChartBox data={summary.dailyInterval} />
             </div>
           </div>
         </div>
@@ -86,7 +88,7 @@ const Home: NextPage<PropsType> = ({ swaps, summary, status }: PropsType) => {
       </div>
     </Layout>
   );
-};
+}
 
 export const getServerSideProps: GetServerSideProps<PropsType> = async () => {
   const swaps = await getLastSwaps();

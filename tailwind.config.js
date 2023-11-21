@@ -32,7 +32,9 @@ module.exports = {
       },
       inset: { 15: '3.75rem' },
       padding: {
+        5: '0.32rem',
         8: '0.5rem',
+        10: '0.625rem',
         15: '0.937rem',
         20: '1.25rem',
         25: '1.56rem',
@@ -41,7 +43,8 @@ module.exports = {
       },
       margin: {
         5: '0.32rem',
-        10: '0.625rem'
+        10: '0.625rem',
+        20: '1.25rem',
       },
       lineHeight: {
         7.5: '1.875rem',
@@ -57,6 +60,7 @@ module.exports = {
       },
       fontSize: {
         'xs': '0.75rem',
+        'lxs': '0.875rem',
         'sm': '1rem',
         'md': '1.125rem',
         'lg': '1.375rem',
