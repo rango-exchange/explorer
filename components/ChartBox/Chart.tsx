@@ -1,87 +1,110 @@
 import { curveCardinal } from '@visx/curve';
 import {
+  AnimatedAxis,
   AnimatedGrid,
+  AnimatedLineSeries,
   XYChart,
   Tooltip,
-  Axis,
-  AnimatedAreaSeries,
-  AnimatedAreaStack,
 } from '@visx/xychart';
+import { customTheme, getDayOfMonth, getRoundedCount } from './Chart.helper';
 import dayjs from 'dayjs';
-import isMobile from 'is-mobile';
+import { CustomTick } from './CustomTick';
 import { ChartProps } from './Chart.type';
-import { customTheme, monthsShort } from './Chart.helper';
 
-function Chart(props: ChartProps) {
-  const { data } = props;
+export const Chart = (props: ChartProps) => {
+  const { data, days } = props;
+  const currentWeek = data.slice(24, 31).map((item) => ({ ...item }));
+  const prevWeek = data.slice(17, 24).map((item) => ({ ...item }));
 
-  const IsMobile = isMobile();
+  // Update the date property of each item in prevWeek with the corresponding item from deepCopyCurrentWeek
+  prevWeek.forEach((item, index) => {
+    prevWeek[index].date = currentWeek[index].date;
+  });
+
   return (
-    <div className="relative flex justify-center overflow-hidden">
-      <XYChart
-        theme={customTheme}
-        xScale={{ type: 'band' }}
-        yScale={{ type: 'linear' }}>
-        <Axis
-          orientation="bottom"
-          hideAxisLine
-          hideTicks
-          hideZero
-          numTicks={IsMobile ? 4 : 8}
-          tickFormat={(d) =>
-            `${monthsShort[dayjs(d).month()]} ${dayjs(d).year()}`
-          }
-        />
-        <Axis
-          orientation="left"
-          hideAxisLine
-          hideTicks
-          hideZero
-          tickValues={[1000, 2000, 3000, 4000]}
-          labelProps={{ fontSize: 12, fontWeight: 600 }}
-        />
+    <XYChart
+      theme={customTheme}
+      height={300}
+      xScale={{ type: 'band' }}
+      yScale={{ type: 'linear' }}>
+      <AnimatedAxis
+        tickComponent={(props) => (
+          <CustomTick dxValue={days === 7 ? 15 : 30} {...props} />
+        )}
+        orientation="bottom"
+        hideTicks
+        numTicks={7}
+        tickFormat={(d) => getDayOfMonth(d)}
+      />
+      <AnimatedAxis
+        orientation="left"
+        hideAxisLine
+        hideTicks
+        numTicks={3}
+        tickFormat={(c) => getRoundedCount(c).toString()}
+        tickComponent={(props) => <CustomTick {...props} />}
+      />
+      <AnimatedGrid
+        lineStyle={{
+          stroke: 'rgba(184, 184, 184, 0.30)',
+          strokeLinecap: 'round',
+          strokeWidth: 1,
+        }}
+        columns={false}
+        numTicks={3}
+      />
 
-        <AnimatedGrid
-          columns={false}
-          numTicks={5}
-          strokeDasharray="5, 5"
-          stroke="#00A9BB"
-          lineStyle={{ opacity: 0.5 }}
+      {days === 30 && (
+        <AnimatedLineSeries
+          curve={curveCardinal}
+          dataKey="Last month"
+          data={data}
+          stroke="#469BF5"
+          xAccessor={(d) => d.date}
+          yAccessor={(d) => d.count}
         />
+      )}
 
-        <AnimatedAreaStack curve={curveCardinal} renderLine>
-          <AnimatedAreaSeries
-            dataKey="Daily Interval"
-            data={data.slice(0, 15)}
+      {days === 7 && (
+        <>
+          <AnimatedLineSeries
+            curve={curveCardinal}
+            dataKey="Current Week"
+            data={currentWeek}
+            stroke="#469BF5"
             xAccessor={(d) => d.date}
             yAccessor={(d) => d.count}
-            fillOpacity={0}
           />
-        </AnimatedAreaStack>
+          <AnimatedLineSeries
+            curve={curveCardinal}
+            dataKey="Prev Week"
+            data={prevWeek}
+            stroke="#242D5B"
+            xAccessor={(d) => d.date}
+            yAccessor={(d) => d.count}
+          />
+        </>
+      )}
 
-        <Tooltip
-          snapTooltipToDatumX
-          snapTooltipToDatumY
-          showVerticalCrosshair
-          renderTooltip={({ tooltipData }: any) => (
-            <div className="text-xs">
-              <div className="mb-1">Swaps</div>
+      <Tooltip
+        snapTooltipToDatumX
+        snapTooltipToDatumY
+        showVerticalCrosshair
+        renderTooltip={({ tooltipData }: any) => (
+          <div className="text-12">
+            <div className="mb-1">Swaps</div>
 
-              <div className="mb-1">
-                {dayjs(
-                  tooltipData.nearestDatum.datum.date.split('T')[0],
-                ).format('dddd, YYYY MMMM DD')}
-              </div>
-              <div className="mb-1">
-                Count: {tooltipData.nearestDatum.datum.count}
-              </div>
+            <div className="mb-1">
+              {dayjs(tooltipData.nearestDatum.datum.date.split('T')[0]).format(
+                'dddd, YYYY MMMM DD',
+              )}
             </div>
-          )}
-        />
-      </XYChart>
-      <div className="w-full h-12 absolute bottom-12" />
-    </div>
+            <div className="mb-1">
+              Count: {tooltipData.nearestDatum.datum.count}
+            </div>
+          </div>
+        )}
+      />
+    </XYChart>
   );
-}
-
-export default Chart;
+};

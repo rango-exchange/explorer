@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/prefer-optional-chain */
-import { makeColumns } from '../components/MakeColumns'
+import { makeColumns } from '../components/Table/MakeColumns'
 import Layout from '../components/Layout'
 import Table from '../components/Table'
 import { GetServerSideProps, NextPage } from 'next'
@@ -30,7 +30,7 @@ const Home: NextPage<PropsType> = ({ status }: PropsType) => {
     <Error statusCode={data?.status || status} />
   ) : (
     <Layout pageTitle={`Address ${query as string}`}>
-      <div className="flex items-center text-base text-black truncate font-bold mb-3 lg:text-xl lg:mb-6">
+      <div className="flex items-center text-base text-black truncate font-bold mb-3 lg:text-28 lg:mb-6">
         search results: <span className="font-normal ml-1">{query}</span>
         <button
           onClick={(e) => {

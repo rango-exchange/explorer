@@ -27,7 +27,7 @@ function Menu(props: MenuProps) {
         <ul className="bg-neutral-500 p-4 rounded-md absolute right-0 top-8">
           {subMenu.map((item, index) => (
             <li
-              className={`text-md text-baseForeground min-w-[9.625rem] whitespace-nowrap ${
+              className={`text-18 text-baseForeground min-w-[9.625rem] whitespace-nowrap ${
                 index !== 0 ? 'pt-6' : ''
               }`}
               key={index}>

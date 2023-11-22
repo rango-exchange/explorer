@@ -27,10 +27,10 @@ function DesktopNavbar(props: DeviceProps) {
           </Link>
 
           <nav>
-            <ul className="flex flex-row items-center text-lg">
+            <ul className="flex flex-row items-center text-22">
               {props.links.map((link, index) => (
                 <li
-                  className={`mr-11 text-md font-medium hover:text-secondary-500 ${
+                  className={`mr-11 text-18 font-medium hover:text-secondary-500 ${
                     props.theme === 'dark'
                       ? 'text-primary-500'
                       : 'text-baseForeground'

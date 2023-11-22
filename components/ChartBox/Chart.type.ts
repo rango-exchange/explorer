@@ -1,13 +1,15 @@
 import { DailyIntervalType } from 'types';
 
+import { TickRendererProps } from '@visx/axis';
+
 export interface ChartProps {
   data: DailyIntervalType[];
+  days?: number;
 }
 
-export interface WeeklyChartProps {
-  currentWeek: DailyIntervalType[];
-  prevWeek: DailyIntervalType[];
-}
+export type CustomTickProps = TickRendererProps & {
+  dxValue?: number;
+};
 
 export type DaysFilter = 7 | 30;
 

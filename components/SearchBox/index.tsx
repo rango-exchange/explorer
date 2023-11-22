@@ -32,7 +32,7 @@ function SearchBox() {
           height={16}
         />
         <input
-          className="w-full text-baseForeground bg-neutral-500 focus:outline-0 overflow-hidden text-sm"
+          className="w-full text-baseForeground bg-neutral-500 focus:outline-0 overflow-hidden text-16"
           placeholder="Search by Request ID / Wallet Address / Txn Hash"
           onChange={(e) => setQuery(e.target.value)}
         />

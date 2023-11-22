@@ -1,6 +1,6 @@
 import { ChartProps, DaysFilter } from './Chart.type';
 import { useState } from 'react';
-import { WeeklyChart } from './WeeklyChart';
+import { Chart } from './Chart';
 import { MonthlyChart } from './MonthlyChart';
 
 function ChartBox(props: ChartProps) {
@@ -13,7 +13,7 @@ function ChartBox(props: ChartProps) {
         <div className="flex items-center bg-neutral-700 p-5 rounded-normal">
           <button
             onClick={() => setDays(7)}
-            className={`text-lxs rounded-soft px-15 py-10 font-normal	 ${
+            className={`text-14 rounded-soft px-15 py-10 font-normal	 ${
               days === 7
                 ? 'bg-secondary-500 text-baseForeground'
                 : 'bg-transparent text-neutral-200'
@@ -23,7 +23,7 @@ function ChartBox(props: ChartProps) {
 
           <button
             onClick={() => setDays(30)}
-            className={`text-lxs rounded-soft  px-15 py-10 font-normal	 ${
+            className={`text-14 rounded-soft  px-15 py-10 font-normal	 ${
               days === 30
                 ? 'bg-secondary-500 text-baseForeground'
                 : 'bg-transparent text-neutral-200'
@@ -36,20 +36,17 @@ function ChartBox(props: ChartProps) {
             <div className="flex items-center mr-20">
               <span
                 className={`w-[0.6rem] h-[0.6rem] mr-5 rounded-full bg-secondary-500`}></span>
-              <span className="text-baseForeground text-lxs">Current Week</span>
+              <span className="text-baseForeground text-14">Current Week</span>
             </div>
             <div className="flex items-center">
               <span
                 className={`w-[0.6rem] h-[0.6rem] mr-5 rounded-full bg-neutral-700`}></span>
-              <span className="text-baseForeground text-lxs">
-                Previous Week
-              </span>
+              <span className="text-baseForeground text-14">Previous Week</span>
             </div>
           </div>
         )}
       </div>
-      {days === 7 && <WeeklyChart data={[...data]} />}
-      {days === 30 && <MonthlyChart data={[...data]} />}
+      <Chart days={days} data={[...data]} />
     </div>
   );
 }

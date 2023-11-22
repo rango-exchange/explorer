@@ -53,7 +53,7 @@ function MobileMenu(props: MobileMenuProps) {
                 </Link>
                 <div />
               </div>
-              <ul className="flex h-full w-full flex-col text-lg text-sm font-medium text-primary-500">
+              <ul className="flex h-full w-full flex-col text-22 text-16 font-medium text-primary-500">
                 {links.map((link, index) => (
                   <>
                     <li key={index}>
@@ -62,7 +62,7 @@ function MobileMenu(props: MobileMenuProps) {
                           href={link.location}
                           target={link.openInNewTab ? '_blank' : '_self'}
                           rel={link.openInNewTab ? 'noreferrer' : 'none'}
-                          className={`flex w-full items-center justify-between py-4 text-sm font-medium	 
+                          className={`flex w-full items-center justify-between py-4 text-16 font-medium	 
                   ${
                     pathname === link.location
                       ? 'text-secondary-500'
@@ -73,7 +73,7 @@ function MobileMenu(props: MobileMenuProps) {
                       ) : (
                         <>
                           <div
-                            className="flex items-center justify-between py-4 text-sm font-medium	text-primary-500"
+                            className="flex items-center justify-between py-4 text-16 font-medium	text-primary-500"
                             onClick={() =>
                               showSubMenu === link.id
                                 ? setShowSubMenu(0)
@@ -110,7 +110,7 @@ function MobileMenu(props: MobileMenuProps) {
                             }`}>
                             {link.subMenu.map((item, index) => (
                               <li
-                                className="flex items-center py-2.5 pl-2 text-xs text-neutral-400"
+                                className="flex items-center py-2.5 pl-2 text-12 text-neutral-400"
                                 key={index}>
                                 <Link
                                   href={item.location}

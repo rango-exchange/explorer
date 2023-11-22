@@ -45,6 +45,8 @@ module.exports = {
         5: '0.32rem',
         10: '0.625rem',
         20: '1.25rem',
+        25: '1.56rem',
+
       },
       lineHeight: {
         7.5: '1.875rem',
@@ -59,13 +61,13 @@ module.exports = {
         'cover-2': "url('/img/videos/video2-cover.jpg')",
       },
       fontSize: {
-        'xs': '0.75rem',
-        'lxs': '0.875rem',
-        'sm': '1rem',
-        'md': '1.125rem',
-        'lg': '1.375rem',
-        'xl': '1.75rem',
-        '5xl': '3.5rem',
+        '12': '0.75rem',
+        '14': '0.84rem',
+        '16': '1rem',
+        '18': '1.125rem',
+        '22': '1.375rem',
+        '28': '1.75rem',
+        '56': '3.5rem',
       },
       height: {
         21: '5.25rem',
@@ -73,7 +75,14 @@ module.exports = {
       colors: {
         baseBackground: '#070917',
         baseForeground: '#FDFDFD',
+        surfacesBackground: '#F9F9F9',
         error: '#F40000',
+        success:'#06C270',
+        bgSuccess:'#BDECD7',
+        running:'#5BABFF',
+        bgRunning:'#C8E2FF',
+        failed: "#FF3B3B",
+        bgFailed: '#FFD7D7',
 
         primary: {
           500: '#010101',
@@ -92,6 +101,7 @@ module.exports = {
           500: '#161C38',
           700: '#0F142E',
           800: '#A2A2A2',
+          900: '#727272'
         },
       },
       keyframes: {

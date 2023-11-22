@@ -1,5 +1,5 @@
 import ChartBox from '../components/ChartBox';
-import { makeColumns } from '../components/MakeColumns';
+import { makeColumns } from '../components/Table/MakeColumns';
 import Navbar from '../components/Navbar';
 import SearchBox from '../components/SearchBox';
 import Table from '../components/Table';
@@ -28,7 +28,6 @@ const Home: NextPage<PropsType> = ({ swaps, summary, status }: PropsType) => {
       let sec = second - 1;
       if (sec === 0) {
         const swaps = await getLastSwaps();
-        console.log(swaps);
         if (Array.isArray(swaps)) setLastSwaps(swaps);
         sec = 30;
       }
@@ -61,7 +60,7 @@ const Home: NextPage<PropsType> = ({ swaps, summary, status }: PropsType) => {
                 <h3 className="text-base font-bold lg:text-3xl">
                   Recent Swaps
                 </h3>
-                <div className="text-primary text-base font-bold ml-3 lg:text-lg self-end">
+                <div className="text-primary text-base font-bold ml-3 lg:text-22 self-end">
                   00 : {second < 10 ? `0${second}` : second}
                 </div>
               </div>

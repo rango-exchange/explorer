@@ -12,7 +12,7 @@ const NotFound: NextPage = () => {
   return (
     <Layout pageTitle="404-Not Found">
       {query != null && (
-        <div className="flex items-center text-base font-bold mb-3 lg:mb-6 lg:text-xl">
+        <div className="flex items-center text-base font-bold mb-3 lg:mb-6 lg:text-28">
           search results: <span className="font-normal ml-1">{query}</span>
           <button
             onClick={(e) => {

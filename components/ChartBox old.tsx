@@ -17,40 +17,40 @@ const ChartBox: React.FC<PropsType> = ({ summary }) => {
       </div>
       <div className="gap-5 px-4 py-6 bg-neutral-100 grid lg:gap-x-8 lg:gap-y-24 grid-cols-2 lg:w-6/12 lg:p-0 lg:grid-cols-3 rounded-lg">
         <div className="lg:justify-self-center text-center">
-          <p className="text-xl lg:text-4xl font-bold">
+          <p className="text-28 lg:text-4xl font-bold">
             {AmountConverter(summary.connectedWallets)}
           </p>
-          <p className="text-xs">Total Wallets Connected</p>
+          <p className="text-12">Total Wallets Connected</p>
         </div>
         <div className="lg:justify-self-center text-center">
-          <p className="text-xl lg:text-4xl truncate font-bold">
+          <p className="text-28 lg:text-4xl truncate font-bold">
             {AmountConverter(summary.totalTxVolumeUSD)}
           </p>
-          <p className="text-xs">Total Swap Volume</p>
+          <p className="text-12">Total Swap Volume</p>
         </div>
         <div className="lg:justify-self-center text-center">
-          <p className="text-xl truncate lg:text-4xl font-bold">
+          <p className="text-28 truncate lg:text-4xl font-bold">
             {AmountConverter(summary.totalTxCount)}
           </p>
-          <p className="text-xs">Total Swap</p>
+          <p className="text-12">Total Swap</p>
         </div>
         <div className="lg:justify-self-center text-center">
-          <p className="text-xl truncate lg:text-4xl font-bold">
+          <p className="text-28 truncate lg:text-4xl font-bold">
             {AmountConverter(summary.supportedDexes)}
           </p>
-          <p className="text-xs">Supported Dexes</p>
+          <p className="text-12">Supported Dexes</p>
         </div>
         <div className="lg:justify-self-center text-center">
-          <p className="text-xl truncate lg:text-4xl font-bold">
+          <p className="text-28 truncate lg:text-4xl font-bold">
             {AmountConverter(summary.supportedChains)}
           </p>
-          <p className="text-xs">Supported Chain</p>
+          <p className="text-12">Supported Chain</p>
         </div>
         <div className="lg:justify-self-center text-center">
-          <p className="text-xl truncate lg:text-4xl font-bold">
+          <p className="text-28 truncate lg:text-4xl font-bold">
             {AmountConverter(summary.supportedBridges)}
           </p>
-          <p className="text-xs">Supported Bridges</p>
+          <p className="text-12">Supported Bridges</p>
         </div>
       </div>
     </div>

@@ -1,4 +1,4 @@
-import { makeColumns } from '../components/MakeColumns';
+import { makeColumns } from '../components/Table/MakeColumns';
 import SearchBox from '../components/SearchBox';
 import Table from '../components/Table';
 import { GetServerSideProps } from 'next';
@@ -10,6 +10,8 @@ import Error from 'next/error';
 import Layout from 'components/Layout';
 import Summary from 'components/Summary';
 import ChartBox from 'components/ChartBox';
+import RefreshIcon from 'public/icons/refresh.svg';
+import Image from 'next/image';
 
 interface PropsType {
   swaps: SwapType[];
@@ -19,7 +21,6 @@ interface PropsType {
 
 function Home(props: PropsType) {
   const { swaps, summary, status } = props;
-  console.log('summary ============>', summary);
   const [lastSwaps, setLastSwaps] = useState<SwapType[]>([]);
   const [second, setSecond] = useState(30);
 
@@ -30,7 +31,6 @@ function Home(props: PropsType) {
       let sec = second - 1;
       if (sec === 0) {
         const swaps = await getLastSwaps();
-        console.log(swaps);
         if (Array.isArray(swaps)) setLastSwaps(swaps);
         sec = 30;
       }
@@ -52,10 +52,10 @@ function Home(props: PropsType) {
       <div>
         <div className="flex flex-col items-center relative bg-baseBackground h-[632px]">
           <div className="container flex flex-col items-center py-[100px]">
-            <h1 className="w-full text-5xl text-center text-baseForeground ">
+            <h1 className="w-full text-56 text-center text-baseForeground ">
               Rango Swaps Explorer
             </h1>
-            <p className="w-full text-lg mb-[45px] text-neutral-200 text-center">
+            <p className="w-full text-22 mb-[45px] text-neutral-200 text-center">
               Track all transactions on Rango Exchange
             </p>
             <SearchBox />
@@ -72,17 +72,37 @@ function Home(props: PropsType) {
         </div>
         <div className="bg-neutral-300 pt-[14.68rem] flex justify-center">
           <div className="container mt-[3.125rem] rounded-normal bg-baseForeground p-35">
-            <div className="flex mb-2.5 lg:mb-6">
-              <h3 className="text-base font-bold lg:text-3xl">Recent Swaps</h3>
-              <div className="text-primary text-base font-bold ml-3 lg:text-lg self-end">
-                00 : {second < 10 ? `0${second}` : second}
+            <div className="flex flex-col">
+              <div className="flex justify-between mb-25 items-start">
+                <div className="flex flex-col justify-center items-center">
+                  <h2 className="text-28 font-semibold text-primary-500">
+                    Recent Swaps
+                  </h2>
+                  <p className="text-16 text-neutral-800">
+                    Latest 25 swaps on Rango
+                  </p>
+                </div>
+                <div className="flex items-center pt-10">
+                  <Image
+                    className="pr-5"
+                    src={RefreshIcon}
+                    alt="icon"
+                    width={16}
+                    height={16}
+                  />
+                  <span className="text-14 text-neutral-900">
+                    Refresh in {second} seconds
+                  </span>
+                </div>
+              </div>
+              <div>
+                <Table
+                  makeColumns={makeColumns}
+                  data={lastSwaps}
+                  onClick={handleSwapDetails}
+                />
               </div>
             </div>
-            <Table
-              makeColumns={makeColumns}
-              data={lastSwaps}
-              onClick={handleSwapDetails}
-            />
           </div>
         </div>
       </div>

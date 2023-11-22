@@ -1,7 +1,7 @@
-import { toast } from 'react-toastify'
+import { toast } from 'react-toastify';
 
 export const CopyText = (text: string): void => {
-  navigator.clipboard.writeText(text)
+  navigator.clipboard.writeText(text);
   toast.info('copied!', {
     position: 'top-right',
     autoClose: 3000,
@@ -10,6 +10,6 @@ export const CopyText = (text: string): void => {
     pauseOnHover: true,
     draggable: true,
     progress: undefined,
-    theme: 'light'
-  })
-}
+    theme: 'light',
+  });
+};
