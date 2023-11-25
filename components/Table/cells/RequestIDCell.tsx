@@ -45,7 +45,7 @@ function RequestIDCell(props: CellProps) {
         {dayjs
           .utc(transactionTime)
           .local()
-          .format('DD MMMM YYYY | HH:MM')
+          .format('DD MMMM YYYY | HH:mm')
           .toString()}
       </div>
     </div>

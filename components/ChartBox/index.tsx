@@ -1,15 +1,14 @@
 import { ChartProps, DaysFilter } from './Chart.type';
 import { useState } from 'react';
 import { Chart } from './Chart';
-import { MonthlyChart } from './MonthlyChart';
 
 function ChartBox(props: ChartProps) {
   const { data } = props;
   const [days, setDays] = useState<DaysFilter>(7);
 
   return (
-    <div className="px-20">
-      <div className="flex items-center justify-between pb-35">
+    <div className="pl-[60px]">
+      <div className="flex items-center justify-between pr-[40px]">
         <div className="flex items-center bg-neutral-700 p-5 rounded-normal">
           <button
             onClick={() => setDays(7)}

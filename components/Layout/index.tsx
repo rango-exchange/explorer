@@ -12,7 +12,7 @@ function Layout(props: PropsWithChildren<LayoutProps>) {
       </Head>
       <Navbar theme={'light'} />
       <main
-        className="w-full  min-h-[800px]  bg-body-mask bg-cover"
+        className="w-full  min-h-[800px] pb-50 bg-neutral-300  bg-body-mask bg-cover"
         style={{
           width: '-webkit-fill-available',
         }}>
