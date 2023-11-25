@@ -1,16 +1,22 @@
 // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
-import Document, { Html, Head, Main, NextScript, DocumentContext } from 'next/document'
+import Document, {
+  Html,
+  Head,
+  Main,
+  NextScript,
+  DocumentContext,
+} from 'next/document';
 
 const description =
-  'Multi-chain DEX aggregator, binance bridge, 1inch, Thorchain, Terra Bridge, Terra Swap, crypto API under a unified UX'
+  'Multi-chain DEX aggregator, binance bridge, 1inch, Thorchain, Terra Bridge, Terra Swap, crypto API under a unified UX';
 class MyDocument extends Document {
-  static async getInitialProps (ctx: DocumentContext) {
-    const initialProps = await Document.getInitialProps(ctx)
-    return { ...initialProps }
+  static async getInitialProps(ctx: DocumentContext) {
+    const initialProps = await Document.getInitialProps(ctx);
+    return { ...initialProps };
   }
 
-  render () {
+  render() {
     return (
       <Html lang="en">
         <Head>
@@ -27,8 +33,8 @@ class MyDocument extends Document {
           <NextScript />
         </body>
       </Html>
-    )
+    );
   }
 }
 
-export default MyDocument
+export default MyDocument;

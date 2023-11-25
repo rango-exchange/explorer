@@ -22,7 +22,7 @@ const SwapDetails: NextPage<PropsType> = ({ details, status }: PropsType) => {
   return status ? (
     <Error statusCode={status} />
   ) : (
-    <Layout pageTitle={`Swap ${id}`}>
+    <Layout title={`Swap ${id}`}>
       <p className="text-12 font-normal mb-1 lg:mb-3.5 lg:text-28 lg:font-bold">
         Swap From <span className="font-bold">{details.from.symbol}</span> (On{' '}
         {details.from.blockchain}) to{' '}

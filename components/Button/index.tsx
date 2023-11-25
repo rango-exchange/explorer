@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/restrict-plus-operands */
 import { ButtonProps } from './Button.types';
 import { PropsWithChildren } from 'react';
 

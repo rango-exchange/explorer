@@ -19,7 +19,7 @@ function Table(props: TableProps) {
         console.log('old item', item, key);
         return (
           <div
-            key={`${item.id as number}-row-${key}`}
+            key={`row-${key}`}
             className="rounded-xl bg-neutral-100 w-full grid grid-cols-1 mb-4 px-2 lg:mb-0 lg:px-0 lg:flex lg:items-center lg:justify-center lg:border-b lg:!border-primary lg:border-opacity-50 lg:rounded-none">
             {columns.map((row) => (
               <div
@@ -33,9 +33,9 @@ function Table(props: TableProps) {
                   </div>
                 )}
 
-                {row.render
+                {/* {row.render
                   ? row.render(item[row.key], item, key)
-                  : item[row.key]}
+                  : item[row.key]} */}
               </div>
             ))}
           </div>

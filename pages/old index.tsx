@@ -1,6 +1,6 @@
 import ChartBox from '../components/ChartBox';
 import { makeColumns } from '../components/Table/MakeColumns';
-import Navbar from '../components/Navbar';
+// import Navbar from '../components/Navbar';
 import SearchBox from '../components/SearchBox';
 import Table from '../components/Table';
 import { GetServerSideProps, NextPage } from 'next';
@@ -49,12 +49,12 @@ const Home: NextPage<PropsType> = ({ swaps, summary, status }: PropsType) => {
       <Head>
         <title>Rango Scanner</title>
       </Head>
-      <Navbar />
+      {/* <Navbar /> */}
       <main>
         <SearchBox />
         <div className="relative">
           <div className="absolute w-full -top-14 md:-top-6 lg:-top-16">
-            <ChartBox summary={summary} />
+            <ChartBox data={summary.dailyInterval} />
             <div className="mx-4 my-5 lg:mx-16 lg:mt-12">
               <div className="flex mb-2.5 lg:mb-6">
                 <h3 className="text-base font-bold lg:text-3xl">
