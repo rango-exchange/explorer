@@ -31,6 +31,8 @@ export interface AssetType {
   symbol: string;
   address: string;
   blockchainLogo: string;
+  name: string;
+  image: string;
 }
 export interface ExplorerUrlsType {
   url: string;
@@ -50,13 +52,16 @@ export interface StepType {
   status: SwapStatus;
   generatedTxId: string[];
   estimatedTimeInSeconds: number;
+  executionTimeInSeconds: number;
   expectedToAmount: number;
+  expectedFromAmount: number;
   explorerUrls: ExplorerUrlsType[];
   approveUrls: ApproveUrlsType[];
   sourceWallet: string;
   destinationWallet: string;
   destinationWalletAddress: string;
   sourceWalletAddress: string;
+  creationDate: string;
 }
 
 export interface DetailsType {
@@ -73,6 +78,6 @@ export interface DetailsType {
   srcAmount: number;
   dstAmount: number;
   steps: StepType[];
-  status: string;
+  status: SwapStatus;
   estimatedTimeInSeconds: number;
 }

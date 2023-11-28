@@ -1,10 +1,10 @@
-import Layout from '../components/Layout';
-import NotFoundAnything from '../components/NotFoundAnything';
+import NotFoundAnything from 'components/notFound/NotFoundAnything';
 import type { NextPage } from 'next';
 import { useRouter } from 'next/router';
-import copy from '../public/img/copy.svg';
-import { CopyText } from '../utils/copyText';
+import copy from 'public/img/copy.svg';
+import { CopyText } from 'utils/copyText';
 import Image from 'next/image';
+import Layout from 'components/common/Layout';
 
 const NotFound: NextPage = () => {
   const router = useRouter();

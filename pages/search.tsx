@@ -1,19 +1,17 @@
 /* eslint-disable @typescript-eslint/prefer-optional-chain */
-import { makeColumns } from '../components/Table/MakeColumns';
-import Layout from '../components/Layout';
-import Table from '../components/Table';
 import { GetServerSideProps, NextPage } from 'next';
 import { useRouter } from 'next/router';
-import { useCallback } from 'react';
 import { getSearchResult, getWalletSwaps } from '../services';
 import { MATCH_TYPE } from '../constant';
-import NotFoundAnything from '../components/NotFoundAnything';
-import Loading from '../components/Loading';
 import useSWR from 'swr';
 import Error from 'next/error';
 import Image from 'next/image';
-import copy from '../public/img/copy.svg';
-import { CopyText } from '../utils/copyText';
+import CopyIcon from 'public/img/copy.svg';
+import Layout from 'components/common/Layout';
+import Table from 'components/home/Table';
+import { CopyText } from 'utils/copyText';
+import Loading from 'components/common/Loading';
+import NotFoundAnything from 'components/notFound/NotFoundAnything';
 interface PropsType {
   status?: number;
 }
@@ -21,10 +19,6 @@ const Home: NextPage<PropsType> = ({ status }: PropsType) => {
   const router = useRouter();
   const { query } = router.query;
   const { data } = useSWR(query, getWalletSwaps);
-
-  const handleSwapDetails = useCallback((id: string) => {
-    router.push(`/swap/${id}`);
-  }, []);
 
   return status || (data && data.error && data.status) ? (
     <Error statusCode={data?.status || status} />
@@ -38,7 +32,7 @@ const Home: NextPage<PropsType> = ({ status }: PropsType) => {
             CopyText(query as string);
           }}
           className="group relative cursor-pointer">
-          <Image src={copy} alt="copy_to_clipboard" />
+          <Image src={CopyIcon} alt="copy_to_clipboard" />
         </button>
       </div>
 
@@ -49,11 +43,7 @@ const Home: NextPage<PropsType> = ({ status }: PropsType) => {
       ) : !data.transactions.length ? (
         <NotFoundAnything />
       ) : (
-        <Table
-          makeColumns={makeColumns}
-          data={data.transactions}
-          onClick={handleSwapDetails}
-        />
+        <Table data={data.transactions} />
       )}
     </Layout>
   );

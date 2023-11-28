@@ -5,6 +5,11 @@ module.exports = {
     './components/**/*.{js,ts,jsx,tsx}',
   ],
   theme: {
+    borderWidth: {
+      DEFAULT: '1px',
+      '0': '0',
+      '2': '2px',
+    },
     fontFamily: {
       sans: ['Roboto'],
       heading: ['Roboto'],
@@ -35,7 +40,9 @@ module.exports = {
         5: '0.32rem',
         8: '0.5rem',
         10: '0.625rem',
+        12: '0.75rem',
         15: '0.937rem',
+        16: '1rem',
         20: '1.25rem',
         25: '1.56rem',
         30: '1.875rem',
@@ -45,6 +52,7 @@ module.exports = {
       margin: {
         5: '0.32rem',
         10: '0.625rem',
+        15: '0.937rem',
         20: '1.25rem',
         25: '1.56rem',        
         50: '3.125rem',
@@ -79,13 +87,14 @@ module.exports = {
         baseBackground: '#070917',
         baseForeground: '#FDFDFD',
         surfacesBackground: '#F9F9F9',
+        hoverBackground: '#E9F3FF',
         error: '#F40000',
         success:'#06C270',
-        bgSuccess:'#BDECD7',
+        backgroundSuccess:'#BDECD7',
         running:'#5BABFF',
-        bgRunning:'#C8E2FF',
+        backgroundRunning:'#C8E2FF',
         failed: "#FF3B3B",
-        bgFailed: '#FFD7D7',
+        backgroundFailed: '#FFD7D7',
 
         primary: {
           500: '#010101',
@@ -104,7 +113,7 @@ module.exports = {
           500: '#161C38',
           700: '#0F142E',
           800: '#A2A2A2',
-          900: '#727272'
+          900: '#EEEEEE',
         },
       },
       keyframes: {
