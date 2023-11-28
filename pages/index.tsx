@@ -9,7 +9,7 @@ import Image from 'next/image';
 import Layout from 'components/common/Layout';
 import SearchBox from 'components/common/SearchBox';
 import Summary from 'components/home/Summary';
-import Table from 'components/home/Table';
+import Table from 'components/common/Table';
 
 interface PropsType {
   swaps: SwapType[];
@@ -53,7 +53,7 @@ function Home(props: PropsType) {
             </div>
           </div>
         </div>
-        <div className="bg-neutral-300 pt-[14.68rem] flex justify-center">
+        <div className=" pt-[14.68rem] flex justify-center">
           <div className="container mt-[3.125rem] rounded-normal bg-baseForeground p-35">
             <div className="flex flex-col">
               <div className="flex justify-between mb-25 items-start">

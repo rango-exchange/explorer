@@ -76,6 +76,7 @@ module.exports = {
         '14': '0.875rem',
         '16': '1rem',
         '18': '1.125rem',
+        '20': '1.25rem',
         '22': '1.375rem',
         '28': '1.75rem',
         '45': '2.8125rem',
@@ -85,6 +86,7 @@ module.exports = {
         21: '5.25rem',
       },
       colors: {
+        white: '#FFFFFF',
         baseBackground: '#070917',
         baseForeground: '#FDFDFD',
         surfacesBackground: '#F9F9F9',

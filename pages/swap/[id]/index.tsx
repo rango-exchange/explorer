@@ -1,4 +1,4 @@
-import { GetServerSideProps, NextPage } from 'next';
+import { GetServerSideProps } from 'next';
 import { useRouter } from 'next/router';
 import Error from 'next/error';
 import Link from 'next/link';
@@ -14,7 +14,8 @@ interface PropsType {
   status: number;
 }
 
-const SwapDetails: NextPage<PropsType> = ({ details, status }: PropsType) => {
+function SwapDetails(props: PropsType) {
+  const { details, status } = props;
   const router = useRouter();
   const id = router.query.id as string;
 
@@ -43,7 +44,7 @@ const SwapDetails: NextPage<PropsType> = ({ details, status }: PropsType) => {
       </div>
     </Layout>
   );
-};
+}
 
 export const getServerSideProps: GetServerSideProps<PropsType> = async ({
   query,

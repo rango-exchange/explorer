@@ -8,7 +8,10 @@ function Navbar(props: NavbarProps) {
   const { theme } = props;
 
   return (
-    <header className="flex w-full bg-baseBackground items-center justify-center">
+    <header
+      className={`flex w-full ${
+        theme === 'dark' ? 'bg-transparent' : 'bg-baseBackground'
+      } items-center justify-center`}>
       <div
         className={
           'container flex w-full  items-center justify-center px-6  text-baseForeground xl:px-0'

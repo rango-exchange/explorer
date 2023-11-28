@@ -1,14 +1,14 @@
 export const MATCH_TYPE = {
   ADDRESS: 'ADDRESS',
-  REQUESTID: 'REQUESTID'
-}
+  REQUESTID: 'REQUESTID',
+};
 
 export const STATUS: any = {
   success: 'success',
   failed: 'failed',
   running: 'running',
   unknown: 'Pending',
-  null: 'Pending'
-}
+  null: 'Pending',
+};
 
-export const API_URL = process.env.NEXT_PUBLIC_BASE_URL
+export const API_URL = process.env.NEXT_PUBLIC_BASE_URL;

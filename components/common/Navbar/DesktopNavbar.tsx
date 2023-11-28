@@ -54,6 +54,7 @@ function DesktopNavbar(props: DeviceProps) {
                       showSubMenu={showSubMenu === link.id}
                       title={link.title}
                       subMenu={link.subMenu}
+                      theme={theme}
                     />
                   )}
                 </li>

@@ -18,7 +18,7 @@ export const Chart = (props: ChartProps) => {
 
   // Update the date property of each item in prevWeek with the corresponding item from deepCopyCurrentWeek
   prevWeek.forEach((item, index) => {
-    prevWeek[index].date = currentWeek[index].date;
+    prevWeek[index].date = currentWeek[index]?.date;
   });
 
   return (

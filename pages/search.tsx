@@ -1,21 +1,20 @@
 /* eslint-disable @typescript-eslint/prefer-optional-chain */
-import { GetServerSideProps, NextPage } from 'next';
+import { GetServerSideProps } from 'next';
 import { useRouter } from 'next/router';
 import { getSearchResult, getWalletSwaps } from '../services';
 import { MATCH_TYPE } from '../constant';
 import useSWR from 'swr';
 import Error from 'next/error';
-import Image from 'next/image';
-import CopyIcon from 'public/img/copy.svg';
 import Layout from 'components/common/Layout';
-import Table from 'components/home/Table';
-import { CopyText } from 'utils/copyText';
 import Loading from 'components/common/Loading';
-import NotFoundAnything from 'components/notFound/NotFoundAnything';
+import SearchBox from 'components/common/SearchBox';
+import Result from 'components/search/Result';
+import NotFound from 'components/search/NotFound';
 interface PropsType {
   status?: number;
 }
-const Home: NextPage<PropsType> = ({ status }: PropsType) => {
+function Search(props: PropsType) {
+  const { status } = props;
   const router = useRouter();
   const { query } = router.query;
   const { data } = useSWR(query, getWalletSwaps);
@@ -24,38 +23,37 @@ const Home: NextPage<PropsType> = ({ status }: PropsType) => {
     <Error statusCode={data?.status || status} />
   ) : (
     <Layout title={`Address ${query as string}`}>
-      <div className="flex items-center text-base text-black truncate font-bold mb-3 lg:text-28 lg:mb-6">
-        search results: <span className="font-normal ml-1">{query}</span>
-        <button
-          onClick={(e) => {
-            e.stopPropagation();
-            CopyText(query as string);
-          }}
-          className="group relative cursor-pointer">
-          <Image src={CopyIcon} alt="copy_to_clipboard" />
-        </button>
-      </div>
-
-      {!data ? (
-        <div className="mt-10">
-          <Loading />
+      <div>
+        <div className="w-full flex flex-col items-center relative bg-baseBackground">
+          <SearchBox />
         </div>
-      ) : !data.transactions.length ? (
-        <NotFoundAnything />
-      ) : (
-        <Table data={data.transactions} />
-      )}
+        <div className="w-full bg-neutral-300 flex justify-center">
+          {data && (
+            <>
+              {data.transactions && data.transactions.length ? (
+                <Result data={data.transactions} />
+              ) : (
+                <NotFound query={query as string} />
+              )}
+            </>
+          )}
+          {!data && (
+            <div className="flex items-center justify-center mt-60">
+              <Loading />
+            </div>
+          )}
+        </div>
+      </div>
     </Layout>
   );
-};
+}
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const query = context.query.query;
 
   const result = await getSearchResult(query as string);
   if (result?.error) return { props: { status: result.status } };
-  if (!result.length) return { notFound: true };
-  if (result[0].matchType === MATCH_TYPE.REQUESTID) {
+  if (result?.length && result[0].matchType === MATCH_TYPE.REQUESTID) {
     return {
       redirect: {
         permanent: false,
@@ -67,4 +65,4 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     props: {},
   };
 };
-export default Home;
+export default Search;

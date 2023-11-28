@@ -3,7 +3,7 @@ import Link from 'next/link';
 import { MenuProps } from './Navbar.type';
 
 function Menu(props: MenuProps) {
-  const { subMenu, showSubMenu, title } = props;
+  const { subMenu, showSubMenu, title, theme } = props;
   return (
     <div className="relative">
       <div className="cursor-pointer flex items-center">
@@ -24,10 +24,15 @@ function Menu(props: MenuProps) {
       </div>
 
       {showSubMenu && (
-        <ul className="bg-neutral-500 p-4 rounded-md absolute right-0 top-8">
+        <ul
+          className={`${
+            theme === 'dark' ? 'bg-surfacesBackground' : 'bg-neutral-500'
+          }  p-4 rounded-md absolute right-0 top-8`}>
           {subMenu.map((item, index) => (
             <li
-              className={`text-18 text-baseForeground min-w-[9.625rem] whitespace-nowrap ${
+              className={`text-18 ${
+                theme === 'dark' ? 'text-primary-500' : 'text-baseForeground'
+              } min-w-[9.625rem] whitespace-nowrap ${
                 index !== 0 ? 'pt-6' : ''
               }`}
               key={index}>

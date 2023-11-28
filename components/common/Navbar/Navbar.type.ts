@@ -31,6 +31,7 @@ export interface MenuProps {
   subMenu: SubMenuTypes[];
   showSubMenu: boolean;
   title: string;
+  theme: 'dark' | 'light';
 }
 
 export interface MobileMenuProps {
