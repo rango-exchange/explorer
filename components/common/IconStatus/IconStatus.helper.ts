@@ -6,10 +6,12 @@ export const SwapStatusIcon = {
   running: RunningIcon,
   failed: FailIcon,
   success: SuccessIcon,
+  unknown: RunningIcon,
 };
 
 export const BackgroundStatus = {
   running: 'bg-backgroundRunning',
   failed: 'bg-backgroundFailed',
   success: 'bg-backgroundSuccess',
+  unknown: 'bg-backgroundRunning',
 };

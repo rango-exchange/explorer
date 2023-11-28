@@ -16,7 +16,7 @@ function TableBody(props: TableBodyProps) {
         return (
           <div
             key={requestId}
-            className="w-full grid grid-cols-11 even:bg-surfacesBackground ">
+            className="w-full grid grid-cols-11 hover:bg-hoverBackground even:bg-surfacesBackground ">
             {columns.map((col) => {
               const CellComponent = col.component;
               return CellComponent ? (

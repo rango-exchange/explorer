@@ -6,6 +6,7 @@ import nextIcon from 'public/icons/next.svg';
 import Image from 'next/image';
 import TransactionURL from './TransactionURL';
 import SwapStepItemExpanded from './SwapStepItemExpanded';
+import { BorderColor } from './SwapSteps.helper';
 
 function SwapStepItem(props: SwapStepItemProps) {
   const { step, firstStep } = props;
@@ -21,13 +22,16 @@ function SwapStepItem(props: SwapStepItemProps) {
   const { symbol: fromSymbol, name: fromName } = fromAsset;
   const { symbol: toSymbol, name: toName } = toAsset;
   const [isOpen, setIsOpen] = useState<boolean>(false);
-
+  const borderColor = BorderColor[status];
   return (
     <>
       {!firstStep && (
-        <div className="bg-transaction ml-25 border-l border-dotted border-success w-fll h-[20px]"></div>
+        <div
+          className={`bg-transaction ml-25 border-l border-dotted ${borderColor}  w-fll h-[20px]`}></div>
       )}
-      <div className="p-25 rounded-normal border-solid border-success border">
+      <div
+        onClick={() => setIsOpen(!isOpen)}
+        className={`p-25 w-full cursor-pointer rounded-normal border-solid ${borderColor} border`}>
         <div className="flex items-center justify-between">
           <div className="text-18 text-primary-500">{`Swap on ${fromAsset.blockchain} via ${swapperId}`}</div>
           <button

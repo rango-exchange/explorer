@@ -23,7 +23,7 @@ function RequestIDCell(props: CellProps) {
     <div className="flex flex-col col-span-3 items-start p-20">
       <div className="flex justify-center items-center mb-5">
         <button
-          className="text-16 text-primary-500 mr-5"
+          className="text-16 text-primary-500 mr-5 hover:text-secondary-500"
           onClick={() => handleSwapDetails(requestId)}>
           {`${requestId.slice(0, 8)}...${requestId.slice(
             requestId.length - 8,

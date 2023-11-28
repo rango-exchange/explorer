@@ -34,3 +34,10 @@ export const columns: ColumnType[] = [
     component: SwapStepValue,
   },
 ];
+
+export const BorderColor = {
+  running: 'border-running',
+  failed: 'border-failed',
+  success: 'border-success',
+  unknown: 'border-running',
+};
