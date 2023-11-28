@@ -26,10 +26,22 @@ function TokenCell(props: CellProps) {
       </div>
       <div className="flex flex-col items-start justify-center">
         <div className="flex items-center">
-          <span className="text-16 text-neutral-400">
+          <span
+            className={`text-16 ${
+              column.tokenType === 'source'
+                ? 'text-primary-500'
+                : 'text-neutral-400'
+            }`}>
             ~{parseFloat(Number(amount).toFixed(3))}
           </span>
-          <span className="text-16 text-neutral-400">{symbol || name}</span>
+          <span
+            className={`text-16 ${
+              column.tokenType === 'source'
+                ? 'text-primary-500'
+                : 'text-neutral-400'
+            }`}>
+            {symbol || name}
+          </span>
         </div>
         <div className="text-14 text-neutral-400">{blockchain}</div>
       </div>

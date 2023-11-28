@@ -44,7 +44,7 @@ function Home(props: PropsType) {
       <div>
         <div className="flex flex-col items-center relative bg-baseBackground h-[632px]">
           <SearchBox />
-          <div className="container bg-neutral-500 absolute p-[40px] pr-0 flex items-center justify-between bottom-0 translate-y-[50%]">
+          <div className="container bg-neutral-500 absolute p-[40px] pr-0 flex items-center justify-between bottom-0 rounded-normal translate-y-[50%]">
             <div className="w-[36%]">
               <Summary summary={summary} />
             </div>

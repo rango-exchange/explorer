@@ -39,7 +39,7 @@ function ChartBox(props: ChartProps) {
             </div>
             <div className="flex items-center">
               <span
-                className={`w-[0.6rem] h-[0.6rem] mr-5 rounded-full bg-neutral-700`}></span>
+                className={`w-[0.6rem] h-[0.6rem] mr-5 rounded-full bg-secondary-700`}></span>
               <span className="text-baseForeground text-14">Previous Week</span>
             </div>
           </div>

@@ -56,6 +56,7 @@ module.exports = {
         20: '1.25rem',
         25: '1.56rem',        
         50: '3.125rem',
+        60: '3.75rem',
 
       },
       lineHeight: {
@@ -104,6 +105,7 @@ module.exports = {
           200: '#D6EAFF',
           500: '#469BF5',
           600: '#3b83d0',
+          700: '#242D5B',
         },
         neutral: {
           100: '#E9E9E9',

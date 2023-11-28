@@ -7,20 +7,21 @@ import Menu from './Menu';
 import { DeviceProps } from './Navbar.type';
 
 function DesktopNavbar(props: DeviceProps) {
+  const { links, renderChildren, theme, className } = props;
   const [showSubMenu, setShowSubMenu] = useState<number>(0);
 
   return (
     <div
       className={
         'py-30 relative z-50 hidden h-full w-full items-center justify-between font-medium xl:flex xl:text-[1.35vw]' +
-        props.className
+        className
       }
       onMouseLeave={() => setShowSubMenu(0)}>
-      {props.renderChildren ? (
+      {renderChildren ? (
         <>
           <Link className="relative w-[3.8rem] lg:w-[7.7rem]" href="/">
             <Image
-              src={props.theme === 'dark' ? coloredLogo : rangoLogo}
+              src={theme === 'dark' ? coloredLogo : rangoLogo}
               alt="Rango logo"
               layout="responsive"
             />
@@ -28,15 +29,17 @@ function DesktopNavbar(props: DeviceProps) {
 
           <nav>
             <ul className="flex flex-row items-center text-22">
-              {props.links.map((link, index) => (
+              {links.map((link, index) => (
                 <li
-                  className={`mr-11 text-18 font-medium hover:text-secondary-500 ${
-                    props.theme === 'dark'
-                      ? 'text-primary-500'
-                      : 'text-baseForeground'
-                  } leading-snug ${
-                    showSubMenu === link.id ? 'text-secondary-500' : ''
-                  }`}
+                  className={`text-18 font-medium hover:text-secondary-500 
+                  ${index !== links.length - 1 ? 'mr-60' : ''}
+                   ${
+                     theme === 'dark'
+                       ? 'text-primary-500'
+                       : 'text-baseForeground'
+                   } leading-snug ${
+                     showSubMenu === link.id ? 'text-secondary-500' : ''
+                   }`}
                   key={index}
                   onMouseOver={() => setShowSubMenu(link.id)}>
                   {link.type === 'link' ? (
