@@ -15,3 +15,10 @@ export const BackgroundStatus = {
   success: 'bg-backgroundSuccess',
   unknown: 'bg-backgroundRunning',
 };
+
+export const TextColorStatus = {
+  running: 'text-running',
+  failed: 'text-failed',
+  success: 'text-success',
+  unknown: 'text-running',
+};
