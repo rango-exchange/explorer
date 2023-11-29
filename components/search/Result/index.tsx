@@ -2,7 +2,7 @@ import Table from 'components/common/Table';
 import { PropsType } from './Result.type';
 
 function Result(props: PropsType) {
-  const { data } = props;
+  const { data, query } = props;
   return (
     <div className="container mt-[3.125rem] rounded-normal bg-baseForeground p-35">
       <div className="flex flex-col">
@@ -11,7 +11,7 @@ function Result(props: PropsType) {
             Search Results
           </h2>
           <p className="text-16 text-neutral-800">
-            {`Found ${data.length} Rango swaps for this wallet address`}
+            {`Found ${data.length} Rango swaps for ${query}`}
           </p>
         </div>
         <div className="mt-25">

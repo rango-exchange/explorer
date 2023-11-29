@@ -31,7 +31,7 @@ function Search(props: PropsType) {
           {data && (
             <>
               {data.transactions && data.transactions.length ? (
-                <Result data={data.transactions} />
+                <Result data={data.transactions} query={query as string} />
               ) : (
                 <NotFound query={query as string} />
               )}
