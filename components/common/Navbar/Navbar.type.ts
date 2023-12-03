@@ -1,3 +1,5 @@
+import { SvgIconProps } from '../SvgIcon';
+
 export interface LinkTypes {
   location: string;
   title: string;
@@ -14,7 +16,7 @@ export type MenuTypes = Pick<LinkTypes, 'id' | 'title'> & {
 export type SubMenuTypes = Pick<
   LinkTypes,
   'location' | 'title' | 'openInNewTab'
-> & { icon: any };
+> & { icon: React.ComponentType<SvgIconProps> };
 
 export interface NavbarProps {
   theme: 'dark' | 'light';

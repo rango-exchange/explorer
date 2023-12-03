@@ -4,12 +4,11 @@ import { getLastSwaps, getSummary } from '../services';
 import { SummaryType, SwapType } from '../types';
 import Error from 'next/error';
 import ChartBox from 'components/home/ChartBox';
-import RefreshIcon from 'public/icons/refresh.svg';
-import Image from 'next/image';
 import Layout from 'components/common/Layout';
 import SearchBox from 'components/common/SearchBox';
 import Summary from 'components/home/Summary';
 import Table from 'components/common/Table';
+import { RefreshIcon } from 'components/icons';
 
 interface PropsType {
   swaps: SwapType[];
@@ -66,13 +65,7 @@ function Home(props: PropsType) {
                   </p>
                 </div>
                 <div className="flex items-center pt-10">
-                  <Image
-                    className="pr-5"
-                    src={RefreshIcon}
-                    alt="icon"
-                    width={16}
-                    height={16}
-                  />
+                  <RefreshIcon className="pr-5 text-neutral-400" />
                   <span className="text-14 text-neutral-400">
                     Refresh in {second} seconds
                   </span>

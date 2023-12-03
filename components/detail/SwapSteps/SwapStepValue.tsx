@@ -8,38 +8,34 @@ dayjs.extend(utc);
 function SwapStepValue(props: SwapStepItemValueProps) {
   const { step, column, firstStep } = props;
   const {
-    toAmount,
-    fromAmount,
-    expectedToAmount,
-    expectedFromAmount,
-    toAsset,
-    fromAsset,
+    to,
+    from,
     estimatedTimeInSeconds,
-    creationDate,
     executionTimeInSeconds,
+    startTime,
   } = step;
 
   return (
     <div className="flex col-span-4 items-center p-16 text-16">
       {column.title === 'Output Amount' &&
-        (toAmount ? (
-          <>
-            <span className="text-primary-500 mr-5">{`${toAmount} ${toAsset?.symbol}`}</span>
-            <span className="text-neutral-400">{`(Est. ~${expectedToAmount} ${toAsset?.symbol})`}</span>
-          </>
+        (isNaN(to?.realAmount) ? (
+          <span className="text-neutral-400">{`Est. ~${to.expectedAmount} ${to?.symbol}`}</span>
         ) : (
-          <span className="text-neutral-400">{`Est. ~${expectedToAmount} ${toAsset?.symbol}`}</span>
+          <>
+            <span className="text-primary-500 mr-5">{`${to.realAmount} ${to?.symbol}`}</span>
+            <span className="text-neutral-400">{`(Est. ~${to.expectedAmount} ${to?.symbol})`}</span>
+          </>
         ))}
       {column.title === 'Input Amount' &&
-        (fromAmount ? (
+        (isNaN(from?.realAmount) ? (
+          <span className="text-neutral-400">{`Est. ~${from.expectedAmount} ${from?.symbol}`}</span>
+        ) : (
           <>
-            <span className="text-primary-500 mr-5">{`${fromAmount} ${fromAsset?.symbol}`}</span>
+            <span className="text-primary-500 mr-5">{`${from.realAmount} ${from?.symbol}`}</span>
             {!firstStep && (
-              <span className="text-neutral-400">{`(Est. ~${expectedFromAmount} ${fromAsset?.symbol})`}</span>
+              <span className="text-neutral-400">{`(Est. ~${from.expectedAmount} ${from?.symbol})`}</span>
             )}
           </>
-        ) : (
-          <span className="text-neutral-400">{`Est. ~${expectedFromAmount} ${fromAsset?.symbol}`}</span>
         ))}
 
       {column.title === 'Step Duration' &&
@@ -60,8 +56,8 @@ function SwapStepValue(props: SwapStepItemValueProps) {
 
       {column.title === 'Step Start Time' && (
         <span className="text-primary-500">
-          {creationDate &&
-            dayjs.utc(creationDate).local().format('HH:mm').toString()}
+          {startTime &&
+            dayjs.utc(startTime).local().format('HH:mm:ss').toString()}
         </span>
       )}
     </div>

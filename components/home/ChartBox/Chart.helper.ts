@@ -1,4 +1,11 @@
 import { buildChartTheme } from '@visx/xychart';
+import { DaysFilter } from './Chart.type';
+
+export const daysFilter: DaysFilter[] = [
+  { days: 7, hasPrevious: true, name: 'Week' },
+  { days: 30, hasPrevious: true, name: 'Month' },
+  { days: 90, hasPrevious: false, name: 'Season' },
+];
 
 export const monthsShort = [
   'Jan',

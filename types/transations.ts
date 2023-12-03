@@ -1,38 +1,49 @@
 export interface RouteType {
   blockchain: string;
   symbol: string;
-  image: string;
-  address: string;
   decimals: number;
   name: string;
   blockchainLogo: string;
+  blockchainType: string;
+  expectedAmount: number;
+  logo: string;
+  price: number;
+  realAmount: number;
 }
 
 export type SwapStatus = 'running' | 'failed' | 'success';
 
 export interface StepSummary {
+  feeUsd: number;
+  status: SwapStatus;
+  stepNumber: number;
   fromToken: RouteType;
   toToken: RouteType;
-  dstAmount: Number;
 }
 export interface SwapType {
   requestId: string;
   transactionTime: string;
   status: SwapStatus;
-  sourceToken: RouteType;
-  destinationToken: RouteType;
-  sourceAmount: number;
-  destinationAmount: number;
   stepsSummary: StepSummary[];
 }
 
-export interface AssetType {
-  blockchain: string;
-  symbol: string;
+export interface WalletType {
   address: string;
+  explorer: string;
+}
+
+export interface AssetType {
+  address: string;
+  blockchain: string;
   blockchainLogo: string;
+  blockchainType: string;
+  decimals: 18;
+  expectedAmount: number;
+  logo: string;
+  price: number;
+  symbol: string;
+  realAmount: number;
   name: string;
-  image: string;
 }
 export interface ExplorerUrlsType {
   url: string;
@@ -43,40 +54,43 @@ export interface ApproveUrlsType {
   url: string;
   status: string;
 }
-export interface StepType {
+
+export interface SwapperType {
   swapperId: string;
-  fromAsset: AssetType;
-  toAsset: AssetType;
-  toAmount: number;
-  fromAmount: number;
+  swapperLogo: string;
+  swapperTitle: string;
+  swapperType: 'DEX' | 'BRIDGE' | 'AGGREGATOR';
+}
+
+export interface InternalPathType {
+  swapper: SwapperType;
+  from: AssetType;
+  to: AssetType;
+}
+export interface StepType {
+  swapper: SwapperType;
+  from: AssetType;
+  to: AssetType;
   status: SwapStatus;
   generatedTxId: string[];
+  internalPath: InternalPathType[];
   estimatedTimeInSeconds: number;
   executionTimeInSeconds: number;
-  expectedToAmount: number;
-  expectedFromAmount: number;
   explorerUrls: ExplorerUrlsType[];
   approveUrls: ApproveUrlsType[];
-  sourceWallet: string;
-  destinationWallet: string;
-  destinationWalletAddress: string;
-  sourceWalletAddress: string;
-  creationDate: string;
+  sourceWallet: WalletType;
+  destinationWallet: WalletType;
+  startTime: number;
 }
 
 export interface DetailsType {
   requestId: string;
   creationDate: string;
   verificationState: string;
-  sourceWallet: string;
-  destinationWallet: string;
-  destinationWalletAddress: string;
-  sourceWalletAddress: string;
-  destination: RouteType;
+  sourceWallet: WalletType;
+  destinationWallet: WalletType;
   from: AssetType;
   to: AssetType;
-  srcAmount: number;
-  dstAmount: number;
   steps: StepType[];
   status: SwapStatus;
   estimatedTimeInSeconds: number;

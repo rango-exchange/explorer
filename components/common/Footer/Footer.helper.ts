@@ -1,9 +1,11 @@
-import discord from 'public/icons/socialMedia/discord.svg';
-import github from 'public/icons/socialMedia/github.svg';
-import medium from 'public/icons/socialMedia/medium.svg';
-import telegram from 'public/icons/socialMedia/telegram.svg';
-import twitter from 'public/icons/socialMedia/twitter.svg';
-import youtube from 'public/icons/socialMedia/youtube.svg';
+import {
+  DiscordIcon,
+  GithubIcon,
+  MediumIcon,
+  TelegramIcon,
+  TwitterIcon,
+  YoutubeIcon,
+} from 'components/icons';
 import { ListItemProps } from './Footer.type';
 
 export const products: ListItemProps[] = [
@@ -57,37 +59,37 @@ export const socialMedia: ListItemProps[] = [
     location: 'https://discord.com/invite/q3EngGyTrZ',
     title: 'Discord',
     openInNewTab: true,
-    icon: discord,
+    icon: DiscordIcon,
   },
   {
     location: 'https://twitter.com/RangoExchange',
     title: 'Twitter',
     openInNewTab: true,
-    icon: twitter,
+    icon: TwitterIcon,
   },
   {
     location: 'https://t.me/rangoexchange',
     title: 'Telegram',
     openInNewTab: true,
-    icon: telegram,
+    icon: TelegramIcon,
   },
   {
     location: 'https://medium.com/@rangoexchange',
     title: 'Medium',
     openInNewTab: true,
-    icon: medium,
+    icon: MediumIcon,
   },
 
   {
     location: 'https://www.youtube.com/@rangoexchange',
     title: 'YouTube',
     openInNewTab: true,
-    icon: youtube,
+    icon: YoutubeIcon,
   },
   {
     location: 'https://github.com/rango-exchange',
     title: 'GitHub',
     openInNewTab: true,
-    icon: github,
+    icon: GithubIcon,
   },
 ];

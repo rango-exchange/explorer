@@ -8,6 +8,7 @@ import Layout from 'components/common/Layout';
 import SearchBox from 'components/common/SearchBox';
 import SwapDetailSummary from 'components/detail/SwapDetailSummary';
 import { getTxDetails } from 'services';
+import { ChevronRightIcon } from 'components/icons';
 
 interface PropsType {
   details: DetailsType;
@@ -33,7 +34,7 @@ function SwapDetails(props: PropsType) {
               <Link className="text-neutral-800 text-16" href="/">
                 Home
               </Link>
-              <span className="px-5"> {'>'} </span>
+              <ChevronRightIcon className="mx-5 text-neutral-800" />
               <span className="text-16 text-primary-500">Swap Details</span>
             </div>
 
@@ -51,6 +52,7 @@ export const getServerSideProps: GetServerSideProps<PropsType> = async ({
 }) => {
   const { id } = query;
   const details = await getTxDetails(id as string);
+
   return {
     props: {
       details,

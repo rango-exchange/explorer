@@ -5,12 +5,12 @@ import { ColumnType } from './SwapSteps.type';
 export const columns: ColumnType[] = [
   {
     id: 1,
-    title: 'Output Amount',
+    title: 'Input Amount',
     component: SwapStepValue,
   },
   {
     id: 2,
-    title: 'Input Amount',
+    title: 'Output Amount',
     component: SwapStepValue,
   },
   {
@@ -39,5 +39,5 @@ export const BorderColor = {
   running: 'border-running',
   failed: 'border-failed',
   success: 'border-success',
-  unknown: 'border-running',
+  unknown: '',
 };

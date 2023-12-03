@@ -4,20 +4,20 @@ import { columns } from './SwapSteps.helper';
 
 function SwapStepItemExpanded(props: SwapStepItemExpandedProps) {
   const { step, open, firstStep } = props;
-  const { fromAsset, toAsset } = step;
+  const { from, to } = step;
   const {
     symbol: fromSymbol,
     name: fromName,
     blockchain: fromBlockchain,
-  } = fromAsset;
-  const { symbol: toSymbol, name: toName, blockchain: toBlockchain } = toAsset;
+  } = from;
+  const { symbol: toSymbol, name: toName, blockchain: toBlockchain } = to;
 
   return (
     <div
       className={`transition-[max-height] duration-[0.7s] ease-in-out ${
         open ? 'max-h-[500px]' : 'max-h-0'
       }`}>
-      <div className="pt-35">
+      <div className="pt-35 text-22 text-primary-500">
         {`Swap from ${fromSymbol || fromName} (on ${fromBlockchain}) to ${
           toSymbol || toName
         } (on ${toBlockchain})`}

@@ -16,32 +16,32 @@ export const columns: ColumnType[] = [
   },
   {
     id: 3,
+    title: 'Output Amount',
+    component: SwapDetailValue,
+  },
+  {
+    id: 4,
     title: 'Source Address',
     component: SwapDetailAddress,
   },
   {
-    id: 4,
-    title: 'Source Chain',
+    id: 5,
+    title: 'Source Token',
     component: SwapDetailChain,
   },
   {
-    id: 5,
+    id: 6,
     title: 'Destination Address',
     component: SwapDetailAddress,
   },
   {
-    id: 6,
-    title: 'Destination Chain',
+    id: 7,
+    title: 'Destination Token',
     component: SwapDetailChain,
   },
   {
-    id: 7,
-    title: 'Duration',
-    component: SwapDetailValue,
-  },
-  {
     id: 8,
-    title: 'Output Amount',
+    title: 'Duration',
     component: SwapDetailValue,
   },
   {

@@ -10,7 +10,12 @@ function SwapSteps(props: PropsType) {
       <h2 className="text-28 font-semibold text-primary-500">Swap Steps</h2>
       <div className="py-25 px-20">
         {steps.map((step: StepType, key: number) => (
-          <SwapStepItem firstStep={key === 0} key={`step-${key}`} step={step} />
+          <SwapStepItem
+            lastStep={key === steps.length - 1}
+            firstStep={key === 0}
+            key={`step-${key}`}
+            step={step}
+          />
         ))}
       </div>
     </div>

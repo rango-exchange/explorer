@@ -1,7 +1,9 @@
-import widgetIcon from 'public/icons/widget.svg';
-import apiIcon from 'public/icons/apiManagement.svg';
-import affiliateIcon from 'public/icons/affiliate.svg';
-import docsIcon from 'public/icons/docs.svg';
+import {
+  AffiliateIcon,
+  ApiManagementIcon,
+  DocsIcon,
+  WidgetIcon,
+} from 'components/icons';
 import { LinkTypes, MenuTypes } from './Navbar.type';
 
 export const links: Array<LinkTypes | MenuTypes> = [
@@ -28,25 +30,25 @@ export const links: Array<LinkTypes | MenuTypes> = [
         title: 'API/SDK',
         location: 'https://rango-api.readme.io/reference/meta',
         openInNewTab: true,
-        icon: apiIcon,
+        icon: ApiManagementIcon,
       },
       {
         title: 'Widget',
         location: 'https://docs.rango.exchange/widget-integration/overview',
         openInNewTab: true,
-        icon: widgetIcon,
+        icon: WidgetIcon,
       },
       {
         title: 'Affiliate',
         location: 'https://rango.exchange/affiliate',
         openInNewTab: true,
-        icon: affiliateIcon,
+        icon: AffiliateIcon,
       },
       {
         title: 'Docs',
         location: 'https://docs.rango.exchange',
         openInNewTab: true,
-        icon: docsIcon,
+        icon: DocsIcon,
       },
     ],
   },

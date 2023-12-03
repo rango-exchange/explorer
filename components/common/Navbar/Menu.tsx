@@ -1,4 +1,3 @@
-import Image from 'next/image';
 import Link from 'next/link';
 import { MenuProps } from './Navbar.type';
 
@@ -28,29 +27,27 @@ function Menu(props: MenuProps) {
           className={`${
             theme === 'dark' ? 'bg-surfacesBackground' : 'bg-neutral-500'
           }  p-4 rounded-md absolute right-0 top-8`}>
-          {subMenu.map((item, index) => (
-            <li
-              className={`text-18 ${
-                theme === 'dark' ? 'text-primary-500' : 'text-baseForeground'
-              } min-w-[9.625rem] whitespace-nowrap ${
-                index !== 0 ? 'pt-6' : ''
-              }`}
-              key={index}>
-              <Link
-                target={item.openInNewTab ? '_blank' : '_self'}
-                rel={item.openInNewTab ? 'noreferrer' : 'none'}
-                className="flex items-center hover:text-secondary-500"
-                href={item.location}>
-                <Image
-                  src={item.icon}
-                  alt={item.title}
-                  width={18}
-                  height={18}
-                />
-                <span className="pl-1.5">{item.title}</span>
-              </Link>
-            </li>
-          ))}
+          {subMenu.map((item, index) => {
+            const { icon: Icon } = item;
+            return (
+              <li
+                className={`text-18 ${
+                  theme === 'dark' ? 'text-primary-500' : 'text-baseForeground'
+                } min-w-[9.625rem] whitespace-nowrap ${
+                  index !== 0 ? 'pt-6' : ''
+                }`}
+                key={index}>
+                <Link
+                  target={item.openInNewTab ? '_blank' : '_self'}
+                  rel={item.openInNewTab ? 'noreferrer' : 'none'}
+                  className="flex items-center hover:text-secondary-500"
+                  href={item.location}>
+                  <Icon size="1.12rem" className="text-secondary-500" />
+                  <span className="pl-1.5">{item.title}</span>
+                </Link>
+              </li>
+            );
+          })}
         </ul>
       )}
     </div>

@@ -1,48 +1,23 @@
-import Image from 'next/image';
 import { SwapDetailItem } from './SwapDetail.type';
-import CopyIcon from 'public/icons/copy.svg';
-import { CopyText } from 'utils/copyText';
+import ButtonCopyIcon from 'components/common/ButtonCopyIcon';
 
 function SwapDetailAddress(props: SwapDetailItem) {
   const { details, column } = props;
-  const {
-    sourceWalletAddress,
-    destinationWalletAddress,
-    sourceWallet,
-    destinationWallet,
-  } = details;
+  const { sourceWallet, destinationWallet } = details;
 
-  let wallet = '';
-  let walletAddress = '';
-
-  if (column.title === 'Source Address') {
-    wallet = sourceWallet;
-    walletAddress = sourceWalletAddress;
-  }
-
-  if (column.title === 'Destination Address') {
-    wallet = destinationWallet;
-    walletAddress = destinationWalletAddress;
-  }
+  const wallet =
+    column.title === 'Source Address' ? sourceWallet : destinationWallet;
 
   const handleClick = () => {
-    if (walletAddress) window.open(walletAddress, '_blank');
-  };
-
-  const handleCopy = () => {
-    if (wallet) CopyText(wallet);
+    if (wallet?.explorer) window.open(wallet.explorer, '_blank');
   };
 
   return (
-    <div className="flex col-span-3 items-center p-16">
+    <div className="flex col-span-3 items-center h-[3.75rem] p-18">
       <button onClick={() => handleClick()} className="text-secondary-500 mr-5">
-        {wallet}
+        {wallet?.address}
       </button>
-      <button
-        onClick={() => handleCopy()}
-        className="group relative cursor-pointer">
-        <Image height={16} width={16} alt="copy" src={CopyIcon} />
-      </button>
+      <ButtonCopyIcon text={wallet?.address} />
     </div>
   );
 }

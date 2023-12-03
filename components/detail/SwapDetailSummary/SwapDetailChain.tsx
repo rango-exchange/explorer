@@ -5,13 +5,13 @@ function SwapDetailChain(props: SwapDetailItem) {
   const { details, column } = props;
   const { from, to } = details;
 
-  const token = column.title === 'Source Chain' ? from : to;
-  const { blockchain, symbol, blockchainLogo, image, name } = token;
+  const token = column.title === 'Source Token' ? from : to;
+  const { blockchain, symbol, blockchainLogo, logo, name } = token;
 
   return (
-    <div className="flex col-span-2 items-center p-16">
+    <div className="flex col-span-2 items-center h-[3.75rem] p-18">
       <div className="relative mr-10">
-        <img src={image} alt={name || symbol} width={30} height={30} />
+        <img src={logo} alt={name || symbol} width={30} height={30} />
         <img
           src={blockchainLogo}
           width={15}

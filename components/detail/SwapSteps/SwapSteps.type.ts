@@ -1,4 +1,4 @@
-import { ExplorerUrlsType, StepType, SwapStatus } from 'types';
+import { AssetType, ExplorerUrlsType, StepType, SwapStatus } from 'types';
 
 export interface PropsType {
   steps: StepType[];
@@ -7,6 +7,11 @@ export interface PropsType {
 export interface SwapStepItemProps {
   step: StepType;
   firstStep?: boolean;
+  lastStep?: boolean;
+}
+
+export interface SwapStepChainLogoProps {
+  token: AssetType;
 }
 
 export interface SwapStepItemExpandedProps {

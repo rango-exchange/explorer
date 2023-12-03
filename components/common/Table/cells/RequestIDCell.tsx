@@ -1,11 +1,8 @@
-/* eslint-disable @typescript-eslint/restrict-template-expressions */
-import Image from 'next/image';
-import CopyIcon from 'public/icons/copy.svg';
-import { CopyText } from 'utils/copyText';
 import { useRouter } from 'next/router';
 import dayjs from 'dayjs';
 import utc from 'dayjs/plugin/utc';
 import { CellProps } from '../Table.type';
+import ButtonCopyIcon from 'components/common/ButtonCopyIcon';
 
 dayjs.extend(utc);
 
@@ -30,14 +27,7 @@ function RequestIDCell(props: CellProps) {
             requestId.length,
           )}`}
         </button>
-        <button onClick={() => CopyText(requestId)}>
-          <Image
-            width={16}
-            height={16}
-            src={CopyIcon}
-            alt="copy_to_clipboard"
-          />
-        </button>
+        <ButtonCopyIcon text={requestId} />
       </div>
       <div className="text-14 text-neutral-400">
         {dayjs

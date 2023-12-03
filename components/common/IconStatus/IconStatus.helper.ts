@@ -1,6 +1,4 @@
-import SuccessIcon from 'public/icons/success.svg';
-import RunningIcon from 'public/icons/running.svg';
-import FailIcon from 'public/icons/fail.svg';
+import { FailIcon, RunningIcon, SuccessIcon } from 'components/icons';
 
 export const SwapStatusIcon = {
   running: RunningIcon,

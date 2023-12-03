@@ -6,20 +6,26 @@ import {
   XYChart,
   Tooltip,
 } from '@visx/xychart';
-import { customTheme, getDayOfMonth, getRoundedCount } from './Chart.helper';
+import { customTheme, daysFilter, getDayOfMonth } from './Chart.helper';
 import dayjs from 'dayjs';
 import { CustomTick } from './CustomTick';
 import { ChartProps } from './Chart.type';
 
 export const Chart = (props: ChartProps) => {
   const { data, days } = props;
-  const currentWeek = data.slice(24, 31).map((item) => ({ ...item }));
-  const prevWeek = data.slice(17, 24).map((item) => ({ ...item }));
+  const currentFilter = daysFilter.find((item) => item.days === days);
+  const currentPeriod = currentFilter?.hasPrevious
+    ? data.slice(days * -1).map((item) => ({ ...item }))
+    : null;
+  const prevPeriod = currentFilter?.hasPrevious
+    ? data.slice(days * -2, days * -1).map((item) => ({ ...item }))
+    : null;
 
   // Update the date property of each item in prevWeek with the corresponding item from deepCopyCurrentWeek
-  prevWeek.forEach((item, index) => {
-    prevWeek[index].date = currentWeek[index]?.date;
-  });
+  if (prevPeriod && currentPeriod)
+    prevPeriod.forEach((item, index) => {
+      prevPeriod[index].date = currentPeriod[index]?.date;
+    });
 
   return (
     <div className="w-full">
@@ -42,7 +48,6 @@ export const Chart = (props: ChartProps) => {
           hideAxisLine
           hideTicks
           numTicks={3}
-          tickFormat={(c) => getRoundedCount(c).toString()}
           tickComponent={(props) => <CustomTick {...props} />}
         />
         <AnimatedGrid
@@ -55,10 +60,10 @@ export const Chart = (props: ChartProps) => {
           numTicks={3}
         />
 
-        {days === 30 && (
+        {days === 90 && (
           <AnimatedLineSeries
             curve={curveCardinal}
-            dataKey="Last month"
+            dataKey="Last Season"
             data={data}
             stroke="#469BF5"
             xAccessor={(d) => d.date}
@@ -66,20 +71,20 @@ export const Chart = (props: ChartProps) => {
           />
         )}
 
-        {days === 7 && (
+        {days !== 90 && currentPeriod && prevPeriod && (
           <>
             <AnimatedLineSeries
               curve={curveCardinal}
-              dataKey="Current Week"
-              data={currentWeek}
+              dataKey={`Current ${currentFilter ? currentFilter.name : ''}`}
+              data={currentPeriod}
               stroke="#469BF5"
               xAccessor={(d) => d.date}
               yAccessor={(d) => d.count}
             />
             <AnimatedLineSeries
               curve={curveCardinal}
-              dataKey="Prev Week"
-              data={prevWeek}
+              dataKey={`Prev ${currentFilter ? currentFilter.name : ''}`}
+              data={prevPeriod}
               stroke="#242D5B"
               xAccessor={(d) => d.date}
               yAccessor={(d) => d.count}

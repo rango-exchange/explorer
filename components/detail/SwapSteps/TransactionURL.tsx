@@ -2,20 +2,14 @@ import React from 'react';
 import IconStatus from 'components/common/IconStatus';
 import { TransactionURLProps } from './SwapSteps.type';
 import { SwapStatus } from 'types';
-import LinkIcon from 'public/icons/link.svg';
-import CopyIcon from 'public/icons/copy.svg';
-import Image from 'next/image';
-import { CopyText } from 'utils/copyText';
+import ButtonCopyIcon from 'components/common/ButtonCopyIcon';
+import { LinkIcon } from 'components/icons';
 
 function TransactionURL(props: TransactionURLProps) {
   const { explorerUrls, status } = props;
 
   const handleLink = (value: string) => {
     if (value) window.open(value, '_blank');
-  };
-
-  const handleCopy = (value: string) => {
-    if (value) CopyText(value);
   };
 
   return (
@@ -35,21 +29,9 @@ function TransactionURL(props: TransactionURLProps) {
               </span>
             </div>
             <div className="flex items-center">
-              <button className="mr-5" onClick={() => handleCopy(url)}>
-                <Image
-                  src={CopyIcon}
-                  height={16}
-                  width={16}
-                  alt="copy transaction"
-                />
-              </button>
+              <ButtonCopyIcon className="mr-5" hasTooltip={false} text={url} />
               <button onClick={() => handleLink(url)}>
-                <Image
-                  src={LinkIcon}
-                  height={16}
-                  width={16}
-                  alt="transaction link"
-                />
+                <LinkIcon className="text-neutral-400 hover:text-hoverIcon" />
               </button>
             </div>
           </div>
