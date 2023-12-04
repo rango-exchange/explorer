@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint --fix --quiet .",
-    "prettier": "prettier --write ./components/detail/SwapSteps/SwapStepAddress.tsx",
+    "prettier": "prettier --write",
     "prepare": "husky install",
     "build:icons": "svgr svgs/resources/ --config-file svgs/configs/.svgrrc.default.cjs && prettier -w ./components/icons"
   },
