@@ -20,7 +20,7 @@ function SwapDetailSummary(props: PropsType) {
         <ButtonCopyIcon text={id} />
       </p>
       <div className="pt-35 px-20">
-        {columns.map((col) => {
+        {columns.map((col, index) => {
           const DetailValueComponent = col.component;
           const { title, id } = col;
           return (
@@ -33,7 +33,7 @@ function SwapDetailSummary(props: PropsType) {
                   <DetailValueComponent column={col} details={details} />
                 )}
               </div>
-              {title !== 'Initiation Date And Time' && (
+              {index !== columns.length - 1 && (
                 <div className="h-[0.5px] w-full bg-neutral-300"></div>
               )}
             </>

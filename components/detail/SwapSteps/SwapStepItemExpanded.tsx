@@ -24,22 +24,27 @@ function SwapStepItemExpanded(props: SwapStepItemExpandedProps) {
       </div>
 
       <div className="pt-25">
-        {columns.map((col) => {
+        {columns.map((col, index) => {
           const StepValueComponent = col.component;
           const { title, id } = col;
           return (
-            <div key={`column-${id}`} className="grid grid-cols-7">
-              <div className="text-16 font-medium p-16 pl-0 col-span-3 text-primary-500 flex items-center">
-                {`${title} : `}
+            <>
+              <div key={`column-${id}`} className="grid grid-cols-7">
+                <div className="text-16 font-medium p-16 pl-0 col-span-3 text-primary-500 flex items-center">
+                  {`${title} : `}
+                </div>
+                {StepValueComponent && (
+                  <StepValueComponent
+                    firstStep={firstStep}
+                    column={col}
+                    step={step}
+                  />
+                )}
               </div>
-              {StepValueComponent && (
-                <StepValueComponent
-                  firstStep={firstStep}
-                  column={col}
-                  step={step}
-                />
+              {index !== columns.length - 1 && (
+                <div className="h-[0.5px] w-full bg-neutral-300"></div>
               )}
-            </div>
+            </>
           );
         })}
       </div>
