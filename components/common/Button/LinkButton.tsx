@@ -4,7 +4,7 @@ import { LinkButtonProps } from './Button.types';
 import { PropsWithChildren } from 'react';
 
 export function LinkButton(props: PropsWithChildren<LinkButtonProps>) {
-  const onClick = (e: any) => {
+  const onClick = (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
     const btn = e.currentTarget;
     const circle = document.createElement('span');
     const diameter = Math.max(btn.clientWidth, btn.clientHeight);

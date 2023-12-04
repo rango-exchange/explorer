@@ -3,7 +3,7 @@ import { ButtonProps } from './Button.types';
 import { PropsWithChildren } from 'react';
 
 export function Button(props: PropsWithChildren<ButtonProps>) {
-  const handleClick = (e: any) => {
+  const handleClick = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     const btn = e.currentTarget;
     const circle = document.createElement('span');
     const diameter = Math.max(btn.clientWidth, btn.clientHeight);

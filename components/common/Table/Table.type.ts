@@ -19,5 +19,5 @@ export interface ColumnType {
   id: number;
   title: string;
   tokenType?: TokenType;
-  component?: any;
+  component?: React.ComponentType<CellProps>;
 }

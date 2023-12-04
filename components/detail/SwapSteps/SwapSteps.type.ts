@@ -28,7 +28,7 @@ export interface TransactionURLProps {
 export interface ColumnType {
   id: number;
   title: string;
-  component?: any;
+  component?: React.ComponentType<SwapStepItemValueProps>;
 }
 
 export interface SwapStepItemValueProps {

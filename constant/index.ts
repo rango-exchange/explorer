@@ -3,6 +3,7 @@ export const MATCH_TYPE = {
   REQUESTID: 'REQUESTID',
 };
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const STATUS: any = {
   success: 'success',
   failed: 'failed',

@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/prefer-optional-chain */
 import { GetServerSideProps } from 'next';
 import { useRouter } from 'next/router';
 import { getSearchResult, getWalletSwaps } from '../services';

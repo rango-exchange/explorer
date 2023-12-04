@@ -96,6 +96,7 @@ export const Chart = (props: ChartProps) => {
           snapTooltipToDatumX
           snapTooltipToDatumY
           showVerticalCrosshair
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
           renderTooltip={({ tooltipData }: any) => (
             <div className="text-12">
               <div className="mb-1">Swaps</div>

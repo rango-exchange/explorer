@@ -8,7 +8,7 @@ export interface PropsType {
 export interface ColumnType {
   id: number;
   title: string;
-  component?: any;
+  component?: React.ComponentType<SwapDetailItem>;
 }
 
 export interface SwapDetailItem {

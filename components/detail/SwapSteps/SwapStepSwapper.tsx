@@ -30,7 +30,7 @@ function SwapStepSwapper(props: SwapStepItemProps) {
                 className={`bg-transaction ml-[0.875rem] border-l border-solid ${borderColor}  w-fll h-[0.5rem]`}></div>
             )}
             <div
-              key={`swapper-${internalSwapper?.swapperId}`}
+              key={`swapper-${internalSwapper.swapperId}`}
               className="flex items-center">
               <img
                 className={`mr-10 border w-[1.75rem] h-[1.75rem] border-solid ${borderColor} rounded-full`}
