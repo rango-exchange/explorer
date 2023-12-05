@@ -12,4 +12,6 @@ export const STATUS: any = {
   null: 'Pending',
 };
 
+export const SEARCH_RESULT_OFFSET = 14;
+
 export const API_URL = process.env.NEXT_PUBLIC_BASE_URL;

@@ -26,6 +26,7 @@ module.exports = {
     '#469BF5': 'currentColor',
     '#727272': 'currentColor',
     '#B8B8B8': 'currentColor',
+    '#A2A2A2': 'currentColor',
   },
   template: require('./template/react.cjs'),
   indexTemplate: require('./template/index.cjs'),

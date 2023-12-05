@@ -15,8 +15,9 @@ interface PropsType {
 function Search(props: PropsType) {
   const { status } = props;
   const router = useRouter();
-  const { query } = router.query;
-  const { data } = useSWR(query, getWalletSwaps);
+  const { query, page } = router.query;
+  const { data } = useSWR([query, page], getWalletSwaps);
+  const { transactions, total } = data || {};
 
   return status || (data && data.error && data.status) ? (
     <Error statusCode={data?.status || status} />
@@ -29,8 +30,13 @@ function Search(props: PropsType) {
         <div className="w-full bg-neutral-300 flex justify-center">
           {data && (
             <>
-              {data.transactions && data.transactions.length ? (
-                <Result data={data.transactions} query={query as string} />
+              {transactions && transactions.length ? (
+                <Result
+                  total={total}
+                  page={Number(page || 0)}
+                  data={transactions}
+                  query={query as string}
+                />
               ) : (
                 <NotFound query={query as string} />
               )}
@@ -48,8 +54,7 @@ function Search(props: PropsType) {
 }
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-  const query = context.query.query;
-
+  const { query } = context?.query || {};
   const result = await getSearchResult(query as string);
   if (result?.error) return { props: { status: result.status } };
   if (result?.length && result[0].matchType === MATCH_TYPE.REQUESTID) {

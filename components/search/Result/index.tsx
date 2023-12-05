@@ -1,8 +1,9 @@
 import Table from 'components/common/Table';
 import { PropsType } from './Result.type';
+import Pagination from '../Pagination/idnex';
 
 function Result(props: PropsType) {
-  const { data, query } = props;
+  const { data, query, total, page } = props;
   return (
     <div className="container mt-[3.125rem] rounded-normal bg-baseForeground p-35">
       <div className="flex flex-col">
@@ -11,11 +12,14 @@ function Result(props: PropsType) {
             Search Results
           </h2>
           <p className="text-16 text-neutral-800">
-            {`Found ${data.length} Rango swaps for ${query}`}
+            {`Found ${total} Rango swaps for ${query}`}
           </p>
         </div>
         <div className="mt-25">
           <Table data={data} />
+        </div>
+        <div className="mt-25">
+          <Pagination page={page} total={total} query={query} />
         </div>
       </div>
     </div>
