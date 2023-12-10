@@ -14,7 +14,7 @@ function Navbar(props: NavbarProps) {
       } items-center justify-center`}>
       <div
         className={
-          'container flex w-full  items-center justify-center px-6  text-baseForeground xl:px-0'
+          'container flex w-full  items-center justify-center px-25  text-baseForeground xl:md-0'
         }>
         <Media between={['xs', 'xl']}>
           {(className, renderChildren) => (

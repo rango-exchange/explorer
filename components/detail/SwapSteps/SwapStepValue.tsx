@@ -16,7 +16,7 @@ function SwapStepValue(props: SwapStepItemValueProps) {
   } = step;
 
   return (
-    <div className="flex col-span-4 items-center p-16 text-16">
+    <div className="flex md:col-span-4 items-center md:p-16 text-14 md:text-16">
       {column.title === 'Output Amount' &&
         (isNaN(to?.realAmount) ? (
           <span className="text-neutral-400">{`Est. ~${to.expectedAmount} ${to?.symbol}`}</span>

@@ -14,23 +14,25 @@ function SwapStepItemExpanded(props: SwapStepItemExpandedProps) {
 
   return (
     <div
-      className={`transition-[max-height] duration-[0.7s] ease-in-out ${
+      className={`transition-[max-height] duration-[0.7s] ease-in-out overflow-hidden ${
         open ? 'max-h-[500px]' : 'max-h-0'
       }`}>
-      <div className="pt-35 text-22 text-primary-500">
+      <div className="pt-15 md:pt-35 text-14 md:text-22 text-primary-500">
         {`Swap from ${fromSymbol || fromName} (on ${fromBlockchain}) to ${
           toSymbol || toName
         } (on ${toBlockchain})`}
       </div>
 
-      <div className="pt-25">
+      <div className="pt-10 md:pt-25">
         {columns.map((col, index) => {
           const StepValueComponent = col.component;
           const { title, id } = col;
           return (
             <>
-              <div key={`column-${id}`} className="grid grid-cols-7">
-                <div className="text-16 font-medium p-16 pl-0 col-span-3 text-primary-500 flex items-center">
+              <div
+                key={`column-${id}`}
+                className="flex flex-col md:grid md:grid-cols-7">
+                <div className="text-12 mb-5 md:mb-0 md:text-16 font-medium md:p-16 pl-0 md:col-span-3 text-primary-500 flex items-center">
                   {`${title} : `}
                 </div>
                 {StepValueComponent && (
@@ -42,7 +44,7 @@ function SwapStepItemExpanded(props: SwapStepItemExpandedProps) {
                 )}
               </div>
               {index !== columns.length - 1 && (
-                <div className="h-[0.5px] w-full bg-neutral-300"></div>
+                <div className="h-[0.5px] my-10 md:my-0 w-full bg-neutral-300"></div>
               )}
             </>
           );

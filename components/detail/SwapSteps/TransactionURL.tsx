@@ -4,10 +4,12 @@ import { TransactionURLProps } from './SwapSteps.type';
 import { SwapStatus } from 'types';
 import ButtonCopyIcon from 'components/common/ButtonCopyIcon';
 import { LinkIcon } from 'components/icons';
+import isMobile from 'is-mobile';
+import TransactionURLItem from './TransactionURLItem';
 
 function TransactionURL(props: TransactionURLProps) {
   const { explorerUrls, status } = props;
-
+  const IsMobile = isMobile();
   const handleLink = (value: string) => {
     if (value) window.open(value, '_blank');
   };
@@ -19,22 +21,37 @@ function TransactionURL(props: TransactionURLProps) {
         const transactionStatus: SwapStatus =
           index === explorerUrls.length - 1 ? status : 'success';
         return (
-          <div
-            key={`transaction-${index}`}
-            className="mb-10 bg-neutral-900 px-10 py-12 rounded-micro flex items-center justify-between">
-            <div className="flex items-center">
-              <IconStatus status={transactionStatus} />
-              <span className="pl-5 text-14 text-primary-500">
-                {description || 'Swap transaction'}
-              </span>
-            </div>
-            <div className="flex items-center">
-              <ButtonCopyIcon className="mr-5" hasTooltip={false} text={url} />
-              <button onClick={() => handleLink(url)}>
-                <LinkIcon className="text-neutral-400 hover:text-hoverIcon" />
-              </button>
-            </div>
-          </div>
+          <>
+            {IsMobile ? (
+              <TransactionURLItem
+                key={url}
+                description={description}
+                transactionStatus={transactionStatus}
+                url={url}
+              />
+            ) : (
+              <div
+                key={`transaction-${index}`}
+                className="mb-10 bg-neutral-900 px-10 py-12 rounded-micro flex items-center justify-between">
+                <div className="flex items-center">
+                  <IconStatus status={transactionStatus} />
+                  <span className="pl-5 text-14 text-primary-500">
+                    {description || 'Swap transaction'}
+                  </span>
+                </div>
+                <div className="flex items-center">
+                  <ButtonCopyIcon
+                    className="mr-5"
+                    hasTooltip={false}
+                    text={url}
+                  />
+                  <button onClick={() => handleLink(url)}>
+                    <LinkIcon className="text-neutral-400 hover:text-hoverIcon" />
+                  </button>
+                </div>
+              </div>
+            )}
+          </>
         );
       })}
     </>

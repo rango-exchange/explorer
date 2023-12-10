@@ -28,14 +28,16 @@ function SwapDetails(props: PropsType) {
         <div className="w-full flex flex-col items-center relative bg-baseBackground">
           <SearchBox />
         </div>
-        <div className="w-full bg-neutral-300 flex justify-center">
-          <div className="container py-50">
-            <div className="w-full py-20 flex items-center justify-start">
-              <Link className="text-neutral-800 text-16" href="/">
+        <div className="w-full flex justify-center">
+          <div className="container px-25 md:px-0 pt-30 md:py-50">
+            <div className="w-full py-10 md:py-20 flex items-center justify-start">
+              <Link className="text-neutral-800 text-10 md:text-16" href="/">
                 Home
               </Link>
               <ChevronRightIcon className="mx-5 text-neutral-800" />
-              <span className="text-16 text-primary-500">Swap Details</span>
+              <span className="text-10 md:text-16 text-primary-500">
+                Swap Details
+              </span>
             </div>
 
             <SwapDetailSummary id={id} details={details} />

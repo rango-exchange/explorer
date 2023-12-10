@@ -25,6 +25,12 @@ export interface TransactionURLProps {
   explorerUrls: ExplorerUrlsType[];
 }
 
+export interface TransactionURLItemProps {
+  url: string;
+  description: string;
+  transactionStatus: SwapStatus;
+}
+
 export interface ColumnType {
   id: number;
   title: string;

@@ -43,7 +43,7 @@ function MobileMenu(props: MobileMenuProps) {
             onClick={handleBackDropClick}
           />
           <div
-            className={`fixed top-0 right-0 flex h-full w-10/12 flex-col items-center justify-between overflow-x-auto rounded-l-3xl bg-baseForeground px-5 pb-10  pt-[1.875rem] 
+            className={`fixed top-0 right-0 flex h-full w-10/12 flex-col items-center justify-between overflow-x-auto rounded-l-large bg-baseForeground px-20 py-30  pt-[1.875rem] 
             animate-menu
             ${active ? 'animate-mount-menu' : ''}`}>
             <nav className="w-full">

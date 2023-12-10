@@ -15,11 +15,11 @@ function SwapStepAddress(props: SwapStepItemValueProps) {
 
   return (
     address && (
-      <div className="flex col-span-4 items-center p-16">
-        <button onClick={handleClick} className="text-secondary-500 mr-5">
-          {address?.length > 41
-            ? `${address.slice(0, 20)}...${address.slice(-20)}`
-            : address}
+      <div className="flex col-span-4 items-center md:p-16">
+        <button
+          onClick={handleClick}
+          className="text-14 md:text-16 text-secondary-500 mr-5">
+          {address?.length > 20 ? `${address.slice(0, 20)}...` : address}
         </button>
         <ButtonCopyIcon text={address} />
       </div>

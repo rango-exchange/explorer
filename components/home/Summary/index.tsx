@@ -5,7 +5,7 @@ import SummaryItem from './SummaryItem';
 function Summary(props: SummaryProps) {
   const { summary } = props;
   return (
-    <div className="grid grid-cols-2 gap-15">
+    <div className="grid grid-cols-2 gap-10 pr-20 md:pr-0 md:gap-15">
       <SummaryItem
         value={summary.connectedWallets}
         title="Total Wallets Connected"

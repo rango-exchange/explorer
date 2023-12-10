@@ -16,7 +16,9 @@ module.exports = {
     },
     container: {
       screens: {
-        sm: '360px',
+        sm: '640px',
+        md: '768px',
+        lg: '1024px',
         xl: '1180px',
       },
     },
@@ -25,6 +27,7 @@ module.exports = {
       micro: '0.312rem',
       soft: '0.625rem',
       normal: '0.937rem',
+      large: '1.5625rem',
       full: '9999px',
     },
     extend: {
@@ -48,6 +51,7 @@ module.exports = {
         25: '1.56rem',
         30: '1.875rem',
         35: '2.1875rem',
+        40: '2.5rem',
         50: '3.125rem',
       },
       margin: {
@@ -56,12 +60,18 @@ module.exports = {
         15: '0.937rem',
         20: '1.25rem',
         25: '1.56rem',
+        30: '1.875rem',
+        35: '2.1875rem',
+        40: '2.5rem',
         50: '3.125rem',
         60: '3.75rem',
       },
       lineHeight: {
         7.5: '1.875rem',
+        12: '0.75rem',
         13: '3.2rem',
+        14: '0.875rem',
+        16: '1rem',
       },
       backgroundImage: {
         'body-mask': "url('/img/backgrounds/mask.svg')",
@@ -72,6 +82,7 @@ module.exports = {
         'cover-2': "url('/img/videos/video2-cover.jpg')",
       },
       fontSize: {
+        10: '0.625rem',
         11: '0.6875rem',
         12: '0.75rem',
         14: '0.875rem',
@@ -93,6 +104,7 @@ module.exports = {
         surfacesBackground: '#F9F9F9',
         surfacesTooltip: '#F6F6F6',
         hoverBackground: '#E9F3FF',
+        hoverBackgroundIcon: '#E6E6E6',
         hoverIcon: '#2284ED',
         error: '#F40000',
         success: '#06C270',

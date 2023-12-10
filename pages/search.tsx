@@ -27,7 +27,7 @@ function Search(props: PropsType) {
         <div className="w-full flex flex-col items-center relative bg-baseBackground">
           <SearchBox />
         </div>
-        <div className="w-full bg-neutral-300 flex justify-center">
+        <div className="w-full flex justify-center">
           {data && (
             <>
               {transactions && transactions.length ? (

@@ -9,7 +9,9 @@ function IconStatus(props: PropsType) {
   return (
     <>
       <StatusIcon size="1.25rem" className={`${hasTitle ? 'mr-5' : ''}`} />
-      {hasTitle && <div className={`text-16 ${textColor}`}>{status}</div>}
+      {hasTitle && (
+        <div className={`text-14 md:text-16 ${textColor}`}>{status}</div>
+      )}
     </>
   );
 }

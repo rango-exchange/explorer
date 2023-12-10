@@ -24,7 +24,7 @@ export function LinkButton(props: PropsWithChildren<LinkButtonProps>) {
   return (
     <Link
       onClick={onClick}
-      className={`transition-all hover:bg-opacity-90 overflow-hidden  relative py-15 flex items-center justify-center px-20 font-medium	 text-18  md:leading-snug md:text-18 text-baseForeground bg-secondary-500 rounded-soft ${
+      className={`transition-all hover:bg-opacity-90 overflow-hidden  relative py-10 md:py-15 flex items-center justify-center px-20 font-medium	text-16 md:text-18  md:leading-snug md:text-18 text-baseForeground bg-secondary-500 rounded-soft ${
         props.className ? props.className : ''
       }`}
       href={props.href}>

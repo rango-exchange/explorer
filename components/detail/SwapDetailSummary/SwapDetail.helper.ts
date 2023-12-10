@@ -2,8 +2,10 @@ import { ColumnType } from './SwapDetail.type';
 import SwapDetailValue from './SwapDetailValue';
 import SwapDetailAddress from './SwapDetailAddress';
 import SwapDetailChain from './SwapDetailChain';
+import SwapDetailMobileToken from './SwapDetailMobileToken';
+import SwapDetailMobileValue from './SwapDetailMobileValue';
 
-export const columns: ColumnType[] = [
+export const DesktopColumns: ColumnType[] = [
   {
     id: 1,
     title: 'Swap Status',
@@ -48,5 +50,33 @@ export const columns: ColumnType[] = [
     id: 9,
     title: 'Initiation Date And Time',
     component: SwapDetailValue,
+  },
+];
+
+export const mobileColumns: ColumnType[] = [
+  {
+    id: 1,
+    title: 'Swap Status',
+    component: SwapDetailMobileValue,
+  },
+  {
+    id: 2,
+    title: 'input',
+    component: SwapDetailMobileToken,
+  },
+  {
+    id: 3,
+    title: 'output',
+    component: SwapDetailMobileToken,
+  },
+  {
+    id: 4,
+    title: 'Initiation Date And Time',
+    component: SwapDetailMobileValue,
+  },
+  {
+    id: 5,
+    title: 'Duration',
+    component: SwapDetailMobileValue,
   },
 ];

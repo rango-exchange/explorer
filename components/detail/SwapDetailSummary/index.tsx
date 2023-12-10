@@ -1,45 +1,78 @@
 import React from 'react';
-import { columns } from './SwapDetail.helper';
+import { DesktopColumns, mobileColumns } from './SwapDetail.helper';
 import { PropsType } from './SwapDetail.type';
 import ButtonCopyIcon from 'components/common/ButtonCopyIcon';
+import isMobile from 'is-mobile';
 
 function SwapDetailSummary(props: PropsType) {
   const { details, id } = props;
   const { from, to } = details;
+  const IsMobile = isMobile();
+
+  const columns = IsMobile ? mobileColumns : DesktopColumns;
+
   return (
-    <div className="w-full bg-baseForeground p-35 rounded-normal">
-      <h1 className="text-28 font-semibold text-primary-500">Swap Details</h1>
-      <p className="text-22 text-primary-500 pt-25">
+    <div className="w-full bg-baseForeground px-15 py-20 md:p-35 rounded-soft md:rounded-normal">
+      <h1 className="text-14 md:text-28 font-semibold text-primary-500">
+        Swap Details
+      </h1>
+      <p className="text-14 md:text-22 text-primary-500 pt-15 md:pt-25">
         {`Swap from ${from.symbol} (on ${from.blockchain}) to ${to.symbol} (on ${to.blockchain})`}
       </p>
-      <p className="pt-15 flex items-center">
-        <span className="text-16 text-primary-500 font-medium">
+      <p className="pt-5 md:pt-15 flex md:items-center flex-col md:flex-row">
+        <span className="text-12 md:text-16 text-primary-500 font-medium">
           Request ID :
         </span>
-        <span className="text-18 text-neutral-400 mx-5">{id}</span>
-        <ButtonCopyIcon text={id} />
+        <div className="flex items-center pt-5 md:pt-0">
+          <span className="text-4 md:text-18 text-neutral-400 mr-5 md:mx-5">
+            {IsMobile ? `${id.slice(0, 20)}...` : id}
+          </span>
+          <ButtonCopyIcon text={id} />
+        </div>
       </p>
-      <div className="pt-35 px-20">
-        {columns.map((col, index) => {
-          const DetailValueComponent = col.component;
-          const { title, id } = col;
-          return (
-            <>
-              <div key={`row-${id}`} className="grid grid-cols-5">
-                <div className="text-16 font-medium p-18 pl-0 col-span-2 text-primary-500 flex items-center">
-                  {`${title} : `}
+      {IsMobile && (
+        <>
+          <div className="h-[0.5px] mt-10 w-full bg-neutral-300"></div>
+          <div className="">
+            {columns.map((col) => {
+              const DetailValueComponent = col.component;
+              return (
+                DetailValueComponent && (
+                  <DetailValueComponent
+                    key={col.title}
+                    column={col}
+                    details={details}
+                  />
+                )
+              );
+            })}
+          </div>
+        </>
+      )}
+
+      {!IsMobile && (
+        <div className="pt-35 px-20">
+          {columns.map((col, index) => {
+            const DetailValueComponent = col.component;
+            const { title, id } = col;
+            return (
+              <>
+                <div key={`row-${id}`} className="grid grid-cols-5">
+                  <div className="text-16 font-medium p-18 pl-0 col-span-2 text-primary-500 flex items-center">
+                    {`${title} : `}
+                  </div>
+                  {DetailValueComponent && (
+                    <DetailValueComponent column={col} details={details} />
+                  )}
                 </div>
-                {DetailValueComponent && (
-                  <DetailValueComponent column={col} details={details} />
+                {index !== columns.length - 1 && (
+                  <div className="h-[0.5px] w-full bg-neutral-300"></div>
                 )}
-              </div>
-              {index !== columns.length - 1 && (
-                <div className="h-[0.5px] w-full bg-neutral-300"></div>
-              )}
-            </>
-          );
-        })}
-      </div>
+              </>
+            );
+          })}
+        </div>
+      )}
     </div>
   );
 }

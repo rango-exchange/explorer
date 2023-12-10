@@ -10,8 +10,10 @@ import { customTheme, daysFilter, getDayOfMonth } from './Chart.helper';
 import dayjs from 'dayjs';
 import { CustomTick } from './CustomTick';
 import { ChartProps } from './Chart.type';
+import isMobile from 'is-mobile';
 
 export const Chart = (props: ChartProps) => {
+  const IsMobile = isMobile();
   const { data, days } = props;
   const currentFilter = daysFilter.find((item) => item.days === days);
   const currentPeriod = currentFilter?.hasPrevious
@@ -31,7 +33,7 @@ export const Chart = (props: ChartProps) => {
     <div className="w-full">
       <XYChart
         theme={customTheme}
-        height={300}
+        height={IsMobile ? 240 : 300}
         xScale={{ type: 'band' }}
         yScale={{ type: 'linear' }}>
         <AnimatedAxis
@@ -40,7 +42,7 @@ export const Chart = (props: ChartProps) => {
           )}
           orientation="bottom"
           hideTicks
-          numTicks={7}
+          numTicks={IsMobile ? 3 : 7}
           tickFormat={(d) => getDayOfMonth(d)}
         />
         <AnimatedAxis
