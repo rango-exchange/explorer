@@ -1,0 +1,4 @@
+{
+  "*.{ts,tsx}": ["eslint --fix --quiet"],
+  "*.{ts,tsx,json}": ["prettier --write"]
+}
