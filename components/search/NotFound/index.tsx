@@ -13,14 +13,14 @@ function NotFound(props: PropsType) {
         alt="Not Found"
       />
       <div className="text-16  md:text-45 pt-[45px] md:pt-[100px] text-center text-primary-500 font-semibold">
-        Oops! We couldn't find what you are looking for
+        Oops! We couldn't find what you were looking for.
       </div>
       <div className="text-14 text-center md:text-20 text-neutral-800 pt-10">
         {`The search string you entered was: ${query || ''}`}
       </div>
-      <div className="text-14 text-center md:text-20 text-neutral-800">
+      {/* <div className="text-14 text-center md:text-20 text-neutral-800">
         This is an invalid search string.
-      </div>
+      </div> */}
       <Link
         href="/"
         className="text-baseForeground bg-primary-600 py-10 md:py-15 px-20 mt-50 text-center rounded-full w-[224px] text-14 md:text-18 font-medium">

@@ -15,14 +15,15 @@ function TransactionURL(props: TransactionURLProps) {
   return (
     <>
       {explorerUrls.map((exploreItem, index) => {
-        const { description, url } = exploreItem;
+        const { url, description } = exploreItem;
+        const overridedDescription = description + ' Transaction';
         const transactionStatus: SwapStatus =
           index === explorerUrls.length - 1 ? status : 'success';
         return (
           <>
             <TransactionURLMobileItem
               key={url}
-              description={description}
+              description={overridedDescription}
               transactionStatus={transactionStatus}
               url={url}
             />
@@ -32,7 +33,7 @@ function TransactionURL(props: TransactionURLProps) {
               <div className="flex items-center">
                 <IconStatus status={transactionStatus} />
                 <span className="pl-5 text-14 text-primary-500">
-                  {description || 'Swap transaction'}
+                  {overridedDescription || 'Swap transaction'}
                 </span>
               </div>
               <div className="flex items-center">

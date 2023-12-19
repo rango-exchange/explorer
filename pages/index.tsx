@@ -39,7 +39,7 @@ function Home(props: PropsType) {
   return status ? (
     <Error statusCode={status} />
   ) : (
-    <Layout title="Rango Scanner">
+    <Layout title="Rango Exchange Explorer">
       <div>
         <div className="flex flex-col items-center relative bg-baseBackground h-[595px] md:h-[662px]">
           <SearchBox />

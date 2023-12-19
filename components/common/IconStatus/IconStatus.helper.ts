@@ -15,7 +15,7 @@ export const StatusInfo: StatusInfoType = {
     icon: FailIcon,
   },
   success: {
-    title: 'Complete',
+    title: 'Success',
     color: 'text-success',
     backgroundColor: 'bg-backgroundSuccess',
     icon: SuccessIcon,

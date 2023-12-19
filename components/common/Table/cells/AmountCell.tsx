@@ -37,10 +37,10 @@ function AmountCell(props: CellProps) {
       </div>
       <div className="text-12 md:text-14 flex items-center">
         <GassIcon className="text-neutral-400" size="0.875rem" />
-        <span className="px-5 text-neutral-400">Fee :</span>
-        <span className="text-neutral-400">{`$${
-          gasFee ? gasFee.toFixed(2) : '--'
-        }`}</span>
+        <span className="px-5 text-neutral-400">Fee:</span>
+        <span className="text-neutral-400">
+          {gasFee ? `${gasFee.toFixed(2)}` : '--'}
+        </span>
       </div>
     </div>
   );

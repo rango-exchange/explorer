@@ -7,4 +7,5 @@ export interface SummaryProps {
 export interface SummaryItemProps {
   value: number;
   title: string;
+  prefix?: string;
 }
