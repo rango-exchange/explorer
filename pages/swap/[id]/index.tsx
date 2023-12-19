@@ -1,61 +1,65 @@
-import Layout from '../../../components/Layout'
-import TxDetails from '../../../components/TxDetails'
-import TxSteps from '../../../components/TxSteps'
-import { GetServerSideProps, NextPage } from 'next'
-import { useRouter } from 'next/router'
-import { getTxDetails } from '../../../services'
-import { DetailsType } from '../../../types'
-import Error from 'next/error'
-import Image from 'next/image'
-import copy from '../../../public/img/copy.svg'
-import { CopyText } from '../../../utils/copyText'
+import { GetServerSideProps } from 'next';
+import { useRouter } from 'next/router';
+import Error from 'next/error';
+import Link from 'next/link';
+import { DetailsType } from 'types';
+import Layout from 'components/common/Layout';
+import SearchBox from 'components/common/SearchBox';
+import { getTxDetails } from 'services';
+import { ChevronRightIcon } from 'components/icons';
+import SwapDetailSummary from 'components/detail/SwapDetailSummary';
+import SwapSteps from 'components/detail/SwapSteps';
 
 interface PropsType {
-  details: DetailsType
-  status: number
+  details: DetailsType;
+  status: number;
 }
 
-const SwapDetails: NextPage<PropsType> = ({ details, status }: PropsType) => {
-  const router = useRouter()
-  const id = router.query.id as string
+function SwapDetails(props: PropsType) {
+  const { details, status } = props;
+  const router = useRouter();
+  const id = router.query.id as string;
 
   return status ? (
     <Error statusCode={status} />
   ) : (
-    <Layout pageTitle={`Swap ${id}`}>
-      <p className="text-xs font-normal mb-1 lg:mb-3.5 lg:text-xl lg:font-bold">
-        Swap From <span className="font-bold">{details.from.symbol}</span> (On{' '}
-        {details.from.blockchain}) to <span className="font-bold">{details.to.symbol}</span> (On{' '}
-        {details.to.blockchain})
-      </p>
-      <div className="flex items-center text-xs truncate font-bold lg:text-base mb-6">
-        Request ID: <span className="font-normal ml-1">{id}</span>{' '}
-        <button
-          onClick={(e) => {
-            e.stopPropagation()
-            CopyText(id)
-          }}
-          className="group relative cursor-pointer"
-        >
-          <Image src={copy} alt="copy_to_clipboard" />
-        </button>
+    <Layout title={`Swap ${id}`}>
+      <div>
+        <div className="w-full flex flex-col items-center relative bg-baseBackground">
+          <SearchBox />
+        </div>
+        <div className="w-full flex justify-center">
+          <div className="container px-25 md:px-0 pt-30 md:py-50">
+            <div className="w-full py-10 md:py-20 flex items-center justify-start">
+              <Link className="text-neutral-800 text-10 md:text-16" href="/">
+                Home
+              </Link>
+              <ChevronRightIcon className="mx-5 text-neutral-800" />
+              <span className="text-10 md:text-16 text-primary-500">
+                Swap Details
+              </span>
+            </div>
+
+            <SwapDetailSummary id={id} details={details} />
+            <SwapSteps steps={details.steps} />
+          </div>
+        </div>
       </div>
-      <div className="lg:mb-11 mb-5">
-        <TxDetails details={details} />
-      </div>
-      <TxSteps steps={details.steps} />
     </Layout>
-  )
+  );
 }
 
-export const getServerSideProps: GetServerSideProps<PropsType> = async ({ query }) => {
-  const { id } = query
-  const details = await getTxDetails(id as string)
+export const getServerSideProps: GetServerSideProps<PropsType> = async ({
+  query,
+}) => {
+  const { id } = query;
+  const details = await getTxDetails(id as string);
+
   return {
     props: {
       details,
-      status: details?.error ? details?.status : 0
-    }
-  }
-}
-export default SwapDetails
+      status: details?.error ? details?.status : 0,
+    },
+  };
+};
+export default SwapDetails;
