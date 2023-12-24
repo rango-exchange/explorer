@@ -4,7 +4,9 @@ import { SwapStepChainLogoProps } from './SwapSteps.type';
 
 function SwapStepChainLogo(props: SwapStepChainLogoProps) {
   const { token } = props;
-  const { symbol, logo, blockchainLogo, name, blockchain } = token;
+  const { symbol, logo, name, blockchainData } = token;
+  const { shortName: blockchainShortName, logo: blockchainLogo } =
+    blockchainData;
 
   return (
     <div className="relative mr-5">
@@ -15,8 +17,8 @@ function SwapStepChainLogo(props: SwapStepChainLogoProps) {
       />
       <img
         src={blockchainLogo}
-        alt={blockchain}
-        className="rounded-full absolute w-[10px] md:w-[12px] h-[10px] md:h-[22px] right-[-2px] bottom-[-2px] z-10"
+        alt={blockchainShortName}
+        className="rounded-full absolute w-[10px] md:w-[12px] h-[10px] md:h-[12px] right-[-2px] bottom-[-2px] z-10"
       />
     </div>
   );

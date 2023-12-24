@@ -1,10 +1,16 @@
-export interface RouteType {
+export interface BlockchainType {
   blockchain: string;
+  displayName: string;
+  logo: string;
+  shortName: string;
+  type: string;
+}
+
+export interface RouteType {
+  blockchainData: BlockchainType;
   symbol: string;
   decimals: number;
   name: string;
-  blockchainLogo: string;
-  blockchainType: string;
   expectedAmount: number;
   logo: string;
   price: number;
@@ -33,10 +39,7 @@ export interface WalletType {
 }
 
 export interface AssetType {
-  address: string;
-  blockchain: string;
-  blockchainLogo: string;
-  blockchainType: string;
+  blockchainData: BlockchainType;
   decimals: 18;
   expectedAmount: number;
   logo: string;

@@ -8,9 +8,9 @@ function SwapStepItemExpanded(props: SwapStepItemExpandedProps) {
   const {
     symbol: fromSymbol,
     name: fromName,
-    blockchain: fromBlockchain,
+    blockchainData: fromBlockchain,
   } = from;
-  const { symbol: toSymbol, name: toName, blockchain: toBlockchain } = to;
+  const { symbol: toSymbol, name: toName, blockchainData: toBlockchain } = to;
 
   return (
     <div
@@ -18,9 +18,11 @@ function SwapStepItemExpanded(props: SwapStepItemExpandedProps) {
         open ? 'max-h-[500px]' : 'max-h-0'
       }`}>
       <div className="pt-15 md:pt-35 text-14 md:text-22 text-primary-500">
-        {`Swap from ${fromSymbol || fromName} (on ${fromBlockchain}) to ${
+        {`Swap from ${
+          fromSymbol || fromName
+        } (on ${fromBlockchain?.shortName}) to ${
           toSymbol || toName
-        } (on ${toBlockchain})`}
+        } (on ${toBlockchain?.shortName})`}
       </div>
 
       <div className="pt-10 md:pt-25">

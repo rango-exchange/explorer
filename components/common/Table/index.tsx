@@ -4,7 +4,6 @@ import TableBody from './TableBody';
 
 function Table(props: TableProps) {
   const { data } = props;
-
   return (
     <div className="w-full">
       <TableHead />

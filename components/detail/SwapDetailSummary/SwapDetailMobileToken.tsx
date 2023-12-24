@@ -9,15 +9,11 @@ function SwapDetailMobileToken(props: SwapDetailItem) {
   const from = steps?.length ? steps[0].from : null;
   const to = steps?.length ? steps[steps.length - 1].to : null;
   const token = column.title === 'input' ? from : to;
-  const {
-    blockchain,
-    symbol,
-    blockchainLogo,
-    logo,
-    name,
-    realAmount,
-    expectedAmount,
-  } = token || {};
+  const { blockchainData, symbol, logo, name, realAmount, expectedAmount } =
+    token || {};
+
+  const { shortName: blockchainShortName, logo: blockchainLogo } =
+    blockchainData || {};
 
   const wallet = column.title === 'input' ? sourceWallet : destinationWallet;
 
@@ -82,14 +78,14 @@ function SwapDetailMobileToken(props: SwapDetailItem) {
               src={blockchainLogo}
               width={10}
               height={10}
-              alt={blockchain}
+              alt={blockchainShortName}
               className="absolute rounded-full right-[-2px] bottom-[-2px]"
             />
           </div>
           <div className="flex items-center px-5 text-14 text-primary-500">
             {symbol || name}
           </div>
-          <div className="text-neutral-400 text-12">{blockchain}</div>
+          <div className="text-neutral-400 text-12">{blockchainShortName}</div>
         </div>
       </div>
     </div>
