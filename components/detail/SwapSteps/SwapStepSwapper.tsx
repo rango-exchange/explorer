@@ -7,7 +7,6 @@ import { BorderColor } from './SwapSteps.helper';
 function SwapStepSwapper(props: SwapStepItemProps) {
   const { step } = props;
   const { from, to, swapper, internalPath, status } = step;
-
   const swappers: InternalPathType[] = [...internalPath];
   if (!swappers.length) swappers.push({ from, swapper, to });
 
@@ -37,8 +36,8 @@ function SwapStepSwapper(props: SwapStepItemProps) {
               />
               <div className="text-12 md:text-18 text-primary-500">
                 {internalSwapper?.swapperType === 'DEX'
-                  ? `Swap on ${internalFrom?.blockchain} via ${internalSwapper?.swapperTitle}`
-                  : `Bridge from ${internalFrom?.blockchain} to ${internalTo?.blockchain} via ${internalSwapper?.swapperTitle}`}
+                  ? `Swap on ${internalFrom?.blockchainData?.shortName} via ${internalSwapper?.swapperTitle}`
+                  : `Bridge from ${internalFrom?.blockchainData?.shortName} to ${internalTo?.blockchainData?.shortName} via ${internalSwapper?.swapperTitle}`}
               </div>
             </div>
           </>

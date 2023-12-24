@@ -14,7 +14,9 @@ function TokenCell(props: CellProps) {
       ? lastStep?.toToken
       : firstStep?.fromToken;
 
-  const { blockchain, blockchainLogo, logo, name, symbol } = token || {};
+  const { blockchainData, logo, name, symbol } = token || {};
+  const { shortName: blockchainShortName, logo: blockchainLogo } =
+    blockchainData || {};
 
   return (
     <>
@@ -32,7 +34,7 @@ function TokenCell(props: CellProps) {
           />
           <img
             src={blockchainLogo}
-            alt={blockchain}
+            alt={blockchainShortName}
             className="absolute rounded-full w-[12px] md:w-[15px] h-[12px] md:h-[15px] right-[-2px] bottom-[-2px] md:right-[-3px] md:bottom-[-3px]"
           />
         </div>
@@ -54,7 +56,7 @@ function TokenCell(props: CellProps) {
             </span>
           </div>
           <div className="text-12 leading-12 md:leading-14 md:mt-5 md:text-14 text-neutral-400">
-            {blockchain}
+            {blockchainShortName}
           </div>
         </div>
       </div>

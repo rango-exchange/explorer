@@ -13,7 +13,7 @@ function SwapDetailSummary(props: PropsType) {
         Swap Details
       </h1>
       <p className="text-14 md:text-22 text-primary-500 pt-15 md:pt-25">
-        {`Swap from ${from.symbol} (on ${from.blockchain}) to ${to.symbol} (on ${to.blockchain})`}
+        {`Swap from ${from.symbol} (on ${from?.blockchainData?.shortName}) to ${to.symbol} (on ${to?.blockchainData?.shortName})`}
       </p>
       <div className="pt-5 md:pt-15 flex md:items-center flex-col md:flex-row">
         <span className="text-12 md:text-16 text-primary-500 font-medium">
