@@ -15,3 +15,5 @@ export const STATUS: any = {
 export const SEARCH_RESULT_OFFSET = 14;
 
 export const API_URL = process.env.NEXT_PUBLIC_BASE_URL;
+export const DEFAULT_TOKEN_LOGO =
+  'https://app.rango.exchange/coins/unknown.png';

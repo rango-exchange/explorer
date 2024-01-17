@@ -9,7 +9,8 @@ function ButtonCopyIcon(props: PropsType) {
     text,
     className,
     hasTooltip = true,
-    tooltipText = 'Copied To Clipboard',
+    tooltipText = 'Copy To Clipboard',
+    copiedTooltipText = 'Copied To Clipboard',
   } = props;
   const [copied, setCopied] = useState<boolean>(false);
 
@@ -27,9 +28,9 @@ function ButtonCopyIcon(props: PropsType) {
       className={`flex items-center ${className || ''}`}
       onClick={handleClick}>
       {copied ? (
-        <>
+        <Tooltip label={copiedTooltipText}>
           <CheckIcon />
-        </>
+        </Tooltip>
       ) : (
         <>
           {hasTooltip ? (

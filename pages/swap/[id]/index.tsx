@@ -1,6 +1,5 @@
 import { GetServerSideProps } from 'next';
 import { useRouter } from 'next/router';
-import Error from 'next/error';
 import Link from 'next/link';
 import { DetailsType } from 'types';
 import Layout from 'components/common/Layout';
@@ -9,6 +8,7 @@ import { getTxDetails } from 'services';
 import { ChevronRightIcon } from 'components/icons';
 import SwapDetailSummary from 'components/detail/SwapDetailSummary';
 import SwapSteps from 'components/detail/SwapSteps';
+import Error from 'components/common/Error';
 
 interface PropsType {
   details: DetailsType;
@@ -21,7 +21,7 @@ function SwapDetails(props: PropsType) {
   const id = router.query.id as string;
 
   return status ? (
-    <Error statusCode={status} />
+    <Error />
   ) : (
     <Layout title={`Swap ${id}`}>
       <div>
@@ -55,10 +55,16 @@ export const getServerSideProps: GetServerSideProps<PropsType> = async ({
   const { id } = query;
   const details = await getTxDetails(id as string);
 
+  if (details.message === 'Transaction not found!') {
+    return {
+      notFound: true,
+    };
+  }
+
   return {
     props: {
-      details,
-      status: details?.error ? details?.status : 0,
+      details: details?.hasError ? {} : details,
+      status: details?.hasError ? 1 : 0,
     },
   };
 };

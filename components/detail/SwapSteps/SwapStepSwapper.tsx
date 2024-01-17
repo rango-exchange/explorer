@@ -3,6 +3,7 @@ import React from 'react';
 import { SwapStepItemProps } from './SwapSteps.type';
 import { InternalPathType } from 'types';
 import { BorderColor } from './SwapSteps.helper';
+import { DEFAULT_TOKEN_LOGO } from 'constant';
 
 function SwapStepSwapper(props: SwapStepItemProps) {
   const { step } = props;
@@ -31,7 +32,7 @@ function SwapStepSwapper(props: SwapStepItemProps) {
               className="flex items-center">
               <img
                 className={`mr-5 md:mr-10 border w-[1.375rem] md:w-[1.75rem] h-[1.375rem] md:h-[1.75rem] border-solid ${borderColor} rounded-full`}
-                src={internalSwapper?.swapperLogo}
+                src={internalSwapper?.swapperLogo || DEFAULT_TOKEN_LOGO}
                 alt={internalSwapper?.swapperTitle}
               />
               <div className="text-12 md:text-18 text-primary-500">

@@ -5,25 +5,30 @@ import { SwapStatus } from 'types';
 import ButtonCopyIcon from 'components/common/ButtonCopyIcon';
 import { LinkIcon } from 'components/icons';
 import TransactionURLMobileItem from './TransactionURLMobileItem';
+import { CapitalizeFirstLetter } from 'utils/capitalizeFirstLetter';
+import Tooltip from 'components/common/Tooltip';
+import Link from 'next/link';
 
 function TransactionURL(props: TransactionURLProps) {
   const { explorerUrls, status } = props;
-  const handleLink = (value: string) => {
-    if (value) window.open(value, '_blank');
+  const handleClick = (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
+    e.stopPropagation();
   };
 
   return (
     <>
       {explorerUrls.map((exploreItem, index) => {
         const { url, description } = exploreItem;
-        const overridedDescription = description + ' Transaction';
+        const overrideDescription = `${
+          description ? CapitalizeFirstLetter(description) : 'Swap'
+        } Transaction`;
         const transactionStatus: SwapStatus =
           index === explorerUrls.length - 1 ? status : 'success';
         return (
           <>
             <TransactionURLMobileItem
               key={url}
-              description={overridedDescription}
+              description={overrideDescription}
               transactionStatus={transactionStatus}
               url={url}
             />
@@ -33,18 +38,20 @@ function TransactionURL(props: TransactionURLProps) {
               <div className="flex items-center">
                 <IconStatus status={transactionStatus} />
                 <span className="pl-5 text-14 text-primary-500">
-                  {overridedDescription || 'Swap transaction'}
+                  {overrideDescription}
                 </span>
               </div>
               <div className="flex items-center">
                 <ButtonCopyIcon
                   className="mr-5"
-                  hasTooltip={false}
+                  tooltipText="Copy Transaction"
                   text={url}
                 />
-                <button onClick={() => handleLink(url)}>
-                  <LinkIcon className="text-neutral-400 hover:text-hoverIcon" />
-                </button>
+                <Tooltip label="View Transaction">
+                  <Link href={url} target="_blank" onClick={handleClick}>
+                    <LinkIcon className="text-neutral-400 hover:text-hoverIcon" />
+                  </Link>
+                </Tooltip>
               </div>
             </div>
           </>

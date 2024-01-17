@@ -17,6 +17,7 @@
     "@svgr/babel-plugin-remove-jsx-attribute": "^8.0.0",
     "@svgr/cli": "^8.1.0",
     "@visx/curve": "^2.1.0",
+    "@visx/gradient": "^3.3.0",
     "@visx/xychart": "^2.16.0",
     "dayjs": "^1.11.6",
     "eslint-config-next": "^13.0.4",

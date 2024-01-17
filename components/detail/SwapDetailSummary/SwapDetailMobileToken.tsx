@@ -1,6 +1,8 @@
 /* eslint-disable @next/next/no-img-element */
 import ButtonCopyIcon from 'components/common/ButtonCopyIcon';
 import { SwapDetailItem } from './SwapDetail.type';
+import Link from 'next/link';
+import { DEFAULT_TOKEN_LOGO } from 'constant';
 
 function SwapDetailMobileToken(props: SwapDetailItem) {
   const { details, column } = props;
@@ -16,10 +18,6 @@ function SwapDetailMobileToken(props: SwapDetailItem) {
     blockchainData || {};
 
   const wallet = column.title === 'input' ? sourceWallet : destinationWallet;
-
-  const handleClick = () => {
-    if (wallet?.explorer) window.open(wallet.explorer, '_blank');
-  };
 
   return (
     <div className="p-10 mb-10 rounded-micro bg-surfacesBackground">
@@ -49,11 +47,12 @@ function SwapDetailMobileToken(props: SwapDetailItem) {
           {column.title === 'input' ? 'Source Address' : 'Destination Address '}
         </div>
         <div className="flex items-center">
-          <button
-            onClick={() => handleClick()}
+          <Link
+            href={wallet?.explorer}
+            target="_blank"
             className="text-14 text-secondary-500 mr-5">
             {wallet?.address.slice(0, 20)}...
-          </button>
+          </Link>
           <ButtonCopyIcon text={wallet?.address} />
         </div>
       </div>
@@ -68,14 +67,14 @@ function SwapDetailMobileToken(props: SwapDetailItem) {
         <div className="flex items-center">
           <div className="relative">
             <img
-              src={logo}
+              src={logo || DEFAULT_TOKEN_LOGO}
               className="rounded-full"
               alt={name || symbol}
               width={18}
               height={18}
             />
             <img
-              src={blockchainLogo}
+              src={blockchainLogo || DEFAULT_TOKEN_LOGO}
               width={10}
               height={10}
               alt={blockchainShortName}

@@ -3,6 +3,7 @@ import IconStatus from 'components/common/IconStatus';
 import { TransactionURLItemProps } from './SwapSteps.type';
 import { CopyIcon, InfoIcon, LinkIcon, MoreIcon } from 'components/icons';
 import { CopyText } from 'utils/copyText';
+import Link from 'next/link';
 
 function TransactionURLMobileItem(props: TransactionURLItemProps) {
   const { description, url, transactionStatus } = props;
@@ -20,13 +21,9 @@ function TransactionURLMobileItem(props: TransactionURLItemProps) {
     }
   };
 
-  const handleLink = (
-    e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
-    value: string,
-  ) => {
+  const handleLink = (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
     if (e) e.stopPropagation();
     setOpen(false);
-    if (value) window.open(value, '_blank');
   };
 
   const handleOpen = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
@@ -74,12 +71,14 @@ function TransactionURLMobileItem(props: TransactionURLItemProps) {
               <CopyIcon className="text-neutral-400 mr-5" />
               <span className="text-12 text-primary-500">Copy</span>
             </button>
-            <button
-              onClick={(e) => handleLink(e, url)}
+            <Link
+              onClick={handleLink}
+              href={url}
+              target="_blank"
               className="flex items-center py-10 px-15 hover:bg-surfacesBackground ">
               <LinkIcon className="text-neutral-400 mr-5" />
               <span className="text-12 text-primary-500">Txn Hash</span>
-            </button>
+            </Link>
             <button
               onClick={() => setOpen(false)}
               className="flex items-center py-10 px-15 hover:bg-surfacesBackground ">

@@ -1,4 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
+import { DEFAULT_TOKEN_LOGO } from 'constant';
 import { CellProps } from '../Table.type';
 
 function TokenCell(props: CellProps) {
@@ -28,12 +29,12 @@ function TokenCell(props: CellProps) {
       <div className="flex md:col-span-2 items-start md:items-center md:p-15 lg:p-20">
         <div className="relative mr-10 shrink-0">
           <img
-            src={logo}
+            src={logo || DEFAULT_TOKEN_LOGO}
             alt={name || symbol}
             className="rounded-full w-[27px] md:w-[30px] h-[27px] md:h-[30px]"
           />
           <img
-            src={blockchainLogo}
+            src={blockchainLogo || DEFAULT_TOKEN_LOGO}
             alt={blockchainShortName}
             className="absolute rounded-full w-[12px] md:w-[15px] h-[12px] md:h-[15px] right-[-2px] bottom-[-2px] md:right-[-3px] md:bottom-[-3px]"
           />

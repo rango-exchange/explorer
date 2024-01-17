@@ -15,7 +15,7 @@ const Tooltip = (props: PropsWithChildren<PropsType>) => {
         <div
           style={{ boxShadow: '5px 5px 10px 0px rgba(0, 0, 0, 0.10)' }}
           className={`z-50 absolute flex items-center justify-center leading-[0.6875rem] text-11 bg-surfacesTooltip rounded-full
-           font-medium text-primary-500 py-5 px-10 whitespace-nowrap bottom-[-28] left-0}`}>
+           font-medium text-primary-500 py-5 px-10 whitespace-nowrap bottom-[-28px] left-0}`}>
           {label}
         </div>
       )}

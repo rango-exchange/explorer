@@ -12,7 +12,7 @@ function ChartBox(props: PropsType) {
   const [currentDays, setCurrentDays] = useState<ValidDaysFilter>(7);
 
   return (
-    <div className="md:pl-[60px]">
+    <div className="md:pl-[60px] h-full overflow-x-hidden">
       <div className="flex flex-col md:flex-row md:items-center md:justify-between pr-20 md:pr-[40px]">
         <div className="flex items-center bg-neutral-700 p-5 rounded-normal">
           {daysFilter.map((filterItem) => {

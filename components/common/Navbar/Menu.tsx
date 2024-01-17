@@ -43,7 +43,9 @@ function Menu(props: MenuProps) {
                   className="flex items-center hover:text-secondary-500"
                   href={item.location}>
                   <Icon size="1.12rem" className="text-secondary-500" />
-                  <span className="pl-1.5">{item.title}</span>
+                  <span className="pl-1.5 text-14 font-normal">
+                    {item.title}
+                  </span>
                 </Link>
               </li>
             );

@@ -1,4 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
+import { DEFAULT_TOKEN_LOGO } from 'constant';
 import { SwapDetailItem } from './SwapDetail.type';
 
 function SwapDetailChain(props: SwapDetailItem) {
@@ -14,14 +15,14 @@ function SwapDetailChain(props: SwapDetailItem) {
     <div className="flex col-span-2 items-center h-[3.75rem] p-18">
       <div className="relative mr-10">
         <img
-          src={logo}
+          src={logo || DEFAULT_TOKEN_LOGO}
           className="rounded-full"
           alt={name || symbol}
           width={30}
           height={30}
         />
         <img
-          src={blockchainLogo}
+          src={blockchainLogo || DEFAULT_TOKEN_LOGO}
           width={15}
           height={15}
           alt={blockchainShortName}
