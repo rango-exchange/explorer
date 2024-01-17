@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import { SwapDetailItem } from './SwapDetail.type';
 import ButtonCopyIcon from 'components/common/ButtonCopyIcon';
 
@@ -8,16 +9,15 @@ function SwapDetailAddress(props: SwapDetailItem) {
   const wallet =
     column.title === 'Source Address' ? sourceWallet : destinationWallet;
 
-  const handleClick = () => {
-    if (wallet?.explorer) window.open(wallet.explorer, '_blank');
-  };
-
   return (
     <div className="flex col-span-3 items-center h-[3.75rem] p-18">
-      <button onClick={() => handleClick()} className="text-secondary-500 mr-5">
+      <Link
+        href={wallet?.explorer}
+        target="_blank"
+        className="text-secondary-500 mr-5">
         {wallet?.address}
-      </button>
-      <ButtonCopyIcon text={wallet?.address} />
+      </Link>
+      <ButtonCopyIcon tooltipText="Copy Address" text={wallet?.address} />
     </div>
   );
 }

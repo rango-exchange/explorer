@@ -10,7 +10,7 @@ export const getLastSwaps = async () =>
     .then((data) => data?.transactions || data)
     .catch((error) => {
       console.error('There was an error!', error);
-      return error;
+      return { hasError: true, status: error };
     });
 
 export const getSummary = async () =>
@@ -19,7 +19,7 @@ export const getSummary = async () =>
     .then((data) => data)
     .catch((error) => {
       console.error('There was an error!', error);
-      return error;
+      return { hasError: true, status: error };
     });
 
 export const getSearchResult = async (query: string) =>
@@ -30,7 +30,7 @@ export const getSearchResult = async (query: string) =>
     .then((data) => data?.searchResult || data)
     .catch((error) => {
       console.error('There was an error!', error);
-      return [];
+      return { hasError: true, status: error };
     });
 
 export const getWalletSwaps = async (address: string, page?: number) =>
@@ -38,15 +38,20 @@ export const getWalletSwaps = async (address: string, page?: number) =>
     `${API_URL}/tx/wallet?walletAddress=${address}&offset=${SEARCH_RESULT_OFFSET}&page=${
       page || 0
     }&apiKey=${process.env.NEXT_PUBLIC_API_KEY}`,
-  ).then(async (res) => await res.json());
+  )
+    .then(async (res) => await res.json())
+    .catch((error) => {
+      console.error('There was an error!', error);
+      return { hasError: true, status: error };
+    });
 
 export const getTxDetails = async (requestId: string) =>
   await fetch(
-    `${API_URL}/tx/detail?requestId=${requestId}&count=10&apiKey=${process.env.NEXT_PUBLIC_API_KEY}`,
+    `${API_URL}/tx/detail?requestId=${requestId}&apiKey=${process.env.NEXT_PUBLIC_API_KEY}`,
   )
     .then(async (res) => await res.json())
     .then((data) => data?.detailedTransaction || data)
     .catch((error) => {
       console.error('There was an error!', error);
-      return error;
+      return { hasError: true, status: error };
     });

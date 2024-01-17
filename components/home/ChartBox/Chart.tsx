@@ -5,11 +5,14 @@ import {
   AnimatedLineSeries,
   XYChart,
   Tooltip,
+  AreaSeries,
 } from '@visx/xychart';
 import { customTheme, daysFilter, getDayOfMonth } from './Chart.helper';
 import { CustomTick } from './CustomTick';
 import { ChartProps } from './Chart.type';
 import isMobile from 'is-mobile';
+
+import { LinearGradient } from '@visx/gradient';
 
 const Chart = (props: ChartProps) => {
   const IsMobile = isMobile({ tablet: true });
@@ -29,10 +32,10 @@ const Chart = (props: ChartProps) => {
     });
 
   return (
-    <div className="w-full">
+    <div className="w-[calc(100%+1.625rem)] md:w-[calc(100%+0.6rem)] h-[240px] md:h-[338px]">
       <XYChart
         theme={customTheme}
-        height={IsMobile ? 240 : 300}
+        height={IsMobile ? 240 : 338}
         xScale={{ type: 'band' }}
         yScale={{ type: 'linear' }}>
         <AnimatedAxis
@@ -62,26 +65,30 @@ const Chart = (props: ChartProps) => {
         />
 
         {days === 90 && (
-          <AnimatedLineSeries
-            curve={curveCardinal}
-            dataKey="Last Season"
-            data={data}
-            stroke="#469BF5"
-            xAccessor={(d) => d.date}
-            yAccessor={(d) => d.count}
-          />
+          <>
+            <AreaSeries
+              dataKey="Last Season"
+              data={data}
+              xAccessor={(d) => d.date}
+              yAccessor={(d) => d.count}
+              curve={curveCardinal}
+              strokeWidth={1}
+              stroke="url(#area-gradient)"
+              fill="url(#area-gradient)"
+            />
+            <LinearGradient
+              id="area-gradient"
+              from="rgba(70, 155, 245, 0.10)"
+              fromOpacity={1}
+              to="rgba(15, 20, 46, 0)"
+              toOpacity={1}
+            />
+          </>
         )}
 
         {days !== 90 && currentPeriod && prevPeriod && (
           <>
-            <AnimatedLineSeries
-              curve={curveCardinal}
-              dataKey={`Current ${currentFilter ? currentFilter.name : ''}`}
-              data={currentPeriod}
-              stroke="#469BF5"
-              xAccessor={(d) => d.date}
-              yAccessor={(d) => d.count}
-            />
+            {/* previous chart only for week and month */}
             <AnimatedLineSeries
               curve={curveCardinal}
               dataKey={`Prev ${currentFilter ? currentFilter.name : ''}`}
@@ -89,6 +96,25 @@ const Chart = (props: ChartProps) => {
               stroke="#242D5B"
               xAccessor={(d) => d.date}
               yAccessor={(d) => d.count}
+            />
+
+            {/* current chart only for week and month */}
+            <AreaSeries
+              dataKey={`Current ${currentFilter ? currentFilter.name : ''}`}
+              data={currentPeriod}
+              xAccessor={(d) => d.date}
+              yAccessor={(d) => d.count}
+              curve={curveCardinal}
+              strokeWidth={1}
+              stroke="url(#area-gradient)"
+              fill="url(#area-gradient)"
+            />
+            <LinearGradient
+              id="area-gradient"
+              from="rgba(70, 155, 245, 0.10)"
+              fromOpacity={1}
+              to="rgba(15, 20, 46, 0)"
+              toOpacity={1}
             />
           </>
         )}

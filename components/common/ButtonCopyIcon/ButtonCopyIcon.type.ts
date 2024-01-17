@@ -7,4 +7,5 @@ export type PropsType = ButtonOnclick & {
   className?: string;
   hasTooltip?: boolean;
   tooltipText?: string;
+  copiedTooltipText?: string;
 };

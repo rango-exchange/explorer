@@ -51,7 +51,7 @@ function SwapDetailValue(props: SwapDetailItem) {
           {dayjs
             .utc(creationDate)
             .local()
-            .format('MMMM DD, YYYY | HH:mm:ss')
+            .format('MMMM D, YYYY | hh:mm:ss A')
             .toString()}
         </span>
       )}

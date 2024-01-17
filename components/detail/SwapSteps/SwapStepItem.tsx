@@ -18,12 +18,12 @@ function SwapStepItem(props: SwapStepItemProps) {
     <>
       <div
         onClick={() => setIsOpen(!isOpen)}
-        className={`py-15 px-10 md:p-25 w-full cursor-pointer rounded-soft md:rounded-normal border-solid ${borderColor} border`}>
+        className={`py-15 px-10 md:p-25 w-full cursor-pointer rounded-soft md:rounded-normal border-solid ${borderColor} border group`}>
         <div className="flex justify-between">
           <SwapStepSwapper step={step} />
           <button
             onClick={() => setIsOpen(!isOpen)}
-            className="w-[26px] h-[26px] hidden md:flex text-neutral-400 hover:text-hoverIcon p-5 bg-surfacesBackground hover:bg-hoverBackground items-center justify-center cursor-pointer rounded-full">
+            className="w-[26px] h-[26px] hidden md:flex text-neutral-400 group-hover:text-hoverIcon p-5 bg-surfacesBackground group-hover:bg-hoverBackground items-center justify-center cursor-pointer rounded-full">
             {isOpen ? (
               <ChevronUpIcon size="0.625rem" />
             ) : (

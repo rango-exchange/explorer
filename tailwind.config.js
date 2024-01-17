@@ -141,6 +141,14 @@ module.exports = {
         },
       },
       keyframes: {
+        wave: {
+          '0%': {
+            backgroundPosition: '-468px 0',
+          },
+          '100%': {
+            backgroundPosition: '468px 0',
+          },
+        },
         ['mount']: {
           '0%': {
             opacity: 0,
@@ -153,6 +161,7 @@ module.exports = {
         },
       },
       animation: {
+        wave: 'wave 2s infinite ease-out',
         ['mount']: 'mount 0.4s linear',
       },
       boxShadow: {

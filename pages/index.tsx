@@ -2,13 +2,13 @@ import { GetServerSideProps } from 'next';
 import { useEffect, useState } from 'react';
 import { getLastSwaps, getSummary } from '../services';
 import { SummaryType, SwapType } from '../types';
-import Error from 'next/error';
 import ChartBox from 'components/home/ChartBox';
 import Layout from 'components/common/Layout';
 import SearchBox from 'components/common/SearchBox';
 import Summary from 'components/home/Summary';
-import { RefreshIcon } from 'components/icons';
 import Table from 'components/common/Table';
+import Error from 'components/common/Error';
+import RefreshButton from 'components/common/RefreshButton';
 
 interface PropsType {
   swaps: SwapType[];
@@ -16,38 +16,43 @@ interface PropsType {
   status: number;
 }
 
+const REFRESH_TIME = 30;
+
 function Home(props: PropsType) {
   const { swaps, summary, status } = props;
   const [lastSwaps, setLastSwaps] = useState<SwapType[]>([]);
-  const [second, setSecond] = useState(30);
+  const [second, setSecond] = useState(REFRESH_TIME);
+
+  const handleRefreshClick = async () => {
+    const swaps = await getLastSwaps();
+    if (Array.isArray(swaps)) setLastSwaps(swaps);
+    setSecond(REFRESH_TIME);
+  };
 
   useEffect(() => {
     const interval = setInterval(async () => {
-      let sec = second - 1;
-      if (sec === 0) {
-        const swaps = await getLastSwaps();
-        if (Array.isArray(swaps)) setLastSwaps(swaps);
-        sec = 30;
+      if (second > 0) {
+        setSecond(second - 1);
       }
-      setSecond(sec);
     }, 1000);
 
     return () => clearInterval(interval);
   }, [second]);
+
   useEffect(() => setLastSwaps(swaps), []);
 
   return status ? (
-    <Error statusCode={status} />
+    <Error />
   ) : (
     <Layout title="Rango Exchange Explorer">
       <div>
         <div className="flex flex-col items-center relative bg-baseBackground h-[595px] md:h-[662px]">
           <SearchBox />
-          <div className="w-[calc(100%-3.125rem)] md:container bg-neutral-500 absolute p-20 md:p-[40px] pr-0 md:pr-0 flex flex-col-reverse  md:flex-row items-center justify-between bottom-0 rounded-normal translate-y-[50%]">
+          <div className="w-[calc(100%-3.125rem)] md:container bg-neutral-500 absolute p-20 md:p-[40px] pr-0 md:pr-0 flex flex-col-reverse  md:flex-row  justify-between bottom-0 rounded-normal translate-y-[50%]">
             <div className="w-full md:w-[36%]">
               <Summary summary={summary} />
             </div>
-            <div className="w-full md:w-[64%]">
+            <div className="w-full h-full md:w-[64%]">
               <ChartBox data={summary.dailyInterval} />
             </div>
           </div>
@@ -65,9 +70,12 @@ function Home(props: PropsType) {
                   </p>
                 </div>
                 <div className="flex items-center pt-10">
-                  <RefreshIcon className="pr-5 text-neutral-400" />
+                  <RefreshButton
+                    refreshTime={REFRESH_TIME - 1}
+                    onClick={handleRefreshClick}
+                  />
                   <span className="text-10 md:text-14 text-neutral-400">
-                    Refresh in {second} seconds
+                    Refresh in {second > 9 ? second : `0${second}`} seconds
                   </span>
                 </div>
               </div>
@@ -87,10 +95,9 @@ export const getServerSideProps: GetServerSideProps<PropsType> = async () => {
   const summary = await getSummary();
   return {
     props: {
-      swaps,
-      summary,
-      status:
-        swaps?.error || summary?.error ? swaps?.status || summary?.status : 0,
+      swaps: swaps.hasError ? {} : swaps,
+      summary: summary.hasError ? {} : summary,
+      status: swaps?.hasError || summary?.hasError ? 1 : 0,
     },
   };
 };
