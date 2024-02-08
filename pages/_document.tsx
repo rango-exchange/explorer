@@ -8,10 +8,10 @@ import Document, {
   DocumentContext,
 } from 'next/document';
 
-const description = 'Track all transactions on Rango Exchange';
-const socialTitle = 'Rango Exchange Explorer';
+const description = 'Track all transactions on Defispot Exchange';
+const socialTitle = 'Defispot Explorer';
 const BASE_URL = 'https://scan.rango.exchange';
-const APP_NAME = 'Rango Exchange Explorer';
+const APP_NAME = 'Defispot Explorer';
 
 class MyDocument extends Document {
   static async getInitialProps(ctx: DocumentContext) {

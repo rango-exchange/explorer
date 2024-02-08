@@ -1,4 +1,4 @@
-# Rango Exchange Explorer
+# Defispot Explorer
 
 Track all transactions on Rango Exchange API using [Rango Explorer](http://explorer.rango.exchange/).
 
