@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import Link from 'next/link';
-import coloredLogo from 'public/logo.svg';
+import coloredLogo from 'public/logo-with-text.svg';
 import rangoLogo from 'public/logo-with-text.svg';
 import { DeviceProps } from './Navbar.type';
 import MobileMenu from './MobileMenu';

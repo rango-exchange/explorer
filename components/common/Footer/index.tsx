@@ -1,4 +1,4 @@
-import { documentation, products, socialMedia } from './Footer.helper';
+import { documentation, socialMedia } from './Footer.helper';
 import ListItem from './ListItem';
 import { LinkButton } from 'components/common/Button/LinkButton';
 
@@ -26,26 +26,17 @@ function Footer() {
           <div className="mx-auto flex container  flex-col justify-between px-30 md:flex-row md:px-0">
             <div className="mb-10 text-left md:mb-0 md:max-w-[19.4375rem]">
               <h3 className="mb-3.5 text-left text-16 md:text-22	font-medium text-baseForeground md:text-[1.1rem] md:leading-[1.4rem]">
-                About Rango
+                About Defispot
               </h3>
               <p className="w-full text-12 md:text-16 font-medium leading-[1.5rem] text-neutral-200	">
-                Rango is a cutting-edge routing and aggregation protocol for all
-                cross-chain and on-chain swaps, aggregating bridges and DEXs in
-                crypto world. You can swap native assets like Bitcoin, Ethereum,
-                Matic, ... to each other in a decentralized manner.
+                Defispot revolutionizes DeFi trading with secure access to over
+                $20B in liquidity across 520 sources on 32 blockchains, offering
+                cross-chain swaps and advanced tools. It enhances user
+                experiences with a robust API. Defispot aims to boost DeFi boost
+                DeFi engagement through efficient and intelligent solutions.
               </p>
             </div>
             <div className="grid grid-cols-2 md:flex md:w-[50%] md:justify-around mt-40 md:mt-0 md:mb-10">
-              <div>
-                <h3 className="mb-3 text-left text-14 md:text-22 font-medium	text-baseForeground	md:mb-3.5 md:text-[1.1rem] md:leading-[1.4rem]">
-                  Products
-                </h3>
-                <ul className="w-full">
-                  {products.map((link, index) => (
-                    <ListItem key={index} {...link} />
-                  ))}
-                </ul>
-              </div>
               <div className="mb-10">
                 <h3 className="mb-3 text-left text-14 md:text-22 font-medium	text-baseForeground	md:mb-3.5 md:leading-[1.4rem]">
                   Documentation

@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 
-import rangoLogo from 'public/logo.svg';
+import rangoLogo from 'public/logo-with-text.svg';
 import { MobileMenuProps } from './Navbar.type';
 import { useRouter } from 'next/router';
 
