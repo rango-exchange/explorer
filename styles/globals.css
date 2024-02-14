@@ -222,6 +222,12 @@ span.ripple {
   -webkit-background-size: 100% 100%;
 }
 
+.visx-tooltip-glyph svg{
+  width: 40px;
+  height: 40px;
+}
+
+
 @-moz-document url-prefix() {
   .mask-2 {
     background-size: 100% 100%;
