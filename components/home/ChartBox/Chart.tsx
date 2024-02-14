@@ -32,111 +32,109 @@ const Chart = (props: ChartProps) => {
     });
 
   return (
-    <div className="w-[calc(100%+1.625rem)] md:w-[calc(100%+0.6rem)] h-[240px] md:h-[338px]">
-      <XYChart
-        theme={customTheme}
-        height={IsMobile ? 240 : 338}
-        xScale={{ type: 'band' }}
-        yScale={{ type: 'linear' }}>
-        <AnimatedAxis
-          tickComponent={(props) => (
-            <CustomTick dxValue={days === 7 ? 15 : 30} {...props} />
-          )}
-          orientation="bottom"
-          hideTicks
-          numTicks={IsMobile ? 3 : 7}
-          tickFormat={(d) => getDayOfMonth(d)}
-        />
-        <AnimatedAxis
-          orientation="left"
-          hideAxisLine
-          hideTicks
-          numTicks={3}
-          tickComponent={(props) => <CustomTick {...props} />}
-        />
-        <AnimatedGrid
-          lineStyle={{
-            stroke: 'rgba(184, 184, 184, 0.30)',
-            strokeLinecap: 'round',
-            strokeWidth: 1,
-          }}
-          columns={false}
-          numTicks={3}
-        />
-
-        {days === 90 && (
-          <>
-            <AreaSeries
-              dataKey="Last Season"
-              data={data}
-              xAccessor={(d) => d.date}
-              yAccessor={(d) => d.count}
-              curve={curveCardinal}
-              strokeWidth={1}
-              stroke="url(#area-gradient)"
-              fill="url(#area-gradient)"
-            />
-            <LinearGradient
-              id="area-gradient"
-              from="rgba(70, 155, 245, 0.10)"
-              fromOpacity={1}
-              to="rgba(15, 20, 46, 0)"
-              toOpacity={1}
-            />
-          </>
+    <XYChart
+      theme={customTheme}
+      height={IsMobile ? 240 : 338}
+      xScale={{ type: 'band' }}
+      yScale={{ type: 'linear' }}>
+      <AnimatedAxis
+        tickComponent={(props) => (
+          <CustomTick dxValue={days === 7 ? 15 : 30} {...props} />
         )}
+        orientation="bottom"
+        hideTicks
+        numTicks={IsMobile ? 3 : 7}
+        tickFormat={(d) => getDayOfMonth(d)}
+      />
+      <AnimatedAxis
+        orientation="left"
+        hideAxisLine
+        hideTicks
+        numTicks={3}
+        tickComponent={(props) => <CustomTick {...props} />}
+      />
+      <AnimatedGrid
+        lineStyle={{
+          stroke: 'rgba(184, 184, 184, 0.30)',
+          strokeLinecap: 'round',
+          strokeWidth: 1,
+        }}
+        columns={false}
+        numTicks={3}
+      />
 
-        {days !== 90 && currentPeriod && prevPeriod && (
-          <>
-            {/* previous chart only for week and month */}
-            <AnimatedLineSeries
-              curve={curveCardinal}
-              dataKey={`Prev ${currentFilter ? currentFilter.name : ''}`}
-              data={prevPeriod}
-              stroke="#242D5B"
-              xAccessor={(d) => d.date}
-              yAccessor={(d) => d.count}
-            />
+      {days === 90 && (
+        <>
+          <AreaSeries
+            dataKey="Last Season"
+            data={data}
+            xAccessor={(d) => d.date}
+            yAccessor={(d) => d.count}
+            curve={curveCardinal}
+            strokeWidth={1}
+            stroke="url(#area-gradient)"
+            fill="url(#area-gradient)"
+          />
+          <LinearGradient
+            id="area-gradient"
+            from="rgba(70, 155, 245, 0.10)"
+            fromOpacity={1}
+            to="rgba(15, 20, 46, 0)"
+            toOpacity={1}
+          />
+        </>
+      )}
 
-            {/* current chart only for week and month */}
-            <AreaSeries
-              dataKey={`Current ${currentFilter ? currentFilter.name : ''}`}
-              data={currentPeriod}
-              xAccessor={(d) => d.date}
-              yAccessor={(d) => d.count}
-              curve={curveCardinal}
-              strokeWidth={1}
-              stroke="url(#area-gradient)"
-              fill="url(#area-gradient)"
-            />
-            <LinearGradient
-              id="area-gradient"
-              from="rgba(70, 155, 245, 0.10)"
-              fromOpacity={1}
-              to="rgba(15, 20, 46, 0)"
-              toOpacity={1}
-            />
-          </>
+      {days !== 90 && currentPeriod && prevPeriod && (
+        <>
+          {/* previous chart only for week and month */}
+          <AnimatedLineSeries
+            curve={curveCardinal}
+            dataKey={`Prev ${currentFilter ? currentFilter.name : ''}`}
+            data={prevPeriod}
+            stroke="#242D5B"
+            xAccessor={(d) => d.date}
+            yAccessor={(d) => d.count}
+          />
+
+          {/* current chart only for week and month */}
+          <AreaSeries
+            dataKey={`Current ${currentFilter ? currentFilter.name : ''}`}
+            data={currentPeriod}
+            xAccessor={(d) => d.date}
+            yAccessor={(d) => d.count}
+            curve={curveCardinal}
+            strokeWidth={1}
+            stroke="url(#area-gradient)"
+            fill="url(#area-gradient)"
+          />
+          <LinearGradient
+            id="area-gradient"
+            from="rgba(70, 155, 245, 0.10)"
+            fromOpacity={1}
+            to="rgba(15, 20, 46, 0)"
+            toOpacity={1}
+          />
+        </>
+      )}
+
+      <Tooltip
+        snapTooltipToDatumX
+        snapTooltipToDatumY
+        showDatumGlyph
+        applyPositionStyle={true}
+        style={{
+          background: 'transparent',
+        }}
+        unstyled={false}
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        renderTooltip={({ tooltipData }: any) => (
+          <div className="bg-tooltipBackground px-[8px] py-[4px] rounded-[8px] text-baseForeground text-12">
+            {tooltipData.nearestDatum.datum.count}
+          </div>
         )}
-
-        <Tooltip
-          snapTooltipToDatumX
-          snapTooltipToDatumY
-          showDatumGlyph
-          applyPositionStyle={true}
-          style={{
-            background: 'transparent',
-          }}
-          unstyled={false}
-          // eslint-disable-next-line @typescript-eslint/no-explicit-any
-          renderTooltip={({ tooltipData }: any) => (
-            <div className="bg-tooltipBackground px-[8px] py-[4px] rounded-[8px] text-baseForeground text-12">
-              {tooltipData.nearestDatum.datum.count}
-            </div>
-          )}
-        />
-      </XYChart>
-    </div>
+      />
+    </XYChart>
   );
 };
 
