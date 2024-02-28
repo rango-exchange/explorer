@@ -15,11 +15,11 @@ export const links: Array<LinkTypes | MenuTypes> = [
     openInNewTab: false,
   },
   {
-    location: 'https://app.rango.exchange',
-    title: 'Rango App',
+    location: '/transactions',
+    title: 'Transactions',
     id: 2,
     type: 'link',
-    openInNewTab: true,
+    openInNewTab: false,
   },
   {
     title: 'Resources',

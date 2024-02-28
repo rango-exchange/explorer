@@ -9,6 +9,7 @@ import Summary from 'components/home/Summary';
 import Table from 'components/common/Table';
 import Error from 'components/common/Error';
 import RefreshButton from 'components/common/RefreshButton';
+import Link from 'next/link';
 
 interface PropsType {
   swaps: SwapType[];
@@ -84,6 +85,9 @@ function Home(props: PropsType) {
               </div>
             </div>
           </div>
+        </div>
+        <div className="flex justify-center pt-4 text-neutral-400 cursor-pointer">
+          <Link href="/transactions">See All Transactions</Link>
         </div>
       </div>
     </Layout>

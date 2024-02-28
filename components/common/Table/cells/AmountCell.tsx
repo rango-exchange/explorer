@@ -1,18 +1,18 @@
 import { GassIcon } from 'components/icons';
 import { CellProps } from '../Table.type';
-import { getPercentageChange } from 'utils/amountConverter';
+// import { getPercentageChange } from 'utils/amountConverter';
 
 function AmountCell(props: CellProps) {
   const { swapItem, column } = props;
   const { stepsSummary } = swapItem;
-  const fromToken = stepsSummary.length ? stepsSummary[0]?.fromToken : null;
+  // const fromToken = stepsSummary.length ? stepsSummary[0]?.fromToken : null;
   const toToken = stepsSummary.length
     ? stepsSummary[stepsSummary.length - 1]?.toToken
     : null;
 
-  const usdFromAmount = fromToken?.price
-    ? fromToken.price * (fromToken.realAmount || fromToken.expectedAmount)
-    : null;
+  // const usdFromAmount = fromToken?.price
+  //   ? fromToken.price * (fromToken.realAmount || fromToken.expectedAmount)
+  //   : null;
 
   const usdToRealAmount =
     toToken?.price && toToken?.realAmount
@@ -24,14 +24,14 @@ function AmountCell(props: CellProps) {
       ? toToken.price * toToken.expectedAmount
       : null;
 
-  const realChangePercentage = getPercentageChange(
-    usdFromAmount,
-    usdToRealAmount,
-  );
-  const expectedChangePercentage = getPercentageChange(
-    usdFromAmount,
-    usdToExpectedAmount,
-  );
+  // const realChangePercentage = getPercentageChange(
+  //   usdFromAmount,
+  //   usdToRealAmount,
+  // );
+  // const expectedChangePercentage = getPercentageChange(
+  //   usdFromAmount,
+  //   usdToExpectedAmount,
+  // );
   const gasFee = stepsSummary.reduce((acc, cur) => {
     if (cur?.feeUsd) return acc + cur.feeUsd;
     return acc;
@@ -52,13 +52,13 @@ function AmountCell(props: CellProps) {
               ? `$${usdToRealAmount.toFixed(2)}`
               : `~$${usdToExpectedAmount?.toFixed(2)}`}
           </span>
-          <span>
+          {/* <span>
             {usdToRealAmount
               ? `(${realChangePercentage}%)`
               : expectedChangePercentage
                 ? `(${expectedChangePercentage}%)`
                 : ''}
-          </span>
+          </span> */}
         </div>
       )}
       <div className="text-12 md:text-14 flex items-center">
