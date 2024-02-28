@@ -4,9 +4,9 @@ import useSWR from 'swr';
 import Layout from 'components/common/Layout';
 import Result from 'components/transactions/Result';
 import NotFound from 'components/search/NotFound';
-import TableLoading from 'components/common/Table/TableLoading';
 import Error from 'components/common/Error';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import Loading from 'components/transactions/Loading';
 
 const FILTER_ITEMS = [
   {
@@ -15,7 +15,7 @@ const FILTER_ITEMS = [
   },
   {
     name: 'success',
-    title: 'Complete',
+    title: 'Success',
   },
   {
     name: 'running',
@@ -28,10 +28,25 @@ const FILTER_ITEMS = [
 ];
 function Transactions() {
   const [status, setStatus] = useState(FILTER_ITEMS[0].name);
+  const [count, setCount] = useState(0);
   const router = useRouter();
   const { query, page } = router.query;
-  const { data } = useSWR([page, status], getTransactions);
+  const { data } = useSWR([count], () =>
+    getTransactions(page as unknown as number, status),
+  );
   const { transactions, total } = data || {};
+
+  useEffect(() => {
+    if (page === '0') setCount((prev) => prev + 1);
+    router.push({
+      pathname: router.pathname,
+      query: { page: 0 },
+    });
+  }, [status]);
+
+  useEffect(() => {
+    setCount((prev) => prev + 1);
+  }, [page]);
 
   return data && data?.hasError ? (
     <Error />
@@ -41,13 +56,12 @@ function Transactions() {
         <div className="w-full flex justify-center">
           {data && (
             <>
-              {transactions && transactions.length ? (
+              {transactions?.length ? (
                 <Result
                   total={total}
                   filterItems={FILTER_ITEMS}
                   page={Number(page || 0)}
                   data={transactions}
-                  query={query as string}
                   status={status}
                   setStatus={setStatus}
                 />
@@ -56,7 +70,7 @@ function Transactions() {
               )}
             </>
           )}
-          {!data && <TableLoading />}
+          {!data && <Loading />}
         </div>
       </div>
     </Layout>

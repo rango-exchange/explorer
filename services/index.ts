@@ -60,7 +60,10 @@ export const getTxDetails = async (requestId: string) =>
       return { hasError: true, status: error };
     });
 
-export const getTransactions = async (page?: number, status?: string) => {
+export const getTransactions = async (
+  page?: number | string,
+  status?: string,
+) => {
   let statusParam = '';
   if (status && status !== 'all') {
     statusParam = status;
