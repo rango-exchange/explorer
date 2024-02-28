@@ -1,7 +1,5 @@
-import { GetServerSideProps } from 'next';
 import { useRouter } from 'next/router';
-import { getSearchResult, getTransactions } from '../services';
-import { MATCH_TYPE } from '../constant';
+import { getTransactions } from '../services';
 import useSWR from 'swr';
 import Layout from 'components/common/Layout';
 import Result from 'components/transactions/Result';
@@ -38,7 +36,7 @@ function Transactions() {
   return data && data?.hasError ? (
     <Error />
   ) : (
-    <Layout title={`Address ${query as string}`}>
+    <Layout title="Transactions">
       <div>
         <div className="w-full flex justify-center">
           {data && (
@@ -65,20 +63,4 @@ function Transactions() {
   );
 }
 
-export const getServerSideProps: GetServerSideProps = async (context) => {
-  const { query } = context?.query || {};
-  const result = await getSearchResult(query as string);
-  if (result?.hasError) return { props: { status: 1 } };
-  if (result?.length && result[0].matchType === MATCH_TYPE.REQUESTID) {
-    return {
-      redirect: {
-        permanent: false,
-        destination: `/swap/${query as string}`,
-      },
-    };
-  }
-  return {
-    props: {},
-  };
-};
 export default Transactions;
