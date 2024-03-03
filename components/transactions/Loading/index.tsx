@@ -4,7 +4,6 @@ import { Skeleton } from 'components/common/Skeleton';
 import TableHead from 'components/common/Table/TableHead';
 
 function Loading() {
-  const id = useId();
   return (
     <div className="w-[calc(100%-3.125rem)] md:container mt-30  md:mt-[3.125rem] rounded-normal bg-baseForeground  px-15 py-20 md:p-35 overflow-hidden">
       <div className="flex flex-col">
@@ -21,6 +20,7 @@ function Loading() {
             <TableHead />
             <div className="w-full">
               {Array.from({ length: 14 }, () => {
+                const id = useId();
                 return (
                   <div
                     key={id}
