@@ -1,16 +1,16 @@
-name: Vercel Dapp Production Deployment
+name: Vercel Dapp TW Production Deployment
 env:
   VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
   VERCEL_PROJECT_ID: ${{ secrets.VERCEL_DAPP_EXPLORER_PROJECT_ID }}
   NEXT_PUBLIC_BASE_URL: ${{ secrets.NEXT_PUBLIC_BASE_URL }}
-  NEXT_PUBLIC_API_KEY: ${{ secrets.NEXT_DAPP_EXPLORER_PUBLIC_API_KEY }} 
-  NEXT_PUBLIC_SECRET_KEY: ${{ secrets.NEXT_DAPP_EXPLORER_PUBLIC_SECRET_KEY }} 
+  NEXT_PUBLIC_API_KEY: ${{ secrets.NEXT_DAPP_EXPLORER_PUBLIC_API_KEY }}
+  NEXT_PUBLIC_SECRET_KEY: ${{ secrets.NEXT_DAPP_EXPLORER_PUBLIC_SECRET_KEY }}
 on:
   push:
     branches:
       - dapp-main
 jobs:
-  Deploy-Production:
+  Deploy-Dapp-TW-Production:
     runs-on: ubuntu-latest
     environment:
       name: dapp-production
