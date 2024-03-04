@@ -25,6 +25,7 @@ export interface StepSummary {
   stepNumber: number;
   fromToken: RouteType;
   toToken: RouteType;
+  swapper?: SwapperType;
 }
 export interface SwapType {
   requestId: string;
@@ -84,6 +85,9 @@ export interface StepType {
   sourceWallet: WalletType;
   destinationWallet: WalletType;
   startTime: number;
+  failureType?: string;
+  failureReason?: string;
+  outputToken?: AssetType;
 }
 
 export interface DetailsType {

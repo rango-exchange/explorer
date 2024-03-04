@@ -12,6 +12,7 @@ export interface SwapStepItemProps {
 
 export interface SwapStepChainLogoProps {
   token: AssetType;
+  refundedToken?: AssetType;
   firstStep?: boolean;
 }
 

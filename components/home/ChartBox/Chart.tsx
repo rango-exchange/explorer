@@ -1,4 +1,4 @@
-import { curveCardinal } from '@visx/curve';
+import { curveMonotoneX } from '@visx/curve';
 import {
   AnimatedAxis,
   AnimatedGrid,
@@ -13,10 +13,11 @@ import { ChartProps } from './Chart.type';
 import isMobile from 'is-mobile';
 
 import { LinearGradient } from '@visx/gradient';
+import { AmountConverter } from 'utils/amountConverter';
 
 const Chart = (props: ChartProps) => {
   const IsMobile = isMobile({ tablet: true });
-  const { data, days } = props;
+  const { data, days, label } = props;
   const currentFilter = daysFilter.find((item) => item.days === days);
   const currentPeriod = currentFilter?.hasPrevious
     ? data.slice(days * -1).map((item) => ({ ...item }))
@@ -70,7 +71,7 @@ const Chart = (props: ChartProps) => {
             data={data}
             xAccessor={(d) => d.date}
             yAccessor={(d) => d.count}
-            curve={curveCardinal}
+            curve={curveMonotoneX}
             strokeWidth={1}
             stroke="url(#area-gradient)"
             fill="url(#area-gradient)"
@@ -89,7 +90,7 @@ const Chart = (props: ChartProps) => {
         <>
           {/* previous chart only for week and month */}
           <AnimatedLineSeries
-            curve={curveCardinal}
+            curve={curveMonotoneX}
             dataKey={`Prev ${currentFilter ? currentFilter.name : ''}`}
             data={prevPeriod}
             stroke="#242D5B"
@@ -103,7 +104,7 @@ const Chart = (props: ChartProps) => {
             data={currentPeriod}
             xAccessor={(d) => d.date}
             yAccessor={(d) => d.count}
-            curve={curveCardinal}
+            curve={curveMonotoneX}
             strokeWidth={1}
             stroke="url(#area-gradient)"
             fill="url(#area-gradient)"
@@ -130,7 +131,8 @@ const Chart = (props: ChartProps) => {
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         renderTooltip={({ tooltipData }: any) => (
           <div className="bg-tooltipBackground px-[8px] py-[4px] rounded-[8px] text-baseForeground text-12">
-            {tooltipData.nearestDatum.datum.count}
+            {label && <p className="text-10 text-neutral-200">{label}</p>}
+            {AmountConverter(tooltipData.nearestDatum.datum.count)}
           </div>
         )}
       />
