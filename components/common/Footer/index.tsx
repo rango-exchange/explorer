@@ -72,7 +72,7 @@ function Footer() {
       </div>
 
       <span className="w-full bg-neutral-500 p-2.5 text-center text-10 md:text-16 text-baseForeground md:text-base md:leading-6">
-        Copyright © 2023 Rango Exchange. All rights reserved.
+        Copyright © 2024 Rango Exchange. All rights reserved.
       </span>
     </footer>
   );

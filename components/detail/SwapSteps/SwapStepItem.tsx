@@ -10,7 +10,7 @@ import SwapStepSwapper from './SwapStepSwapper';
 
 function SwapStepItem(props: SwapStepItemProps) {
   const { step, firstStep, lastStep } = props;
-  const { from, to, status, explorerUrls } = step;
+  const { from, to, status, explorerUrls, outputToken } = step;
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const borderColor = BorderColor[status];
 
@@ -44,7 +44,7 @@ function SwapStepItem(props: SwapStepItemProps) {
             <div className="flex items-center">
               <SwapStepChainLogo token={to} />
               <span className="text-12 ml-5 text-neutral-400">
-                <SwapStepChainAmount token={to} />
+                <SwapStepChainAmount token={to} refundedToken={outputToken} />
               </span>
             </div>
           </div>
@@ -56,7 +56,7 @@ function SwapStepItem(props: SwapStepItemProps) {
             <NextIcon className="mx-10 text-primary-500" />
             <SwapStepChainLogo token={to} />
             <span className="text-14 text-neutral-400">
-              <SwapStepChainAmount token={to} />
+              <SwapStepChainAmount token={to} refundedToken={outputToken} />
             </span>
           </div>
           <TransactionURL explorerUrls={explorerUrls} status={status} />

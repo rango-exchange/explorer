@@ -3,19 +3,22 @@ import React from 'react';
 import { SwapStepChainLogoProps } from './SwapSteps.type';
 
 function SwapStepChainAmount(props: SwapStepChainLogoProps) {
-  const { token, firstStep } = props;
-  const { symbol, name, realAmount, expectedAmount } = token;
+  const { token, refundedToken, firstStep } = props;
+  const resultToken = refundedToken ? refundedToken : token;
+
   return (
     <>
-      {firstStep && `${realAmount.toFixed(2)} ${symbol}`}
+      {firstStep && `${token.realAmount.toFixed(2)} ${token.symbol}`}
       {!firstStep && (
         <>
-          {isNaN(realAmount)
-            ? `Est. ~${expectedAmount.toFixed(2)} ${symbol || name}`
-            : `${realAmount.toFixed(
-                2,
-              )} ${symbol}  (Est. ~${expectedAmount.toFixed(2)} ${
-                symbol || name
+          {isNaN(token.realAmount)
+            ? `Est. ~${token.expectedAmount.toFixed(2)} ${
+                token.symbol || token.name
+              }`
+            : `${resultToken.realAmount.toFixed(2)} ${
+                resultToken.symbol
+              }  (Est. ~${token.expectedAmount.toFixed(2)} ${
+                token.symbol || token.name
               })`}
         </>
       )}

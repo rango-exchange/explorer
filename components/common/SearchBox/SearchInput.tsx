@@ -26,7 +26,7 @@ function SearchInput() {
         <SearchIcon className="mr-5 text-neutral-400" />
         <input
           className="w-full text-neutral-200 bg-neutral-500 focus:outline-0 overflow-hidden text-14 md:text-16"
-          placeholder="Search by Request ID / Wallet..."
+          placeholder="Search by Request ID, Wallet or Tx Hash"
           onChange={(e) => setQuery(e.target.value)}
         />
       </div>

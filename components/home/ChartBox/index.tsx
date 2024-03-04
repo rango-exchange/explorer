@@ -57,7 +57,11 @@ function ChartBox(props: PropsType) {
         })}
       </div>
       <div className="w-[calc(100%+1.625rem)] md:w-[calc(100%+0.6rem)] h-[240px] md:h-[338px]">
-        <Chart days={currentDays} data={[...data]} />
+        <Chart
+          days={currentDays}
+          data={[...data]}
+          label="Number of Transactions"
+        />
       </div>
     </div>
   );

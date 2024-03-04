@@ -8,6 +8,7 @@ export interface PropsType {
 export interface ChartProps {
   data: DailyIntervalType[];
   days: number;
+  label: string;
 }
 
 export type ValidDaysFilter = 7 | 30 | 90;

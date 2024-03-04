@@ -12,13 +12,13 @@ export const columns: ColumnType[] = [
   },
   {
     id: 2,
-    title: 'Source Transaction',
+    title: 'Source Token',
     tokenType: 'source',
     component: TokenCell,
   },
   {
     id: 3,
-    title: 'Destination Transaction',
+    title: 'Destination Token',
     tokenType: 'destination',
     component: TokenCell,
   },
