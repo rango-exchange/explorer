@@ -36,7 +36,7 @@ export function getRoundedCount(count: number) {
 
 export const customTheme = buildChartTheme({
   backgroundColor: '#fff',
-  colors: ['#469BF5'],
+  colors: ['#1C3CF1', '#469BF5'],
   gridColor: '#469BF5',
   tickLength: 8,
   gridColorDark: '',

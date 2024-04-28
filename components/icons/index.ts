@@ -19,6 +19,7 @@ export { default as MediumIcon } from './Medium';
 export { default as MoreIcon } from './More';
 export { default as NextIcon } from './Next';
 export { default as NextPageIcon } from './NextPage';
+export { default as PasteIcon } from './Paste';
 export { default as PrevPageIcon } from './PrevPage';
 export { default as RefreshIcon } from './Refresh';
 export { default as RunningIcon } from './Running';

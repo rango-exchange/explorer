@@ -20,10 +20,12 @@ export type SubMenuTypes = Pick<
 
 export interface NavbarProps {
   theme: 'dark' | 'light';
+  hasSearchInput?: boolean;
 }
 
 export interface DeviceProps {
   className: string;
+  hasSearchInput?: boolean;
   renderChildren: boolean;
   links: Array<LinkTypes | MenuTypes>;
   theme: 'dark' | 'light';
@@ -33,6 +35,7 @@ export interface MenuProps {
   subMenu: SubMenuTypes[];
   showSubMenu: boolean;
   title: string;
+  hasSearchInput?: boolean;
   theme: 'dark' | 'light';
 }
 

@@ -14,6 +14,7 @@ function SwapStepValue(props: SwapStepItemValueProps) {
     executionTimeInSeconds,
     startTime,
     outputToken,
+    failureReason,
   } = step;
 
   const resultToken = outputToken ? outputToken : to;
@@ -64,6 +65,10 @@ function SwapStepValue(props: SwapStepItemValueProps) {
           {startTime &&
             dayjs.utc(startTime).local().format('HH:mm:ss').toString()}
         </span>
+      )}
+
+      {column.title === 'Failure Info' && (
+        <span className="text-failed">{failureReason}</span>
       )}
     </div>
   );
