@@ -1,9 +1,11 @@
+/* eslint-disable @next/next/no-img-element */
 import { SecondsTohms } from 'utils/secondsTohms';
 import { SwapDetailItem } from './SwapDetail.type';
 import dayjs from 'dayjs';
 import utc from 'dayjs/plugin/utc';
 import IconStatus from 'components/common/IconStatus';
 import { StepsIcon } from 'components/icons';
+import Tooltip from 'components/common/Tooltip';
 
 dayjs.extend(utc);
 
@@ -11,6 +13,10 @@ function SwapDetailMobileValue(props: SwapDetailItem) {
   const { details, column } = props;
   const { estimatedTimeInSeconds, status, steps, creationDate } = details;
   const successStep = steps.filter((item) => item.status === 'success').length;
+  const currentStep = details.steps.find(
+    (step) => step.status === 'running' || step.status === 'unknown',
+  );
+  const swapper = currentStep?.swapper || steps[steps.length - 1].swapper;
 
   return (
     <>
@@ -26,6 +32,17 @@ function SwapDetailMobileValue(props: SwapDetailItem) {
               <div className="flex items-center">
                 <StepsIcon className="text-neutral-400 mr-5" />
                 <span className="text-12 text-neutral-400">{`${successStep}/${steps.length}`}</span>
+                &nbsp;&nbsp;
+                {swapper && (
+                  <Tooltip label={swapper?.swapperTitle}>
+                    <img
+                      src={swapper?.swapperLogo}
+                      alt={swapper?.swapperTitle}
+                      width={20}
+                      height={20}
+                    />
+                  </Tooltip>
+                )}
               </div>
             )}
           </div>

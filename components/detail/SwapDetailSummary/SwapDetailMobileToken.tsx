@@ -3,6 +3,9 @@ import ButtonCopyIcon from 'components/common/ButtonCopyIcon';
 import { SwapDetailItem } from './SwapDetail.type';
 import Link from 'next/link';
 import { DEFAULT_TOKEN_LOGO } from 'constant';
+import Image from 'next/image';
+import { SearchIcon } from 'components/icons';
+import rango from 'public/logo.png';
 
 function SwapDetailMobileToken(props: SwapDetailItem) {
   const { details, column } = props;
@@ -54,6 +57,22 @@ function SwapDetailMobileToken(props: SwapDetailItem) {
             {wallet?.address.slice(0, 20)}...
           </Link>
           <ButtonCopyIcon text={wallet?.address} />
+          <Link
+            className={`ml-1.5 flex items-center relative`}
+            href={`/search?query=${wallet?.address}`}>
+            <Image
+              src={rango}
+              className="!w-[18px] !h-[18px]"
+              alt="Rango logo"
+              layout="responsive"
+            />
+            <div className="bg-white absolute p-0.5 rounded-full -right-1.5	-bottom-1.5">
+              <SearchIcon
+                size="0.875rem"
+                className="text-neutral-400 hover:text-hoverIcon m-auto"
+              />
+            </div>
+          </Link>
         </div>
       </div>
 

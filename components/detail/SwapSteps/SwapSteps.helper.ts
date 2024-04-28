@@ -33,6 +33,11 @@ export const columns: ColumnType[] = [
     title: 'Step Duration',
     component: SwapStepValue,
   },
+  {
+    id: 7,
+    title: 'Failure Info',
+    component: SwapStepValue,
+  },
 ];
 
 export const BorderColor = {

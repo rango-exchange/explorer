@@ -10,7 +10,7 @@ function Layout(props: PropsWithChildren<LayoutProps>) {
       <Head>
         <title>{props.title}</title>
       </Head>
-      <Navbar theme={'light'} />
+      <Navbar theme={'light'} hasSearchInput={props.hasSearchInput} />
       <main className="w-full min-h-600 md:min-h-[800px] pb-30 md:pb-50 bg-neutral-300  bg-body-mask bg-cover">
         {props.children}
       </main>

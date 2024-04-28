@@ -5,6 +5,7 @@ import { columns } from './SwapSteps.helper';
 function SwapStepItemExpanded(props: SwapStepItemExpandedProps) {
   const { step, open, firstStep } = props;
   const { from, to } = step;
+
   const {
     symbol: fromSymbol,
     name: fromName,
@@ -29,6 +30,8 @@ function SwapStepItemExpanded(props: SwapStepItemExpandedProps) {
         {columns.map((col, index) => {
           const StepValueComponent = col.component;
           const { title, id } = col;
+          // Explains the reason for the step failure (if the step has failed)
+          if (title === 'Failure Info' && !step.failureReason) return;
           return (
             <>
               <div
@@ -45,7 +48,7 @@ function SwapStepItemExpanded(props: SwapStepItemExpandedProps) {
                   />
                 )}
               </div>
-              {index !== columns.length - 1 && (
+              {index !== columns.length - (step.failureReason ? 1 : 2) && (
                 <div className="h-[0.5px] my-10 md:my-0 w-full bg-neutral-300"></div>
               )}
             </>
