@@ -7,14 +7,18 @@ import {
   Tooltip,
   AreaSeries,
 } from '@visx/xychart';
-import { customTheme, daysFilter, getDayOfMonth } from './Chart.helper';
+import { customTheme, daysFilter } from './Chart.helper';
 import { CustomTick } from './CustomTick';
 import { ChartProps } from './Chart.type';
 import isMobile from 'is-mobile';
 
 import { LinearGradient } from '@visx/gradient';
 import { AmountConverter } from 'utils/amountConverter';
+import { getDayOfMonth } from 'utils/common';
 import dayjs from 'dayjs';
+import utc from 'dayjs/plugin/utc';
+
+dayjs.extend(utc);
 
 const Chart = (props: ChartProps) => {
   const IsMobile = isMobile({ tablet: true });

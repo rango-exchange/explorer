@@ -18,3 +18,20 @@ export function getPercentageChange(
   if (!input || !output) return null;
   return parseFloat(Number((output / input - 1) * 100).toFixed(2));
 }
+
+export function numberWithCommas(number: number) {
+  if (!number || isNaN(number)) return number;
+
+  return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+}
+
+export function compactNumberFormat(number: number) {
+  if (!number || isNaN(number)) return '0';
+
+  const numberFormat = Intl.NumberFormat('en-US', {
+    notation: 'compact',
+    maximumFractionDigits: 1,
+  }).format(number);
+
+  return numberFormat;
+}
