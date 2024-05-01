@@ -15,6 +15,7 @@ export { default as GithubIcon } from './Github';
 export { default as InfoIcon } from './Info';
 export { default as LastPageIcon } from './LastPage';
 export { default as LinkIcon } from './Link';
+export { default as LoadingIcon } from './Loading';
 export { default as MediumIcon } from './Medium';
 export { default as MoreIcon } from './More';
 export { default as NextIcon } from './Next';

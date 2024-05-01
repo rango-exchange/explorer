@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import IconStatus from 'components/common/IconStatus';
 import { TransactionURLItemProps } from './SwapSteps.type';
 import { CopyIcon, InfoIcon, LinkIcon, MoreIcon } from 'components/icons';
-import { CopyText } from 'utils/copyText';
+import { CopyText } from 'utils/common';
 import Link from 'next/link';
 
 function TransactionURLMobileItem(props: TransactionURLItemProps) {
