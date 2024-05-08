@@ -227,6 +227,10 @@ span.ripple {
   height: 40px;
 }
 
+.rango-statistic-sankey-chart{
+  height: 486px !important;
+  width: 100% !important;
+}
 
 @-moz-document url-prefix() {
   .mask-2 {

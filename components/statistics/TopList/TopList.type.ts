@@ -4,6 +4,7 @@ import { BlockchainMeta } from 'types/meta';
 export type TopListItemProps = {
   title: string;
   description: string;
+  isVolume?: boolean;
   blockchainDataMap: Map<string, BlockchainMeta>;
 } & (
   | {

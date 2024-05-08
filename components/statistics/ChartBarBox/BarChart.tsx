@@ -124,6 +124,7 @@ const BarChart = (props: BarChartProps) => {
                       </div>
                       {datum && (
                         <div className="text-10 ml-10">
+                          {type === 'volume' && '$'}
                           {AmountConverter(datum.value)}
                         </div>
                       )}
