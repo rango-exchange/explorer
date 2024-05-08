@@ -6,7 +6,14 @@ import { NextIcon } from 'components/icons';
 import { TOP_LIST_NUMBER_TO_SHOW } from './TopList.helper';
 
 function TopList(props: TopListItemProps) {
-  const { title, description, topList, type, blockchainDataMap } = props;
+  const {
+    title,
+    description,
+    topList,
+    type,
+    blockchainDataMap,
+    isVolume = false,
+  } = props;
 
   return (
     <div className="w-full h-[350px] bg-baseForeground p-25 pr-0 rounded-soft md:rounded-normal">
@@ -36,6 +43,7 @@ function TopList(props: TopListItemProps) {
                       </span>
                     </div>
                     <div className="text-16 font-medium">
+                      {isVolume && '$'}
                       {compactNumberFormat(value)}
                     </div>
                   </div>
@@ -77,6 +85,7 @@ function TopList(props: TopListItemProps) {
                       </span>
                     </div>
                     <div className="text-16 font-medium">
+                      {isVolume && '$'}
                       {compactNumberFormat(value)}
                     </div>
                   </div>

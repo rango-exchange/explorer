@@ -19,6 +19,7 @@ import { useEffect, useState } from 'react';
 import { DEFAULT_STATISTIC_DAYS } from 'constant';
 import TopList from 'components/statistics/TopList';
 import ChartBarBox from 'components/statistics/ChartBarBox';
+import SankeyChartBox from 'components/statistics/SankeyChartBox';
 
 interface PropsType {
   dailySummary: DailySummaryType[];
@@ -154,6 +155,7 @@ function Statistics(props: PropsType) {
               title="Top Paths"
               description="Top chain pairs by volume"
               type="path"
+              isVolume
             />
             <TopList
               blockchainDataMap={blockchainDataMap}
@@ -161,6 +163,7 @@ function Statistics(props: PropsType) {
               title="Top Sources"
               description="Top sources by volume"
               type="blockchain"
+              isVolume
             />
             <TopList
               blockchainDataMap={blockchainDataMap}
@@ -168,8 +171,14 @@ function Statistics(props: PropsType) {
               title="Top Destination "
               description="Top destinations by volume"
               type="blockchain"
+              isVolume
             />
           </div>
+
+          <SankeyChartBox
+            topSourcePath={topPathsByVolume}
+            blockchainDataMap={blockchainDataMap}
+          />
         </div>
       </div>
     </Layout>

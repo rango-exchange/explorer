@@ -32,6 +32,8 @@ export const barChartColors: string[] = [
   '#44F1E6',
   '#29DA7A',
   '#F4C932',
+  '#F17606',
+  '#8B62FF',
 ];
 
 export const getBarChartData = (chartOption: {
