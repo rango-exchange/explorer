@@ -5,7 +5,7 @@ function SvgPaste(props: SvgIconPropsWithChildren) {
   return createElement(
     SvgIcon,
     props,
-    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
       <g id="Icons" clipPath="url(#clip0_9993_21730)">
         <g id="Group">
           <path

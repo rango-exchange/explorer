@@ -5,7 +5,7 @@ function SvgFail(props: SvgIconPropsWithChildren) {
   return createElement(
     SvgIcon,
     props,
-    <svg viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+    <svg viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
       <g id="Status Icons">
         <rect width={20} height={20} rx={10} fill="#FFD7D7" />
         <path

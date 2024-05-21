@@ -88,7 +88,7 @@ function SankeyChart(props: SankeyProps) {
     <canvas
       id={chartId}
       className="rango-statistic-sankey-chart"
-      style={{ height: '486px' }}
+      style={{ height: '100%' }}
     />
   );
 }

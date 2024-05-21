@@ -4,6 +4,7 @@ import {
   getDailySummary,
   getTopListSummary,
 } from '../services';
+
 import Layout from 'components/common/Layout';
 import Error from 'components/common/Error';
 import { BlockchainMeta } from 'types/meta';
@@ -73,8 +74,8 @@ function Statistics(props: PropsType) {
     <Layout hasSearchInput title="Statistics">
       <div className="w-full flex justify-center">
         <div className="container px-25 md:px-0 pt-30 md:py-50">
-          <div className="w-full py-10 md:py-20 flex items-center justify-between">
-            <div className="flex items-center">
+          <div className="w-full mb-20 md:0 md:py-10 md:py-20 flex flex-col md:flex-row md:items-center md:justify-between">
+            <div className="items-center flex mb-5 md:mb-0">
               <Link className="text-neutral-800 text-10 md:text-16" href="/">
                 Home
               </Link>
@@ -83,20 +84,20 @@ function Statistics(props: PropsType) {
                 Statistics
               </span>
             </div>
-            <div className="flex items-center">
+            <div className="w-full md:w-auto flex items-center">
               {loading && (
                 <LoadingIcon
                   size="1.5rem"
-                  className="text-secondary-500 animate-spin mr-10"
+                  className="hidden md:block text-secondary-500 animate-spin mr-10"
                 />
               )}
-              <div className="flex items-center bg-baseForeground p-5 rounded-normal">
+              <div className="w-full md:w-[280px] grid grid-cols-3 md:flex items-center bg-baseForeground p-5 rounded-soft md:rounded-normal">
                 {statisticDaysFilter.map((dayItem) => {
                   return (
                     <button
                       key={`day-filter-${dayItem}`}
                       onClick={() => setCurrentDays(dayItem)}
-                      className={`text-10 w-[86px] md:w-[90px] md:text-14 rounded-soft px-15 py-5 font-normal	 ${
+                      className={`text-12 md:w-[90px] h-[26px] flex items-center justify-center md:h-auto md:text-14 rounded-soft px-15 py-5 font-normal	 ${
                         currentDays === dayItem
                           ? 'bg-secondary-500 text-baseForeground'
                           : 'bg-transparent text-neutral-200'
@@ -116,7 +117,7 @@ function Statistics(props: PropsType) {
             dailySummary={dailySummary}
             title="Transaction"
             description="Number of transactions by day"
-            className="mb-15"
+            className="mb-10 md:mb-15"
           />
           <ChartBarBox
             type="volume"
@@ -127,7 +128,7 @@ function Statistics(props: PropsType) {
             description="Transfer Volume by day"
           />
 
-          <div className="grid grid-cols-3 mt-25 gap-15">
+          <div className="grid grid-cols-1 md:grid-cols-3 mt-20 md:mt-25 gap-10 md:gap-15">
             <TopList
               blockchainDataMap={blockchainDataMap}
               topList={topPathsByTxCount}

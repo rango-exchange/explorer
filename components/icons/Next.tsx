@@ -5,7 +5,7 @@ function SvgNext(props: SvgIconPropsWithChildren) {
   return createElement(
     SvgIcon,
     props,
-    <svg viewBox="0 0 16 17" xmlns="http://www.w3.org/2000/svg">
+    <svg viewBox="0 0 16 17" fill="none" xmlns="http://www.w3.org/2000/svg">
       <g id="Next">
         <g id="Group">
           <path

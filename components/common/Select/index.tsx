@@ -15,7 +15,7 @@ export function Select(props: SelectProps) {
     setOpen(false);
   };
 
-  const handleClickOutside = (e: MouseEvent) => {
+  const handleClickOutsideSelectBox = (e: MouseEvent) => {
     if (selectRef.current && !selectRef.current.contains(e.target as Node)) {
       handleCloseOptions();
     }
@@ -27,9 +27,9 @@ export function Select(props: SelectProps) {
   };
 
   useEffect(() => {
-    document.addEventListener('click', handleClickOutside);
+    document.addEventListener('mousedown', handleClickOutsideSelectBox);
     return () => {
-      document.removeEventListener('click', handleClickOutside);
+      document.removeEventListener('mousedown', handleClickOutsideSelectBox);
     };
   }, []);
 
@@ -52,7 +52,7 @@ export function Select(props: SelectProps) {
 
       {open && (
         <div
-          className="w-[170px] h-[256px] absolute top-[35px] z-10 rounded-soft overflow-y-scroll p-5 bg-baseForeground"
+          className="w-[200px] h-[256px] absolute top-[35px] z-10 rounded-soft overflow-y-scroll p-5 bg-baseForeground"
           style={{
             boxShadow: '5px 5px 10px 0px rgba(0, 0, 0, 0.10)',
           }}>

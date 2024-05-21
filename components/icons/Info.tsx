@@ -5,7 +5,7 @@ function SvgInfo(props: SvgIconPropsWithChildren) {
   return createElement(
     SvgIcon,
     props,
-    <svg viewBox="0 0 12 12" xmlns="http://www.w3.org/2000/svg">
+    <svg viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
       <g id="Icons/32 px/info/Default">
         <g id="Group 1000007333">
           <path

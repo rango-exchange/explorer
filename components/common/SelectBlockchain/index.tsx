@@ -32,7 +32,14 @@ export function SelectBlockchain(props: SelectBlockchainProps) {
     setSearchedFor('');
   };
 
-  const handleClickOutside = (e: MouseEvent) => {
+  const handleCloseClick = (
+    e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
+  ) => {
+    e.stopPropagation();
+    onSelect('');
+  };
+
+  const handleClickOutsideSelect = (e: MouseEvent) => {
     if (selectRef.current && !selectRef.current.contains(e.target as Node)) {
       handleCloseOptions();
     }
@@ -46,9 +53,9 @@ export function SelectBlockchain(props: SelectBlockchainProps) {
   };
 
   useEffect(() => {
-    document.addEventListener('click', handleClickOutside);
+    document.addEventListener('mousedown', handleClickOutsideSelect);
     return () => {
-      document.removeEventListener('click', handleClickOutside);
+      document.removeEventListener('mousedown', handleClickOutsideSelect);
     };
   }, []);
 
@@ -78,19 +85,19 @@ export function SelectBlockchain(props: SelectBlockchainProps) {
           <div className="flex items-center">
             {selected && (
               <>
-                <button type="button" onClick={() => onSelect('')}>
+                <button type="button" onClick={handleCloseClick}>
                   <CloseIcon
                     className="text-neutral-400 hover:text-hoverIcon"
-                    size="10px"
+                    size="8px"
                   />
                 </button>
                 <span className="text-neutral-400 mx-10">|</span>
               </>
             )}
             {open ? (
-              <ChevronUpIcon size="10px" />
+              <ChevronUpIcon className="w-[12px]" size="12px" />
             ) : (
-              <ChevronDownIcon size="10px" />
+              <ChevronDownIcon className="w-[12px]" size="10px" />
             )}
           </div>
         </div>
@@ -98,7 +105,7 @@ export function SelectBlockchain(props: SelectBlockchainProps) {
 
       {open && (
         <div
-          className="w-[180px] h-[256px] absolute top-[35px] z-10 rounded-soft overflow-y-scroll p-5 bg-baseForeground"
+          className="w-[200px] h-[256px] absolute top-[35px] z-10 rounded-soft overflow-y-scroll p-5 bg-baseForeground"
           style={{
             boxShadow: '5px 5px 10px 0px rgba(0, 0, 0, 0.10)',
           }}>

@@ -1,3 +1,4 @@
+export { default as ActiveFilterIcon } from './ActiveFilter';
 export { default as AffiliateIcon } from './Affiliate';
 export { default as ApiManagementIcon } from './ApiManagement';
 export { default as CheckIcon } from './Check';
@@ -9,6 +10,7 @@ export { default as CopyIcon } from './Copy';
 export { default as DiscordIcon } from './Discord';
 export { default as DocsIcon } from './Docs';
 export { default as FailIcon } from './Fail';
+export { default as FilterIcon } from './Filter';
 export { default as FirstPageIcon } from './FirstPage';
 export { default as GassIcon } from './Gass';
 export { default as GithubIcon } from './Github';

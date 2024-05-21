@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { BarStack, PropsType } from './ChartBarBox.type';
+import { BarStack, FilterBarChart, PropsType } from './ChartBarBox.type';
 import { numberWithCommas } from 'utils/amountConverter';
 import { SelectBlockchain } from 'components/common/SelectBlockchain';
 import { BreakDownList, DailySummaryOption, DailySummaryType } from 'types';
@@ -8,7 +8,8 @@ import dynamic from 'next/dynamic';
 import { Select } from 'components/common/Select';
 import { OptionType } from 'components/common/Select/Select.types';
 import { getBarChartData } from './ChartBarBox.helper';
-import { LoadingIcon } from 'components/icons';
+import { ActiveFilterIcon, FilterIcon, LoadingIcon } from 'components/icons';
+import ModalFilter from './ModalFilter';
 
 const BarChart = dynamic(() => import('./BarChart'), {
   ssr: false,
@@ -25,11 +26,16 @@ function ChartBarBox(props: PropsType) {
     className = '',
   } = props;
 
-  const [source, setSource] = useState<string>('');
-  const [destination, setDestination] = useState<string>('');
-  const [breakDownBy, setBreakDownBy] = useState<string>(BreakDownList.None);
+  const [filter, setFilter] = useState<FilterBarChart>({
+    source: '',
+    destination: '',
+    breakDownBy: BreakDownList.None,
+  });
   const [dailyData, setDailyData] = useState<DailySummaryType[]>(dailySummary);
   const [loading, setLoading] = useState<boolean>(false);
+  const [showFilterModal, setShowFilterModal] = useState<boolean>(false);
+
+  const { source, destination, breakDownBy } = filter;
 
   const totalValue = dailyData
     .map((dailyItem) =>
@@ -45,6 +51,8 @@ function ChartBarBox(props: PropsType) {
       };
     },
   );
+
+  const hasFilter = source || destination || breakDownBy !== BreakDownList.None;
 
   async function fetchDailySummaryData() {
     const dailySummaryOption: DailySummaryOption = {
@@ -66,7 +74,12 @@ function ChartBarBox(props: PropsType) {
   useEffect(() => {
     setLoading(true);
     fetchDailySummaryData();
-  }, [source, destination, breakDownBy]);
+  }, [filter]);
+
+  const handleApplyFilter = (newFilter: FilterBarChart) => {
+    setFilter({ ...newFilter });
+    setShowFilterModal(false);
+  };
 
   const isStackBar: boolean = !(
     breakDownBy === BreakDownList.None ||
@@ -82,29 +95,50 @@ function ChartBarBox(props: PropsType) {
 
   return (
     <div
-      className={`w-full bg-baseForeground px-15 py-20 md:p-35 rounded-soft md:rounded-normal ${className}`}>
-      <div className="flex justify-between items-start">
-        <div>
-          <div className="flex h-[48px] items-center text-16 md:text-32 font-semibold text-primary-500">
-            <div>
-              {type === 'volume' && '$'}
-              {numberWithCommas(Math.ceil(totalValue))}
+      className={`w-full bg-baseForeground px-0 py-20 md:p-35 rounded-normal ${className}`}>
+      <div className="w-full px-20 md:px-0 flex justify-between items-start">
+        <div className="w-full">
+          <div className="flex w-full md:w-auto md:h-[48px] items-center justify-between md:start text-18 md:text-32 font-medium md:font-semibold text-primary-500">
+            <div className="flex items-center">
+              <span>
+                {type === 'volume' && '$'}
+                {numberWithCommas(Math.ceil(totalValue))}
+              </span>
+              {loading && (
+                <LoadingIcon
+                  size="1.5rem"
+                  className="text-secondary-500 animate-spin ml-10"
+                />
+              )}
             </div>
-            {loading && (
-              <LoadingIcon
-                size="1.5rem"
-                className="text-secondary-500 animate-spin ml-10"
-              />
-            )}
+
+            <button
+              className="md:hidden"
+              type="button"
+              onClick={() => setShowFilterModal(true)}>
+              {hasFilter ? (
+                <div className="relative">
+                  <ActiveFilterIcon className="md:hidden primary-600" />
+                  <span className="absolute top-[-2px] right-[-1px] rounded-full w-[7px] h-[7px] bg-secondary-500"></span>
+                </div>
+              ) : (
+                <FilterIcon
+                  size="1.5rem"
+                  className="md:hidden text-neutral-400"
+                />
+              )}
+            </button>
           </div>
           <div className="flex items-center mt-10">
-            <span className="text-18 text-primary-500">{title}</span>
+            <span className="text-12 md:text-18 text-primary-500">{title}</span>
             <span className="font-semibold text-primary-500 mx-5">|</span>
-            <span className="text-16 text-neutral-800">{description}</span>
+            <span className="text-10 md:text-16 text-neutral-800">
+              {description}
+            </span>
           </div>
         </div>
 
-        <div className="flex items-center">
+        <div className="hidden md:flex items-center">
           <div className="flex flex-col justify-center ml-10">
             <div className="text-10 mb-5 text-neutral-800 px-10">
               Source chain
@@ -113,7 +147,9 @@ function ChartBarBox(props: PropsType) {
               label="Select Chain"
               options={blockchains}
               selected={source}
-              onSelect={setSource}
+              onSelect={(selectedSource) =>
+                setFilter((prev) => ({ ...prev, source: selectedSource }))
+              }
             />
           </div>
           <div className="flex flex-col ml-10">
@@ -124,7 +160,12 @@ function ChartBarBox(props: PropsType) {
               label="Select Chain"
               options={blockchains}
               selected={destination}
-              onSelect={setDestination}
+              onSelect={(selectedDestination) =>
+                setFilter((prev) => ({
+                  ...prev,
+                  destination: selectedDestination,
+                }))
+              }
             />
           </div>
 
@@ -136,19 +177,24 @@ function ChartBarBox(props: PropsType) {
               label="select"
               selected={breakDownBy}
               options={breakDownOptions}
-              onSelect={setBreakDownBy}
+              onSelect={(selectedBreakDownBy) =>
+                setFilter((prev) => ({
+                  ...prev,
+                  breakDownBy: selectedBreakDownBy,
+                }))
+              }
             />
           </div>
         </div>
       </div>
 
-      <div className="flex items-center w-full h-[300px] md:h-[475px]">
+      <div className="flex items-center flex-col md:flex-row w-full md:h-[475px]">
         {isStackBar && !loading && (
           <>
-            <div className="w-full h-[300px] md:h-[475px]">
+            <div className="w-full h-[230px] md:h-[475px]">
               <BarChart type={type} series={dataSeries} days={days} />
             </div>
-            <div className="w-[250px] h-[300px] md:h-[475px] bg-surfacesBackground py-10 px-20">
+            <div className="w-full rounded-normal px-20 md:px-0 md:w-[250px] grid grid-cols-3 md:block md:h-[475px] md:bg-surfacesBackground md:py-10 md:px-20">
               {dataSeries.map((dataItem, index) => {
                 const { name, color: stackColor } = dataItem;
 
@@ -158,10 +204,12 @@ function ChartBarBox(props: PropsType) {
                       <span
                         style={{ backgroundColor: stackColor }}
                         className={`w-[10px] h-[10px] rounded-full mr-5`}></span>
-                      <span className="text-14">{name}</span>
+                      <span className="text-10 font-medium md:font-normal md:text-14">
+                        {name}
+                      </span>
                     </div>
                     {index !== dataSeries.length - 1 && (
-                      <div className="h-[1px] w-full bg-neutral-300"></div>
+                      <div className="h-[1px] hidden md:block w-full bg-neutral-300"></div>
                     )}
                   </React.Fragment>
                 );
@@ -171,11 +219,21 @@ function ChartBarBox(props: PropsType) {
         )}
 
         {!isStackBar && !loading && (
-          <div className="w-full h-[300px] md:h-[475px]">
+          <div className="w-full h-[230px] md:h-[475px]">
             <BarChart type={type} series={dataSeries} days={days} />
           </div>
         )}
       </div>
+
+      <ModalFilter
+        onClose={() => {
+          setShowFilterModal(false);
+        }}
+        onApply={handleApplyFilter}
+        open={showFilterModal}
+        blockchains={blockchains}
+        selectedFilter={filter}
+      />
     </div>
   );
 }
