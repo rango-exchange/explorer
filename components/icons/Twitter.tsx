@@ -5,7 +5,7 @@ function SvgTwitter(props: SvgIconPropsWithChildren) {
   return createElement(
     SvgIcon,
     props,
-    <svg viewBox="0 0 16 15" xmlns="http://www.w3.org/2000/svg">
+    <svg viewBox="0 0 16 15" fill="none" xmlns="http://www.w3.org/2000/svg">
       <g id="Group">
         <path
           id="Vector"

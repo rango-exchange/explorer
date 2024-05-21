@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import { StepsIcon } from 'components/icons';
 import { CellProps } from '../Table.type';
 import IconStatus from 'components/common/IconStatus';
@@ -11,8 +12,12 @@ function StatusCell(props: CellProps) {
   ).length;
 
   const currentStep =
-    stepsSummary.find((step) => step.status === 'running') ||
-    stepsSummary[stepsSummary.length - 1];
+    stepsSummary.find(
+      (step) =>
+        step.status === 'running' ||
+        step.status === 'unknown' ||
+        step.status === 'failed',
+    ) || stepsSummary[stepsSummary.length - 1];
 
   const swapper = currentStep?.swapper;
 

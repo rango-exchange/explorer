@@ -4,7 +4,6 @@ import { getSearchResult, getWalletSwaps } from '../services';
 import { MATCH_TYPE } from '../constant';
 import useSWR from 'swr';
 import Layout from 'components/common/Layout';
-import SearchBox from 'components/common/SearchBox';
 import Result from 'components/search/Result';
 import NotFound from 'components/search/NotFound';
 import TableLoading from 'components/common/Table/TableLoading';
@@ -23,28 +22,23 @@ function Search(props: PropsType) {
   return status || (data && data?.hasError) ? (
     <Error />
   ) : (
-    <Layout title={`Address ${query as string}`}>
-      <div>
-        <div className="w-full flex flex-col items-center relative bg-baseBackground">
-          <SearchBox />
-        </div>
-        <div className="w-full flex justify-center">
-          {data && (
-            <>
-              {transactions && transactions.length ? (
-                <Result
-                  total={total}
-                  page={Number(page || 0)}
-                  data={transactions}
-                  query={query as string}
-                />
-              ) : (
-                <NotFound query={query as string} />
-              )}
-            </>
-          )}
-          {!data && <TableLoading />}
-        </div>
+    <Layout hasSearchInput title={`Address ${query as string}`}>
+      <div className="w-full flex justify-center">
+        {data && (
+          <>
+            {transactions && transactions.length ? (
+              <Result
+                total={total}
+                page={Number(page || 0)}
+                data={transactions}
+                query={query as string}
+              />
+            ) : (
+              <NotFound query={query as string} />
+            )}
+          </>
+        )}
+        {!data && <TableLoading />}
       </div>
     </Layout>
   );

@@ -5,7 +5,7 @@ function SvgAffiliate(props: SvgIconPropsWithChildren) {
   return createElement(
     SvgIcon,
     props,
-    <svg viewBox="0 0 18 18" xmlns="http://www.w3.org/2000/svg">
+    <svg viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
       <path
         fillRule="evenodd"
         clipRule="evenodd"

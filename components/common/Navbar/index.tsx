@@ -5,7 +5,7 @@ import MobileNavbar from './MobileNavbar';
 import { NavbarProps } from './Navbar.type';
 
 function Navbar(props: NavbarProps) {
-  const { theme } = props;
+  const { theme, hasSearchInput } = props;
 
   return (
     <header
@@ -19,6 +19,7 @@ function Navbar(props: NavbarProps) {
         <Media between={['xs', 'md']}>
           {(className, renderChildren) => (
             <MobileNavbar
+              hasSearchInput={hasSearchInput}
               theme={theme}
               renderChildren={renderChildren}
               links={links}
@@ -29,6 +30,7 @@ function Navbar(props: NavbarProps) {
         <Media greaterThanOrEqual="md">
           {(className, renderChildren) => (
             <DesktopNavbar
+              hasSearchInput={hasSearchInput}
               theme={theme}
               className={className}
               renderChildren={renderChildren}

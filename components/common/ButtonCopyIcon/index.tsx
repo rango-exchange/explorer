@@ -1,6 +1,6 @@
 import { CopyIcon, CheckIcon } from 'components/icons';
 import { PropsType } from './ButtonCopyIcon.type';
-import { CopyText } from 'utils/copyText';
+import { CopyText } from 'utils/common';
 import { useState } from 'react';
 import Tooltip from '../Tooltip';
 

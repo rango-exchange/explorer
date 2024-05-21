@@ -3,6 +3,7 @@ import { ButtonProps } from './Button.types';
 import { PropsWithChildren } from 'react';
 
 export function Button(props: PropsWithChildren<ButtonProps>) {
+  const { disabled = false } = props;
   const handleClick = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     const btn = e.currentTarget;
     const circle = document.createElement('span');
@@ -25,6 +26,7 @@ export function Button(props: PropsWithChildren<ButtonProps>) {
   return (
     <button
       onClick={handleClick}
+      disabled={disabled}
       className={`transition-all hover:bg-opacity-90 overflow-hidden relative py-8 md:py-12 flex items-center justify-center px-4 text-16 md:text-18 font-medium md:font-semibold md:leading-snug text-baseForeground bg-secondary-500 rounded-soft md:rounded-micro ${
         props.className || ''
       }`}>

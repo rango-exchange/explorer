@@ -227,6 +227,20 @@ span.ripple {
   height: 40px;
 }
 
+.rango-statistic-sankey-chart{
+  height: 100% !important;
+  width: 100% !important;
+}
+
+.animate-modal {
+  transition-timing-function: cubic-bezier(10, 2, 3, 1);
+  transform: translateY(50rem);
+  transition: 0.5s;
+}
+
+.animate-mount-modal {
+  transform: translateY(0rem);
+}
 
 @-moz-document url-prefix() {
   .mask-2 {

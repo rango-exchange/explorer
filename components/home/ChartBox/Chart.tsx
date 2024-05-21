@@ -7,13 +7,18 @@ import {
   Tooltip,
   AreaSeries,
 } from '@visx/xychart';
-import { customTheme, daysFilter, getDayOfMonth } from './Chart.helper';
+import { customTheme, daysFilter } from './Chart.helper';
 import { CustomTick } from './CustomTick';
 import { ChartProps } from './Chart.type';
 import isMobile from 'is-mobile';
 
 import { LinearGradient } from '@visx/gradient';
 import { AmountConverter } from 'utils/amountConverter';
+import { getDayOfMonth } from 'utils/common';
+import dayjs from 'dayjs';
+import utc from 'dayjs/plugin/utc';
+
+dayjs.extend(utc);
 
 const Chart = (props: ChartProps) => {
   const IsMobile = isMobile({ tablet: true });
@@ -26,6 +31,8 @@ const Chart = (props: ChartProps) => {
     ? data.slice(days * -2, days * -1).map((item) => ({ ...item }))
     : null;
 
+  const currentPeriodKey = `Current ${currentFilter ? currentFilter.name : ''}`;
+  const prevPeriodKey = `Prev ${currentFilter ? currentFilter.name : ''}`;
   // Update the date property of each item in prevWeek with the corresponding item from deepCopyCurrentWeek
   if (prevPeriod && currentPeriod)
     prevPeriod.forEach((item, index) => {
@@ -73,7 +80,7 @@ const Chart = (props: ChartProps) => {
             yAccessor={(d) => d.count}
             curve={curveMonotoneX}
             strokeWidth={1}
-            stroke="url(#area-gradient)"
+            stroke="url(#area-glabelradient)"
             fill="url(#area-gradient)"
           />
           <LinearGradient
@@ -91,16 +98,15 @@ const Chart = (props: ChartProps) => {
           {/* previous chart only for week and month */}
           <AnimatedLineSeries
             curve={curveMonotoneX}
-            dataKey={`Prev ${currentFilter ? currentFilter.name : ''}`}
+            dataKey={prevPeriodKey}
             data={prevPeriod}
-            stroke="#242D5B"
             xAccessor={(d) => d.date}
             yAccessor={(d) => d.count}
           />
 
           {/* current chart only for week and month */}
           <AreaSeries
-            dataKey={`Current ${currentFilter ? currentFilter.name : ''}`}
+            dataKey={currentPeriodKey}
             data={currentPeriod}
             xAccessor={(d) => d.date}
             yAccessor={(d) => d.count}
@@ -123,16 +129,63 @@ const Chart = (props: ChartProps) => {
         snapTooltipToDatumX
         snapTooltipToDatumY
         showDatumGlyph
-        applyPositionStyle={true}
+        showVerticalCrosshair
+        showHorizontalCrosshair
+        verticalCrosshairStyle={{
+          stroke: 'rgba(184, 184, 184, 0.30)',
+          strokeDasharray: 3,
+        }}
+        horizontalCrosshairStyle={{
+          stroke: 'rgba(184, 184, 184, 0.30)',
+          strokeDasharray: 3,
+        }}
+        showSeriesGlyphs
+        applyPositionStyle
         style={{
           background: 'transparent',
         }}
         unstyled={false}
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         renderTooltip={({ tooltipData }: any) => (
-          <div className="bg-tooltipBackground px-[8px] py-[4px] rounded-[8px] text-baseForeground text-12">
-            {label && <p className="text-10 text-neutral-200">{label}</p>}
-            {AmountConverter(tooltipData.nearestDatum.datum.count)}
+          <div className="bg-tooltipBackground px-8 py-[4px] rounded-[8px] text-neutral-200 text-12">
+            <span className="text-10">
+              {dayjs
+                .utc(tooltipData.nearestDatum.datum.date)
+                .local()
+                .format('dddd, D MMMM YYYY')
+                .toString()}
+            </span>
+            {currentPeriod && prevPeriod ? (
+              <div>
+                <div className="flex items-center mr-20">
+                  <span
+                    className={`w-[0.25rem] md:w-[0.375rem] h-[0.25rem] md:h-[0.375rem] mr-5 rounded-full bg-secondary-500`}></span>
+                  Current:
+                  <span className="text-baseForeground pl-1">
+                    {AmountConverter(
+                      tooltipData.datumByKey[currentPeriodKey].datum.count,
+                    )}
+                  </span>
+                </div>
+                <div className="flex items-center">
+                  <span
+                    className={`w-[0.25rem] md:w-[0.375rem] h-[0.25rem] md:h-[0.375rem] mr-5 rounded-full bg-primary-600`}></span>
+                  Previous:
+                  <span className="text-baseForeground pl-1">
+                    {AmountConverter(
+                      tooltipData.datumByKey[prevPeriodKey].datum.count,
+                    )}
+                  </span>
+                </div>
+              </div>
+            ) : (
+              <div className="flex items-center">
+                {label && <p className="text-neutral-200">{label}:</p>}
+                <span className="text-baseForeground pl-1">
+                  {AmountConverter(tooltipData.nearestDatum.datum.count)}
+                </span>
+              </div>
+            )}
           </div>
         )}
       />

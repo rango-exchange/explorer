@@ -5,7 +5,7 @@ function SvgApiManagement(props: SvgIconPropsWithChildren) {
   return createElement(
     SvgIcon,
     props,
-    <svg viewBox="0 0 22 18" xmlns="http://www.w3.org/2000/svg">
+    <svg viewBox="0 0 22 18" fill="none" xmlns="http://www.w3.org/2000/svg">
       <g id="api-management 1" clipPath="url(#clip0_6457_1222)">
         <path
           id="Vector"

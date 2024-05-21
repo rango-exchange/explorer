@@ -19,6 +19,8 @@
     "@visx/curve": "^2.1.0",
     "@visx/gradient": "^3.3.0",
     "@visx/xychart": "^2.16.0",
+    "chart.js": "4.2.1",
+    "chartjs-chart-sankey": "^0.12.1",
     "dayjs": "^1.11.6",
     "eslint-config-next": "^13.0.4",
     "is-mobile": "^3.1.1",

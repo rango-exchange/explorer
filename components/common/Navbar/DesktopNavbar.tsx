@@ -5,9 +5,10 @@ import coloredLogo from 'public/logo.svg';
 import rangoLogo from 'public/logo-with-text.svg';
 import Menu from './Menu';
 import { DeviceProps } from './Navbar.type';
+import SearchInput from '../SearchBox/SearchInput';
 
 function DesktopNavbar(props: DeviceProps) {
-  const { links, renderChildren, theme, className } = props;
+  const { links, renderChildren, theme, className, hasSearchInput } = props;
   const [showSubMenu, setShowSubMenu] = useState<number>(0);
 
   return (
@@ -19,13 +20,24 @@ function DesktopNavbar(props: DeviceProps) {
       onMouseLeave={() => setShowSubMenu(0)}>
       {renderChildren ? (
         <>
-          <Link className="relative w-[3.8rem] md:w-[7.7rem]" href="/">
-            <Image
-              src={theme === 'dark' ? coloredLogo : rangoLogo}
-              alt="Rango logo"
-              layout="responsive"
-            />
-          </Link>
+          <div className="flex justify-center	items-center gap-9">
+            <Link className="relative w-[3.8rem] md:w-[7.7rem]" href="/">
+              <Image
+                src={theme === 'dark' ? coloredLogo : rangoLogo}
+                alt="Rango logo"
+                layout="responsive"
+              />
+            </Link>
+            {hasSearchInput && (
+              <div className="w-[310px]">
+                <SearchInput
+                  className="md:!text-14 placeholder:!text-12"
+                  roundedFull
+                  hasSubmitButton={false}
+                />
+              </div>
+            )}
+          </div>
 
           <nav>
             <ul className="flex flex-row items-center text-22">

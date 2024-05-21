@@ -3,7 +3,6 @@ import { useRouter } from 'next/router';
 import Link from 'next/link';
 import { DetailsType } from 'types';
 import Layout from 'components/common/Layout';
-import SearchBox from 'components/common/SearchBox';
 import { getTxDetails } from 'services';
 import { ChevronRightIcon } from 'components/icons';
 import SwapDetailSummary from 'components/detail/SwapDetailSummary';
@@ -23,11 +22,8 @@ function SwapDetails(props: PropsType) {
   return status ? (
     <Error />
   ) : (
-    <Layout title={`Swap ${id}`}>
+    <Layout hasSearchInput title={`Swap ${id}`}>
       <div>
-        <div className="w-full flex flex-col items-center relative bg-baseBackground">
-          <SearchBox />
-        </div>
         <div className="w-full flex justify-center">
           <div className="container px-25 md:px-0 pt-30 md:py-50">
             <div className="w-full py-10 md:py-20 flex items-center justify-start">

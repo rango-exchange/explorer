@@ -44,6 +44,7 @@ module.exports = {
       },
       inset: { 15: '3.75rem' },
       padding: {
+        2: '0.16rem',
         5: '0.32rem',
         8: '0.5rem',
         10: '0.625rem',
@@ -59,6 +60,7 @@ module.exports = {
         50: '3.125rem',
       },
       margin: {
+        2: '0.16rem',
         5: '0.32rem',
         10: '0.625rem',
         15: '0.937rem',
@@ -95,6 +97,7 @@ module.exports = {
         20: '1.25rem',
         22: '1.375rem',
         28: '1.75rem',
+        32: '2rem',
         45: '2.8125rem',
         56: '3.5rem',
       },
@@ -118,6 +121,7 @@ module.exports = {
         failed: '#FF3B3B',
         backgroundFailed: '#FFD7D7',
         tooltipBackground: '#2B3462',
+        overlay: 'rgba(230, 230, 230, 0.70)',
 
         primary: {
           500: '#010101',

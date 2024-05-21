@@ -47,7 +47,7 @@ function ChartBox(props: PropsType) {
               </div>
               <div className="flex items-center">
                 <span
-                  className={`w-[0.25rem] md:w-[0.375rem] h-[0.25rem] md:h-[0.375rem] mr-5 rounded-full bg-secondary-700`}></span>
+                  className={`w-[0.25rem] md:w-[0.375rem] h-[0.25rem] md:h-[0.375rem] mr-5 rounded-full bg-primary-600`}></span>
                 <span className="text-baseForeground text-10 md:text-14">
                   {`Previous ${filterItem.name}`}
                 </span>
