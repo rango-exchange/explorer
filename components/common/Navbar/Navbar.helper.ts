@@ -22,13 +22,6 @@ export const links: Array<LinkTypes | MenuTypes> = [
     openInNewTab: false,
   },
   {
-    location: 'https://app.rango.exchange',
-    title: 'Rango App',
-    id: 2,
-    type: 'link',
-    openInNewTab: false,
-  },
-  {
     location: '/transactions',
     title: 'Transactions',
     id: 3,

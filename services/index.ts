@@ -63,7 +63,7 @@ export const getTxDetails = async (requestId: string) =>
 
 export const getDailySummary = async (options: DailySummaryOption) => {
   const { days, breakDownBy, source, destination } = options;
-  let dailySummaryURL = `${API_URL}/scanner/summary/daily?days=${days}&breakDownBy=${breakDownBy}&apiKey=${process.env.NEXT_PUBLIC_API_KEY}`;
+  let dailySummaryURL = `${API_URL}/scanner/summary/daily?days=${days}&breakDownBy=${breakDownBy}&apiKey=${process.env.NEXT_PUBLIC_API_KEY}&token=${process.env.NEXT_PUBLIC_SECRET_KEY}`;
   if (source) dailySummaryURL += `&source=${source}`;
   if (destination) dailySummaryURL += `&destination=${destination}`;
 
@@ -78,7 +78,7 @@ export const getDailySummary = async (options: DailySummaryOption) => {
 
 export const getTopListSummary = async (days: number) =>
   await fetch(
-    `${API_URL}/scanner/summary/top-lists?days=${days}&apiKey=${process.env.NEXT_PUBLIC_API_KEY}`,
+    `${API_URL}/scanner/summary/top-lists?days=${days}&apiKey=${process.env.NEXT_PUBLIC_API_KEY}&token=${process.env.NEXT_PUBLIC_SECRET_KEY}`,
   )
     .then(async (res) => await res.json())
     .then((data) => data)
@@ -89,7 +89,7 @@ export const getTopListSummary = async (days: number) =>
 
 export const getBlockchains = async () => {
   return await fetch(
-    `${API_URL}/meta/blockchains?apiKey=${process.env.NEXT_PUBLIC_API_KEY}`,
+    `${API_URL}/meta/blockchains?apiKey=${process.env.NEXT_PUBLIC_API_KEY}&token=${process.env.NEXT_PUBLIC_SECRET_KEY}`,
   )
     .then(async (res) => await res.json())
     .then((data) => data)
