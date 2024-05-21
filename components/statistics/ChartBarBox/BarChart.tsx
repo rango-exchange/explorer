@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import {
   AnimatedAxis,
   AnimatedGrid,
@@ -32,7 +33,7 @@ const BarChart = (props: BarChartProps) => {
   return (
     <XYChart
       theme={type === 'transaction' ? transactionTheme : volumeTheme}
-      height={IsMobile ? 300 : 475}
+      height={IsMobile ? 230 : 475}
       xScale={{ type: 'band', padding: barPadding }}
       yScale={{ type: 'linear' }}>
       <AnimatedAxis
@@ -84,27 +85,36 @@ const BarChart = (props: BarChartProps) => {
           background: 'transparent',
         }}
         unstyled={false}
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         renderTooltip={(tooltipContext: any) => {
           const { tooltipData } = tooltipContext;
           const { datumByKey, nearestDatum } = tooltipData;
           const { datum } = nearestDatum;
+
+          let totalValue = 0;
+          Object.keys(datumByKey).forEach((blockchainItem: any) => {
+            const { datum } = datumByKey[blockchainItem];
+            totalValue += datum?.value || 0;
+          });
 
           return (
             <div
               style={{
                 boxShadow: '0px 5px 20px 0px rgba(130, 130, 130, 0.20)',
               }}
-              className="bg-baseForeground rounded-soft">
-              {datum?.date && (
-                <div className="text-12 py-5 px-10 font-medium text-primary-500">
-                  {dayjs
-                    .utc(datum.date)
-                    .local()
-                    .format('YYYY/MM/DD')
-                    .toString()}
+              className="bg-baseForeground w-[165px] overflow-hidden rounded-soft">
+              <div className="flex items-center justify-between px-10 py-5 text-12 font-medium text-primary-500">
+                <div>
+                  {datum?.date
+                    ? dayjs
+                        .utc(datum.date)
+                        .local()
+                        .format('YYYY/MM/DD')
+                        .toString()
+                    : ''}
                 </div>
-              )}
+                <div>{AmountConverter(totalValue)}</div>
+              </div>
+
               {Object.keys(datumByKey).map((datumByKeyItem) => {
                 const { key, datum } = datumByKey[datumByKeyItem];
                 const stackItem = series.find(
@@ -125,7 +135,7 @@ const BarChart = (props: BarChartProps) => {
                       {datum && (
                         <div className="text-10 ml-10">
                           {type === 'volume' && '$'}
-                          {AmountConverter(datum.value)}
+                          {AmountConverter(datum.value.toFixed(2))}
                         </div>
                       )}
                     </div>

@@ -5,7 +5,7 @@ function SvgMore(props: SvgIconPropsWithChildren) {
   return createElement(
     SvgIcon,
     props,
-    <svg viewBox="0 0 2 11" xmlns="http://www.w3.org/2000/svg">
+    <svg viewBox="0 0 2 11" fill="none" xmlns="http://www.w3.org/2000/svg">
       <g id="Group">
         <path
           id="Vector"

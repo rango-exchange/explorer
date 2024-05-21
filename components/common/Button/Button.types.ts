@@ -4,6 +4,7 @@ type ButtonOnclick = Pick<HTMLAttributes<HTMLButtonElement>, 'onClick'>;
 
 export type ButtonProps = ButtonOnclick & {
   className?: string;
+  disabled?: boolean;
 };
 
 export interface LinkButtonProps {

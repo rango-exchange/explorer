@@ -41,11 +41,11 @@ function SankeyChartBox(props: PropsType) {
 
   return (
     <div className="w-full bg-baseForeground px-15 py-20 md:p-35 mt-25 rounded-soft md:rounded-normal ">
-      <div className="text-28 font-semibold">
+      <div className="text-18 md:text-28 font-semibold">
         Transfer volume among top source & destination chains
       </div>
-      <div className="w-full flex items-start mt-20">
-        <div className="w-full h-full h-[486px] pr-20">
+      <div className="w-full flex items-start flex-col md:flex-row mt-20">
+        <div className="w-full h-[300px] md:h-[486px] pr-20">
           <SankeyChart
             data={data}
             labels={labels}
@@ -54,7 +54,7 @@ function SankeyChartBox(props: PropsType) {
             blockchainColorMap={blockchainColorMap}
           />
         </div>
-        <div className="w-[250px] bg-surfacesBackground py-10 px-20">
+        <div className="w-full md:w-[250px] rounded-normal grid grid-cols-3 md:block mt-20 md:mt-0 md:bg-surfacesBackground md:py-10 md:px-20">
           {Array.from(blockchainColorMap).map((blockchainColorItem, index) => {
             const [blockchainName, blockchainColor] = blockchainColorItem;
             const blockchain = blockchainDataMap.get(blockchainName);
@@ -70,7 +70,7 @@ function SankeyChartBox(props: PropsType) {
                 </div>
 
                 {index !== blockchainColorMap.size - 1 && (
-                  <div className="h-[1px] w-full bg-neutral-300"></div>
+                  <div className="h-[1px] hidden md:block w-full bg-neutral-300"></div>
                 )}
               </React.Fragment>
             );
