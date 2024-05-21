@@ -133,28 +133,28 @@ function Statistics(props: PropsType) {
               blockchainDataMap={blockchainDataMap}
               topList={topPathsByTxCount}
               title="Top Paths"
-              description="Top chain pairs by transactions"
+              description="By number of transactions"
               type="path"
             />
             <TopList
               blockchainDataMap={blockchainDataMap}
               topList={topSourceByTxCount}
               title="Top Sources"
-              description="Top sources by transactions"
+              description="By number of transactions"
               type="blockchain"
             />
             <TopList
               blockchainDataMap={blockchainDataMap}
               topList={topDestinationByTxCount}
-              title="Top Destination "
-              description="Top destinations by transactions"
+              title="Top Destinations"
+              description="By number of transactions"
               type="blockchain"
             />
             <TopList
               blockchainDataMap={blockchainDataMap}
               topList={topPathsByVolume}
               title="Top Paths"
-              description="Top chain pairs by volume"
+              description="By volume of transactions"
               type="path"
               isVolume
             />
@@ -162,15 +162,15 @@ function Statistics(props: PropsType) {
               blockchainDataMap={blockchainDataMap}
               topList={topSourceByVolume}
               title="Top Sources"
-              description="Top sources by volume"
+              description="By volume of transactions"
               type="blockchain"
               isVolume
             />
             <TopList
               blockchainDataMap={blockchainDataMap}
               topList={topDestinationByVolume}
-              title="Top Destination "
-              description="Top destinations by volume"
+              title="Top Destinations"
+              description="By volume of transactions"
               type="blockchain"
               isVolume
             />

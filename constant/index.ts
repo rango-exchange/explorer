@@ -20,4 +20,4 @@ export const API_URL = process.env.NEXT_PUBLIC_BASE_URL;
 export const DEFAULT_TOKEN_LOGO =
   'https://app.rango.exchange/coins/unknown.png';
 
-export const DEFAULT_STATISTIC_DAYS: StatisticDaysFilter = 30;
+export const DEFAULT_STATISTIC_DAYS: StatisticDaysFilter = 90;
