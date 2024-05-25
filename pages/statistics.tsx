@@ -62,7 +62,7 @@ function Statistics(props: PropsType) {
     topSourceByVolume,
   } = topListSummary || {};
 
-  if (blockchains && status) {
+  if (blockchains && !status) {
     blockchains.forEach((blockchainItem) => {
       blockchainDataMap.set(blockchainItem.name, blockchainItem);
     });
