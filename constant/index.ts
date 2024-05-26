@@ -3,6 +3,7 @@ import { StatisticDaysFilter } from 'types';
 export const MATCH_TYPE = {
   ADDRESS: 'ADDRESS',
   REQUESTID: 'REQUESTID',
+  TXHASH: 'TXHASH',
 };
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
