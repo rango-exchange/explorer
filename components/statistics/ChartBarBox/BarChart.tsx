@@ -266,7 +266,7 @@ const BarChart = (props: BarChartProps) => {
           tickFormat={(d) => getDayOfMonth(d)}
           tickLabelProps={() => ({
             fontSize: isMobile ? 10 : 12,
-            fill: '#B8B8B8',
+            fill: '#727272',
             textAnchor: 'middle',
           })}
         />
@@ -281,7 +281,7 @@ const BarChart = (props: BarChartProps) => {
           tickFormat={(d) => compactNumberFormat(Number(d))}
           tickLabelProps={() => ({
             fontSize: isMobile ? 10 : 12,
-            fill: '#B8B8B8',
+            fill: '#727272',
             textAnchor: 'middle',
           })}
         />
