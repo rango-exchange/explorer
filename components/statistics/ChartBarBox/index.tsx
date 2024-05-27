@@ -197,10 +197,10 @@ function ChartBarBox(props: PropsType) {
         </div>
       </div>
 
-      <div className="flex items-center flex-col md:flex-row w-full  md:h-[475px]">
+      <div className="flex items-center flex-col md:flex-row w-full  md:h-[475px] md:pt-12 ">
         {isStackBar && (
           <>
-            <div className="w-full p-35 h-[230px] md:h-[475px]">
+            <div className="w-full px-20  md:pr-30 md:pl-0 h-[230px] md:h-[475px]">
               {!loading && (
                 <ParentSize>
                   {({ width, height }) => (
@@ -217,7 +217,7 @@ function ChartBarBox(props: PropsType) {
                 </ParentSize>
               )}
             </div>
-            <div className="w-full rounded-normal px-20 md:px-0 md:w-[250px] grid grid-cols-3 md:block h-[140px] md:h-[475px] md:bg-surfacesBackground md:py-10 md:px-20">
+            <div className="w-full rounded-normal px-20 md:w-[250px] grid grid-cols-3 md:block h-[140px] md:h-[475px] md:bg-surfacesBackground">
               {Array.from(colorBlockchainMap).map((mapItem, index) => {
                 const [blockchainItem, blockchainColor] = mapItem;
                 return (
@@ -242,7 +242,7 @@ function ChartBarBox(props: PropsType) {
         )}
 
         {!isStackBar && (
-          <div className="w-full h-[230px] md:h-[475px]">
+          <div className="w-full px-20 md:px-0 md:pt-12 h-[230px] md:h-[475px]">
             {!loading && (
               <ParentSize>
                 {({ width, height }) => (
