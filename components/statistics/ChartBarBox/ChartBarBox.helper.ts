@@ -1,8 +1,14 @@
 import { buildChartTheme } from '@visx/xychart';
-import { BarStack, ChartData, ChartType } from './ChartBarBox.type';
+import {
+  BarStackDataType,
+  ChartType,
+  ColorBlockchainMapType,
+} from './ChartBarBox.type';
 import { DailySummaryType } from 'types';
 
 export const BAR_CHART_BLOCKCHAIN_NUMBER = 10;
+
+export const DEFAULT_MARGIN = { top: 40, right: 0, bottom: 0, left: 20 };
 
 export const transactionTheme = buildChartTheme({
   backgroundColor: 'transparent',
@@ -28,7 +34,6 @@ export const barChartColors: string[] = [
   '#9DF546',
   '#F01DA8',
   '#FF8B66',
-  '#8566FF',
   '#44F1E6',
   '#29DA7A',
   '#F17606',
@@ -36,29 +41,47 @@ export const barChartColors: string[] = [
   '#F4C932',
 ];
 
+export const mobileBottomAxisData = {
+  7: { numBottomAxis: 3, startBottomAxis: 1, intervalBottomAxis: 2 },
+  30: { numBottomAxis: 3, startBottomAxis: 3, intervalBottomAxis: 10 },
+  90: { numBottomAxis: 3, startBottomAxis: 10, intervalBottomAxis: 30 },
+};
+
+export const DesktopBottomAxisData = {
+  7: { numBottomAxis: 7, startBottomAxis: 0, intervalBottomAxis: 1 },
+  30: { numBottomAxis: 6, startBottomAxis: 4, intervalBottomAxis: 5 },
+  90: { numBottomAxis: 8, startBottomAxis: 5, intervalBottomAxis: 10 },
+};
+
 export const getBarChartData = (chartOption: {
   dailyData: DailySummaryType[];
   isStackBar: boolean;
   type: ChartType;
 }) => {
   const { dailyData, isStackBar, type } = chartOption;
-  const dataSeries: BarStack[] = [];
-  const defaultColor = type === 'transaction' ? '#469BF5' : '#8B62FF';
+  const chartData: BarStackDataType[] = [];
+  const colorBlockchainMap: ColorBlockchainMapType = new Map();
+  const buckets: string[] = [];
 
   if (!isStackBar) {
-    const chartData: ChartData[] = dailyData.map((dailyItem) => {
-      return {
-        date: dailyItem.date,
-        value: type === 'transaction' ? dailyItem.count : dailyItem.volume,
-      };
-    });
-    dataSeries.push({
-      data: chartData,
-      name: type === 'transaction' ? 'Transactions' : 'Volume',
-      color: defaultColor,
+    dailyData.forEach((dailyItem) => {
+      const dataItem: BarStackDataType = { date: dailyItem.date };
+      dataItem[type === 'transaction' ? 'Transactions' : 'Volume'] =
+        type === 'transaction'
+          ? dailyItem.count.toString()
+          : dailyItem.volume.toString();
+
+      chartData.push(dataItem);
     });
 
-    return dataSeries;
+    colorBlockchainMap.set(
+      type === 'transaction' ? 'Transactions' : 'Volume',
+      type === 'transaction' ? '#469BF5' : '#8B62FF',
+    );
+
+    buckets.push(type === 'transaction' ? 'Transactions' : 'Volume');
+
+    return { chartData, colorBlockchainMap, buckets };
   }
 
   // map sum of value base on type(transaction or volume) for each blockchain
@@ -75,12 +98,23 @@ export const getBarChartData = (chartOption: {
     (a, b) => b[1] - a[1],
   );
 
-  // get n top blockchains for stack bars
+  // get top blockchains for stack bars
   const topBlockchain = sortedBlockchain
     .map((sortedItem) => sortedItem[0])
     .slice(0, BAR_CHART_BLOCKCHAIN_NUMBER);
 
-  // map chart data for each date
+  // create map structure for assign color for each blockchain
+  topBlockchain.forEach((blockchainItem, index) => {
+    colorBlockchainMap.set(
+      blockchainItem,
+      barChartColors[index % barChartColors.length],
+    );
+    buckets.push(blockchainItem);
+  });
+  colorBlockchainMap.set('Others', barChartColors[barChartColors.length - 1]);
+  buckets.push('Others');
+
+  // create map structure for assign chart data for each date
   const dateMap = new Map<string, DailySummaryType[]>();
   dailyData.forEach((dailyItem) => {
     if (!dateMap.has(dailyItem.date)) dateMap.set(dailyItem.date, []);
@@ -89,49 +123,55 @@ export const getBarChartData = (chartOption: {
     dateItem?.push(dailyItem);
   });
 
-  // prepare top blockchain data for stack bar
-  topBlockchain.forEach((topBlockchainItem, index) => {
-    const chartData: ChartData[] = [];
-    dateMap.forEach((dateDailyList, keyDate) => {
-      const blockchainData = dateDailyList.find(
-        (listItem) => listItem.bucket === topBlockchainItem,
-      );
-
-      // value base on type (transaction or volume)
-      let blockchainValue = 0;
-      if (blockchainData)
-        blockchainValue =
-          type === 'transaction' ? blockchainData.count : blockchainData.volume;
-      chartData.push({ date: keyDate, value: blockchainValue });
-    });
-
-    dataSeries.push({
-      data: chartData,
-      name: topBlockchainItem,
-      color: barChartColors[index % BAR_CHART_BLOCKCHAIN_NUMBER],
-    });
-  });
-
-  // prepare others blockchain data for stack bar
-  const othersChartData: ChartData[] = [];
+  // create data result for bar stack chart
   dateMap.forEach((dateDailyList, keyDate) => {
-    const othersBlockchain = dateDailyList.filter(
-      (listDataItem) => !topBlockchain.includes(listDataItem.bucket),
+    const dataItem: BarStackDataType = { date: keyDate };
+    dateDailyList
+      .filter((dailyItem) => topBlockchain.includes(dailyItem.bucket))
+      .forEach((topDailyItem) => {
+        const bucketValue =
+          type === 'transaction' ? topDailyItem.count : topDailyItem.volume;
+        dataItem[topDailyItem.bucket] = bucketValue
+          ? bucketValue.toString()
+          : '0';
+      });
+
+    topBlockchain.forEach((topItem) => {
+      if (!(topItem in dataItem)) dataItem[topItem] = '0';
+    });
+
+    const otherBlockchains = dateDailyList.filter(
+      (dailyItem) => !topBlockchain.includes(dailyItem.bucket),
     );
 
-    // sum value (base on type) of blockchains other than tops
-    const othersValue = othersBlockchain
+    const othersValue = otherBlockchains
       .map((dailyItem) =>
         type === 'transaction' ? dailyItem.count : dailyItem.volume,
       )
       .reduce((accumulator, currentValue) => accumulator + currentValue, 0);
-    othersChartData.push({ date: keyDate, value: othersValue });
-  });
-  dataSeries.push({
-    data: othersChartData,
-    name: 'Others',
-    color: barChartColors[barChartColors.length - 1],
+
+    dataItem['Others'] = othersValue.toString();
+
+    chartData.push(dataItem);
   });
 
-  return dataSeries;
+  return { chartData, colorBlockchainMap, buckets };
+};
+
+export const getTotalValueDates = (
+  data: BarStackDataType[],
+  buckets: string[],
+) => {
+  const totalValueDates = data.reduce((accumulator, currentData) => {
+    const totalValuePerDate = buckets.reduce((dailyTotal, currentBucket) => {
+      dailyTotal += !isNaN(Number(currentData[currentBucket]))
+        ? Number(currentData[currentBucket])
+        : 0;
+      return dailyTotal;
+    }, 0);
+    accumulator.push(totalValuePerDate);
+    return accumulator;
+  }, [] as number[]);
+
+  return totalValueDates;
 };
