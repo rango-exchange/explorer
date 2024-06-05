@@ -56,6 +56,18 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
       },
     };
   }
+
+  if (result?.length && result[0].matchType === MATCH_TYPE.TXHASH) {
+    const { requestId } = result[0];
+    if (requestId)
+      return {
+        redirect: {
+          permanent: false,
+          destination: `/swap/${requestId}`,
+        },
+      };
+  }
+
   return {
     props: {},
   };
