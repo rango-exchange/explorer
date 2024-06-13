@@ -52,7 +52,7 @@ export function Select(props: SelectProps) {
 
       {open && (
         <div
-          className="w-[200px] h-[256px] absolute top-[35px] z-10 rounded-soft overflow-y-scroll p-5 bg-baseForeground"
+          className="w-[200px] max-h-[256px] absolute top-[35px] z-10 rounded-soft overflow-y-auto p-5 bg-baseForeground"
           style={{
             boxShadow: '5px 5px 10px 0px rgba(0, 0, 0, 0.10)',
           }}>

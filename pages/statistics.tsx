@@ -62,7 +62,7 @@ function Statistics(props: PropsType) {
     topSourceByVolume,
   } = topListSummary || {};
 
-  if (blockchains) {
+  if (blockchains && !status) {
     blockchains.forEach((blockchainItem) => {
       blockchainDataMap.set(blockchainItem.name, blockchainItem);
     });
@@ -192,6 +192,7 @@ export const getServerSideProps: GetServerSideProps<PropsType> = async () => {
     days: DEFAULT_STATISTIC_DAYS,
     breakDownBy: BreakDownList.None,
   });
+
   const topListSummary = await getTopListSummary(DEFAULT_STATISTIC_DAYS);
   return {
     props: {

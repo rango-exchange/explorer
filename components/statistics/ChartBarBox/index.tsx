@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import { BarStack, FilterBarChart, PropsType } from './ChartBarBox.type';
+import React, { useEffect, useMemo, useState } from 'react';
+import { FilterBarChart, PropsType } from './ChartBarBox.type';
 import { numberWithCommas } from 'utils/amountConverter';
 import { SelectBlockchain } from 'components/common/SelectBlockchain';
 import { BreakDownList, DailySummaryOption, DailySummaryType } from 'types';
@@ -10,6 +10,7 @@ import { OptionType } from 'components/common/Select/Select.types';
 import { getBarChartData } from './ChartBarBox.helper';
 import { ActiveFilterIcon, FilterIcon, LoadingIcon } from 'components/icons';
 import ModalFilter from './ModalFilter';
+import ParentSize from '@visx/responsive/lib/components/ParentSize';
 
 const BarChart = dynamic(() => import('./BarChart'), {
   ssr: false,
@@ -37,11 +38,13 @@ function ChartBarBox(props: PropsType) {
 
   const { source, destination, breakDownBy } = filter;
 
-  const totalValue = dailyData
-    .map((dailyItem) =>
-      type === 'transaction' ? dailyItem.count : dailyItem.volume,
-    )
-    .reduce((accumulator, currentValue) => accumulator + currentValue, 0);
+  const totalValue =
+    dailyData &&
+    dailyData
+      .map((dailyItem) =>
+        type === 'transaction' ? dailyItem.count : dailyItem.volume,
+      )
+      .reduce((accumulator, currentValue) => accumulator + currentValue, 0);
 
   const breakDownOptions: OptionType[] = Object.keys(BreakDownList).map(
     (breakItem) => {
@@ -68,6 +71,7 @@ function ChartBarBox(props: PropsType) {
   }
 
   useEffect(() => {
+    setLoading(true);
     fetchDailySummaryData();
   }, [days]);
 
@@ -87,11 +91,16 @@ function ChartBarBox(props: PropsType) {
     (!!destination && breakDownBy === BreakDownList['Destination chain'])
   );
 
-  const dataSeries: BarStack[] = getBarChartData({
-    dailyData,
-    isStackBar,
-    type,
-  });
+  const { chartData, colorBlockchainMap, buckets } = useMemo(
+    () =>
+      getBarChartData({
+        dailyData,
+        isStackBar,
+        type,
+      }),
+
+    [type, dailyData, isStackBar],
+  );
 
   return (
     <div
@@ -188,27 +197,41 @@ function ChartBarBox(props: PropsType) {
         </div>
       </div>
 
-      <div className="flex items-center flex-col md:flex-row w-full md:h-[475px]">
-        {isStackBar && !loading && (
+      <div className="flex items-center flex-col md:flex-row w-full  md:h-[475px] md:pt-12 ">
+        {isStackBar && (
           <>
-            <div className="w-full h-[230px] md:h-[475px]">
-              <BarChart type={type} series={dataSeries} days={days} />
+            <div className="w-full px-20  md:pr-30 md:pl-0 h-[230px] md:h-[475px]">
+              {!loading && (
+                <ParentSize>
+                  {({ width, height }) => (
+                    <BarChart
+                      type={type}
+                      width={width}
+                      height={height}
+                      data={chartData}
+                      days={days}
+                      buckets={buckets}
+                      colorBlockchainMap={colorBlockchainMap}
+                    />
+                  )}
+                </ParentSize>
+              )}
             </div>
-            <div className="w-full rounded-normal px-20 md:px-0 md:w-[250px] grid grid-cols-3 md:block md:h-[475px] md:bg-surfacesBackground md:py-10 md:px-20">
-              {dataSeries.map((dataItem, index) => {
-                const { name, color: stackColor } = dataItem;
-
+            <div className="w-full rounded-normal px-20 md:w-[250px] grid grid-cols-3 md:block h-[140px] md:h-[475px] md:bg-surfacesBackground">
+              {Array.from(colorBlockchainMap).map((mapItem, index) => {
+                const [blockchainItem, blockchainColor] = mapItem;
                 return (
-                  <React.Fragment key={name}>
+                  <React.Fragment key={blockchainItem}>
                     <div className="flex items-center justify-start py-10">
                       <span
-                        style={{ backgroundColor: stackColor }}
+                        style={{ backgroundColor: blockchainColor }}
                         className={`w-[10px] h-[10px] rounded-full mr-5`}></span>
                       <span className="text-10 font-medium md:font-normal md:text-14">
-                        {name}
+                        {blockchainItem}
                       </span>
                     </div>
-                    {index !== dataSeries.length - 1 && (
+
+                    {index !== colorBlockchainMap.size - 1 && (
                       <div className="h-[1px] hidden md:block w-full bg-neutral-300"></div>
                     )}
                   </React.Fragment>
@@ -218,9 +241,23 @@ function ChartBarBox(props: PropsType) {
           </>
         )}
 
-        {!isStackBar && !loading && (
-          <div className="w-full h-[230px] md:h-[475px]">
-            <BarChart type={type} series={dataSeries} days={days} />
+        {!isStackBar && (
+          <div className="w-full px-20 md:px-0 md:pt-12 h-[230px] md:h-[475px]">
+            {!loading && (
+              <ParentSize>
+                {({ width, height }) => (
+                  <BarChart
+                    type={type}
+                    width={width}
+                    height={height}
+                    data={chartData}
+                    days={days}
+                    buckets={buckets}
+                    colorBlockchainMap={colorBlockchainMap}
+                  />
+                )}
+              </ParentSize>
+            )}
           </div>
         )}
       </div>
