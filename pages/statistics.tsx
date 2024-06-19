@@ -15,12 +15,26 @@ import {
   TopListSummaryType,
 } from 'types';
 import Link from 'next/link';
-import { ChevronRightIcon, LoadingIcon } from 'components/icons';
-import { useEffect, useState } from 'react';
+import {
+  ChevronDownIcon,
+  ChevronRightIcon,
+  CloseIcon,
+  LoadingIcon,
+} from 'components/icons';
+import { useEffect, useRef, useState } from 'react';
 import { DEFAULT_STATISTIC_DAYS } from 'constant';
 import TopList from 'components/statistics/TopList';
 import ChartBarBox from 'components/statistics/ChartBarBox';
 import SankeyChartBox from 'components/statistics/SankeyChartBox';
+import { DateRange } from 'react-day-picker';
+import { format } from 'date-fns';
+import ModalDatePicker from 'components/common/ModalDatePicker';
+import PopoverDatePicker from 'components/common/PopoverDatePicker';
+import { useMainContext } from 'hooks/MainContext';
+import {
+  getEndOfDayUTCTimestamp,
+  getStartOfDayUTCTimestamp,
+} from 'utils/common';
 
 interface PropsType {
   dailySummary: DailySummaryType[];
@@ -35,21 +49,69 @@ function Statistics(props: PropsType) {
   const { dailySummary, initialTopListSummary, blockchains, status } = props;
   const blockchainDataMap = new Map<string, BlockchainMeta>();
   const [loading, setLoading] = useState<boolean>(false);
+  const { isMobile } = useMainContext();
   const [topListSummary, setTopListSummary] = useState<TopListSummaryType>(
     initialTopListSummary,
   );
+  const [dateRange, setDateRange] = useState<DateRange | undefined>();
+  const [showDatePicker, setShowDatePicker] = useState<boolean>(false);
+
+  const ref = useRef<HTMLDivElement>(null);
+  const [hasDateHoverStyle, setHasDateHoverStyle] = useState<boolean>(false);
 
   const [currentDays, setCurrentDays] = useState<StatisticDaysFilter>(
     DEFAULT_STATISTIC_DAYS,
   );
 
+  const handleSelectDatePicker = (newRange: DateRange | undefined) => {
+    setShowDatePicker(false);
+    setDateRange(newRange);
+  };
+
   useEffect(() => {
-    async function fetchTopListSummary() {
-      const result = await getTopListSummary(currentDays);
-      setTopListSummary(result);
-      setLoading(false);
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    function handleClickOutsideDatePicker(event: any) {
+      if (!isMobile && ref?.current && !ref.current.contains(event.target)) {
+        setShowDatePicker(false);
+      }
     }
+    document.addEventListener('mousedown', handleClickOutsideDatePicker);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutsideDatePicker);
+    };
+  }, [ref, isMobile]);
+
+  async function fetchTopListSummary(fromDate?: number, toDate?: number) {
+    const result = await getTopListSummary({
+      days: currentDays,
+      from: fromDate || 0,
+      to: toDate || 0,
+    });
+    if (!result.hasError) {
+      setTopListSummary(result);
+    }
+    setLoading(false);
+  }
+
+  useEffect(() => {
     setLoading(true);
+
+    if (dateRange?.from && dateRange.to) {
+      fetchTopListSummary(
+        getStartOfDayUTCTimestamp(dateRange.from),
+        getEndOfDayUTCTimestamp(dateRange.to),
+      );
+    } else {
+      fetchTopListSummary();
+    }
+
+    setHasDateHoverStyle(false);
+  }, [dateRange]);
+
+  useEffect(() => {
+    setLoading(true);
+    setDateRange({ from: undefined, to: undefined });
+    setHasDateHoverStyle(false);
     fetchTopListSummary();
   }, [currentDays]);
 
@@ -68,6 +130,14 @@ function Statistics(props: PropsType) {
     });
   }
 
+  const handleRemoveDateRange = (
+    e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
+  ) => {
+    e.stopPropagation();
+    setDateRange({ from: undefined, to: undefined });
+    setHasDateHoverStyle(false);
+  };
+
   return status ? (
     <Error />
   ) : (
@@ -84,7 +154,7 @@ function Statistics(props: PropsType) {
                 Statistics
               </span>
             </div>
-            <div className="w-full md:w-auto flex items-center">
+            <div className="w-full md:w-auto flex items-center flex-col md:flex-row">
               {loading && (
                 <LoadingIcon
                   size="1.5rem"
@@ -107,11 +177,71 @@ function Statistics(props: PropsType) {
                   );
                 })}
               </div>
+              <div ref={ref} className="relative w-full md:w-auto">
+                <button
+                  onClick={() => setShowDatePicker((prev) => !prev)}
+                  className={`flex items-center w-full md:w-[260px] h-[40px] justify-between mt-10 md:mt-0 md:ml-10 group/box bg-surfacesBackground hover:bg-hoverBackground px-10 py-5 rounded-soft ${
+                    hasDateHoverStyle && dateRange?.from && dateRange.to
+                      ? '!bg-surfacesBackground'
+                      : ''
+                  } `}>
+                  {dateRange?.from && dateRange.to ? (
+                    <>
+                      {/* Apr 11, 2023 - Apr 17, 2023 */}
+                      <div
+                        className={`text-14 group-date text-primary-500 ${
+                          hasDateHoverStyle ? '!text-hoverIcon' : ''
+                        }`}>
+                        {`${format(dateRange.from, 'MMM dd, yyy')} - ${format(
+                          dateRange.to,
+                          'MMM dd, yyy',
+                        )}`}
+                      </div>
+                      <div className="flex items-center">
+                        <button
+                          onMouseEnter={() => setHasDateHoverStyle(true)}
+                          onMouseLeave={() => setHasDateHoverStyle(false)}
+                          type="button"
+                          onClick={handleRemoveDateRange}>
+                          <CloseIcon
+                            className="text-neutral-400 hover:text-hoverIcon"
+                            size="9px"
+                          />
+                        </button>
+                        <span className="text-neutral-400 mx-10">|</span>
+                        <ChevronDownIcon
+                          size="12px"
+                          className={`group-hover/box:text-hoverIcon text-primary-500 ${
+                            hasDateHoverStyle ? '!text-primary-500' : ''
+                          }`}
+                        />
+                      </div>
+                    </>
+                  ) : (
+                    <>
+                      <span className="text-14 text-primary-500">
+                        Custom Period
+                      </span>
+                      <ChevronDownIcon
+                        size="12px"
+                        className="group-hover/box:text-hoverIcon text-primary-500"
+                      />
+                    </>
+                  )}
+                </button>
+                {showDatePicker && !isMobile && (
+                  <PopoverDatePicker
+                    onApply={handleSelectDatePicker}
+                    selectedRange={dateRange}
+                  />
+                )}
+              </div>
             </div>
           </div>
 
           <ChartBarBox
             days={currentDays}
+            dateRange={dateRange}
             blockchains={blockchains}
             type="transaction"
             dailySummary={dailySummary}
@@ -122,6 +252,7 @@ function Statistics(props: PropsType) {
           <ChartBarBox
             type="volume"
             blockchains={blockchains}
+            dateRange={dateRange}
             days={currentDays}
             dailySummary={dailySummary}
             title="Volume"
@@ -180,6 +311,13 @@ function Statistics(props: PropsType) {
             topSourcePath={topPathsByVolume}
             blockchainDataMap={blockchainDataMap}
           />
+
+          <ModalDatePicker
+            open={isMobile && showDatePicker}
+            onClose={() => setShowDatePicker(false)}
+            selectedRange={dateRange}
+            onApply={setDateRange}
+          />
         </div>
       </div>
     </Layout>
@@ -192,8 +330,10 @@ export const getServerSideProps: GetServerSideProps<PropsType> = async () => {
     days: DEFAULT_STATISTIC_DAYS,
     breakDownBy: BreakDownList.None,
   });
+  const topListSummary = await getTopListSummary({
+    days: DEFAULT_STATISTIC_DAYS,
+  });
 
-  const topListSummary = await getTopListSummary(DEFAULT_STATISTIC_DAYS);
   return {
     props: {
       blockchains: blockchains.hasError ? {} : blockchains,

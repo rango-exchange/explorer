@@ -1,3 +1,4 @@
+import { DateRange } from 'react-day-picker';
 import { DailySummaryType, StatisticDaysFilter } from 'types';
 import { BlockchainMeta } from 'types/meta';
 import { SeriesPoint } from '@visx/shape/lib/types';
@@ -12,6 +13,7 @@ export interface PropsType {
   title: string;
   description: string;
   className?: string;
+  dateRange?: DateRange | undefined;
 }
 
 export interface ModalFilterType {
@@ -53,6 +55,7 @@ export interface BarChartProps {
   height: number;
   colorBlockchainMap: ColorBlockchainMapType;
   buckets: string[];
+  dateRange?: DateRange | undefined;
   margin?: { top: number; right: number; bottom: number; left: number };
 }
 

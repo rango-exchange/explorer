@@ -122,6 +122,7 @@ module.exports = {
         backgroundFailed: '#FFD7D7',
         tooltipBackground: '#2B3462',
         overlay: 'rgba(230, 230, 230, 0.70)',
+        buttonColor: '#1C3CF1',
 
         primary: {
           500: '#010101',

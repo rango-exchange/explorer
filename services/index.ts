@@ -62,8 +62,13 @@ export const getTxDetails = async (requestId: string) =>
     });
 
 export const getDailySummary = async (options: DailySummaryOption) => {
-  const { days, breakDownBy, source, destination } = options;
-  let dailySummaryURL = `${API_URL}/scanner/summary/daily?days=${days}&breakDownBy=${breakDownBy}&apiKey=${process.env.NEXT_PUBLIC_API_KEY}&token=${process.env.NEXT_PUBLIC_SECRET_KEY}`;
+  const { days, breakDownBy, source, destination, fromDate, toDate } = options;
+
+  let dailySummaryURL =
+    fromDate && toDate
+      ? `${API_URL}/scanner/summary/daily?from=${fromDate}&to=${toDate}&breakDownBy=${breakDownBy}&apiKey=${process.env.NEXT_PUBLIC_API_KEY}&token=${process.env.NEXT_PUBLIC_SECRET_KEY}`
+      : `${API_URL}/scanner/summary/daily?days=${days}&breakDownBy=${breakDownBy}&apiKey=${process.env.NEXT_PUBLIC_API_KEY}&token=${process.env.NEXT_PUBLIC_SECRET_KEY}`;
+
   if (source) dailySummaryURL += `&source=${source}`;
   if (destination) dailySummaryURL += `&destination=${destination}`;
 
@@ -76,16 +81,24 @@ export const getDailySummary = async (options: DailySummaryOption) => {
     });
 };
 
-export const getTopListSummary = async (days: number) =>
-  await fetch(
-    `${API_URL}/scanner/summary/top-lists?days=${days}&apiKey=${process.env.NEXT_PUBLIC_API_KEY}&token=${process.env.NEXT_PUBLIC_SECRET_KEY}`,
-  )
+export const getTopListSummary = async (option: {
+  days: number;
+  from?: number;
+  to?: number;
+}) => {
+  const { days, from, to } = option;
+  const url =
+    from && to
+      ? `${API_URL}/scanner/summary/top-lists?from=${from}&to=${to}&apiKey=${process.env.NEXT_PUBLIC_API_KEY}&token=${process.env.NEXT_PUBLIC_SECRET_KEY}`
+      : `${API_URL}/scanner/summary/top-lists?days=${days}&apiKey=${process.env.NEXT_PUBLIC_API_KEY}&token=${process.env.NEXT_PUBLIC_SECRET_KEY}`;
+  return await fetch(url)
     .then(async (res) => await res.json())
     .then((data) => data)
     .catch((error) => {
       console.error('There was an error!', error);
       return { hasError: true, status: error };
     });
+};
 
 export const getBlockchains = async () => {
   return await fetch(

@@ -22,3 +22,5 @@ export const DEFAULT_TOKEN_LOGO =
   'https://app.rango.exchange/coins/unknown.png';
 
 export const DEFAULT_STATISTIC_DAYS: StatisticDaysFilter = 90;
+
+export const MOBILE_BREAK_POINT = 640;

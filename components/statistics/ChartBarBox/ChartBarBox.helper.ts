@@ -5,6 +5,8 @@ import {
   ColorBlockchainMapType,
 } from './ChartBarBox.type';
 import { DailySummaryType } from 'types';
+import { getDaysDifference } from 'utils/common';
+import { DateRange } from 'react-day-picker';
 
 export const BAR_CHART_BLOCKCHAIN_NUMBER = 10;
 
@@ -51,6 +53,20 @@ export const DesktopBottomAxisData = {
   7: { numBottomAxis: 7, startBottomAxis: 0, intervalBottomAxis: 1 },
   30: { numBottomAxis: 6, startBottomAxis: 4, intervalBottomAxis: 5 },
   90: { numBottomAxis: 8, startBottomAxis: 5, intervalBottomAxis: 10 },
+};
+
+export const getAxisDayCount = (
+  days: number,
+  dateRange: DateRange | undefined,
+) => {
+  if (dateRange?.from && dateRange?.to) {
+    const daysDiff = getDaysDifference(dateRange.from, dateRange.to);
+    if (daysDiff < 15) return 7;
+    if (daysDiff < 50) return 30;
+    return 90;
+  }
+
+  return days;
 };
 
 export const getBarChartData = (chartOption: {
