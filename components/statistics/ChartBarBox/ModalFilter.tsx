@@ -122,154 +122,158 @@ function ModalFilter(props: ModalFilterType) {
       title={modalTitle}
       onClose={onClose}
       open={open}>
-      {!showBlockchainFilter && (
-        <div className="w-full h-full flex flex-col justify-between">
-          <div>
-            <div className="">
-              <div className="text-18 font-medium mb-5">Source chain</div>
-              <button
-                onClick={() =>
-                  handleShowBlockchainFilter(BlockchainFilterType.source)
-                }
-                className="rounded-soft w-full h-[40px] bg-neutral-300 p-10 hover:bg-hoverBackground">
-                <div className="w-full flex  items-center justify-between">
-                  <div className="flex items-center text-12">
-                    {selectedSourceBlockchain ? (
-                      <>
-                        <div className="w-[20px] h-[20px] relative mr-5">
-                          <Image
-                            src={selectedSourceBlockchain.logo}
-                            alt={selectedSourceBlockchain.displayName}
-                            title={selectedSourceBlockchain.displayName}
-                            fill
-                          />
-                        </div>
-                        <div>{selectedSourceBlockchain.shortName}</div>
-                      </>
-                    ) : (
-                      <span>Select Source Chain</span>
-                    )}
+      <div className="w-full px-20 py-10 max-h-full">
+        {!showBlockchainFilter && (
+          <div className="w-full h-full flex flex-col justify-between">
+            <div className="max-h-[calc(75vh-171px)] overflow-y-scroll">
+              <div className="">
+                <div className="text-18 font-medium mb-5">Source chain</div>
+                <button
+                  onClick={() =>
+                    handleShowBlockchainFilter(BlockchainFilterType.source)
+                  }
+                  className="rounded-soft w-full h-[40px] bg-neutral-300 p-10 hover:bg-hoverBackground">
+                  <div className="w-full flex  items-center justify-between">
+                    <div className="flex items-center text-12">
+                      {selectedSourceBlockchain ? (
+                        <>
+                          <div className="w-[20px] h-[20px] relative mr-5">
+                            <Image
+                              src={selectedSourceBlockchain.logo}
+                              alt={selectedSourceBlockchain.displayName}
+                              title={selectedSourceBlockchain.displayName}
+                              fill
+                            />
+                          </div>
+                          <div>{selectedSourceBlockchain.shortName}</div>
+                        </>
+                      ) : (
+                        <span>Select Source Chain</span>
+                      )}
+                    </div>
+                    <div className="flex items-center">
+                      {selectedSourceBlockchain && (
+                        <>
+                          <button
+                            type="button"
+                            onClick={(e) =>
+                              handleRemoveSelectedBlockchain(
+                                e,
+                                BlockchainFilterType.source,
+                              )
+                            }>
+                            <CloseIcon
+                              size="10px"
+                              className="text-neutral-400 hover:text-hoverIcon"
+                            />
+                          </button>
+                          <span className="text-neutral-400 mx-10">|</span>
+                        </>
+                      )}
+                      <ChevronRightIcon />
+                    </div>
                   </div>
-                  <div className="flex items-center">
-                    {selectedSourceBlockchain && (
-                      <>
-                        <button
-                          type="button"
-                          onClick={(e) =>
-                            handleRemoveSelectedBlockchain(
-                              e,
-                              BlockchainFilterType.source,
-                            )
-                          }>
-                          <CloseIcon
-                            size="10px"
-                            className="text-neutral-400 hover:text-hoverIcon"
-                          />
-                        </button>
-                        <span className="text-neutral-400 mx-10">|</span>
-                      </>
-                    )}
-                    <ChevronRightIcon />
-                  </div>
-                </div>
-              </button>
-            </div>
+                </button>
+              </div>
 
-            <div className="mt-35">
-              <div className="text-18 font-medium mb-5">Destination chain</div>
-              <button
-                onClick={() =>
-                  handleShowBlockchainFilter(BlockchainFilterType.destination)
-                }
-                className="rounded-soft w-full h-[40px] bg-neutral-300 p-10 hover:bg-hoverBackground">
-                <div className="w-full flex  items-center justify-between">
-                  <div className="flex items-center text-12">
-                    {selectedDestinationBlockchain ? (
-                      <>
-                        <div className="w-[20px] h-[20px] relative mr-5">
-                          <Image
-                            src={selectedDestinationBlockchain.logo}
-                            alt={selectedDestinationBlockchain.displayName}
-                            title={selectedDestinationBlockchain.displayName}
-                            fill
-                          />
-                        </div>
-                        <div>{selectedDestinationBlockchain.shortName}</div>
-                      </>
-                    ) : (
-                      <span>Select Destination Chain</span>
-                    )}
-                  </div>
-                  <div className="flex items-center">
-                    {selectedDestinationBlockchain && (
-                      <>
-                        <button
-                          type="button"
-                          onClick={(e) =>
-                            handleRemoveSelectedBlockchain(
-                              e,
-                              BlockchainFilterType.destination,
-                            )
-                          }>
-                          <CloseIcon
-                            size="10px"
-                            className="text-neutral-400 hover:text-hoverIcon"
-                          />
-                        </button>
-                        <span className="text-neutral-400 mx-10">|</span>
-                      </>
-                    )}
-                    <ChevronRightIcon />
-                  </div>
+              <div className="mt-35">
+                <div className="text-18 font-medium mb-5">
+                  Destination chain
                 </div>
-              </button>
-            </div>
+                <button
+                  onClick={() =>
+                    handleShowBlockchainFilter(BlockchainFilterType.destination)
+                  }
+                  className="rounded-soft w-full h-[40px] bg-neutral-300 p-10 hover:bg-hoverBackground">
+                  <div className="w-full flex  items-center justify-between">
+                    <div className="flex items-center text-12">
+                      {selectedDestinationBlockchain ? (
+                        <>
+                          <div className="w-[20px] h-[20px] relative mr-5">
+                            <Image
+                              src={selectedDestinationBlockchain.logo}
+                              alt={selectedDestinationBlockchain.displayName}
+                              title={selectedDestinationBlockchain.displayName}
+                              fill
+                            />
+                          </div>
+                          <div>{selectedDestinationBlockchain.shortName}</div>
+                        </>
+                      ) : (
+                        <span>Select Destination Chain</span>
+                      )}
+                    </div>
+                    <div className="flex items-center">
+                      {selectedDestinationBlockchain && (
+                        <>
+                          <button
+                            type="button"
+                            onClick={(e) =>
+                              handleRemoveSelectedBlockchain(
+                                e,
+                                BlockchainFilterType.destination,
+                              )
+                            }>
+                            <CloseIcon
+                              size="10px"
+                              className="text-neutral-400 hover:text-hoverIcon"
+                            />
+                          </button>
+                          <span className="text-neutral-400 mx-10">|</span>
+                        </>
+                      )}
+                      <ChevronRightIcon />
+                    </div>
+                  </div>
+                </button>
+              </div>
 
-            <div className="mt-35">
-              <div className="text-18 font-medium mb-5">Break down by</div>
-              <div>
-                {breakDownOptions.map((option) => (
-                  <button
-                    key={option.value}
-                    className="w-full flex items-center justify-start rounded-micro px-[2px] py-5 mb-5 hover:bg-hoverBackground"
-                    type="button"
-                    onClick={() =>
-                      setFilter((prevState) => ({
-                        ...prevState,
-                        breakDownBy: option.value,
-                      }))
-                    }>
-                    <input
-                      className="w-[16px] h-[16px] relative mr-5"
-                      type="radio"
-                      checked={!!breakDownBy && breakDownBy === option.value}
-                    />
-                    <div className="text-14">{option.label}</div>
-                  </button>
-                ))}
+              <div className="mt-35">
+                <div className="text-18 font-medium mb-5">Break down by</div>
+                <div>
+                  {breakDownOptions.map((option) => (
+                    <button
+                      key={option.value}
+                      className="w-full flex items-center justify-start rounded-micro px-[2px] py-5 mb-5 hover:bg-hoverBackground"
+                      type="button"
+                      onClick={() =>
+                        setFilter((prevState) => ({
+                          ...prevState,
+                          breakDownBy: option.value,
+                        }))
+                      }>
+                      <input
+                        className="w-[16px] h-[16px] relative mr-5"
+                        type="radio"
+                        checked={!!breakDownBy && breakDownBy === option.value}
+                      />
+                      <div className="text-14">{option.label}</div>
+                    </button>
+                  ))}
+                </div>
               </div>
             </div>
+            <div className="mt-50 mb-10">
+              <Button
+                disabled={!hasChange}
+                onClick={() => onApply(filter)}
+                className={`!text-18 !py-10 !w-full ${
+                  !hasChange ? '!bg-neutral-800' : '!bg-primary-600 '
+                } `}>
+                Apply
+              </Button>
+            </div>
           </div>
-          <div>
-            <Button
-              disabled={!hasChange}
-              onClick={() => onApply(filter)}
-              className={`!text-18 !py-10 !w-full ${
-                !hasChange ? '!bg-neutral-800' : '!bg-primary-600 '
-              } `}>
-              Apply
-            </Button>
-          </div>
-        </div>
-      )}
+        )}
 
-      {showBlockchainFilter && (
-        <BlockchainFilter
-          onSelect={handleSelectedBlockchain}
-          selectedBlockchain={selectedBlockchain}
-          blockchains={blockchains}
-        />
-      )}
+        {showBlockchainFilter && (
+          <BlockchainFilter
+            onSelect={handleSelectedBlockchain}
+            selectedBlockchain={selectedBlockchain}
+            blockchains={blockchains}
+          />
+        )}
+      </div>
     </Modal>
   );
 }

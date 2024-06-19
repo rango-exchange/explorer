@@ -34,6 +34,8 @@ export interface DailySummaryOption {
   breakDownBy: BreakDownList;
   source?: string;
   destination?: string;
+  fromDate?: number;
+  toDate?: number;
 }
 
 export interface BlockchainMap {

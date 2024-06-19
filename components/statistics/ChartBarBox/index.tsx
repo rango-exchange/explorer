@@ -11,6 +11,10 @@ import { getBarChartData } from './ChartBarBox.helper';
 import { ActiveFilterIcon, FilterIcon, LoadingIcon } from 'components/icons';
 import ModalFilter from './ModalFilter';
 import ParentSize from '@visx/responsive/lib/components/ParentSize';
+import {
+  getEndOfDayUTCTimestamp,
+  getStartOfDayUTCTimestamp,
+} from 'utils/common';
 
 const BarChart = dynamic(() => import('./BarChart'), {
   ssr: false,
@@ -24,6 +28,7 @@ function ChartBarBox(props: PropsType) {
     blockchains,
     title,
     description,
+    dateRange,
     className = '',
   } = props;
 
@@ -57,16 +62,22 @@ function ChartBarBox(props: PropsType) {
 
   const hasFilter = source || destination || breakDownBy !== BreakDownList.None;
 
-  async function fetchDailySummaryData() {
+  async function fetchDailySummaryData(fromDate?: number, toDate?: number) {
     const dailySummaryOption: DailySummaryOption = {
       days: days,
       breakDownBy: breakDownBy as BreakDownList,
     };
+    if (fromDate && toDate) {
+      dailySummaryOption.fromDate = fromDate || 0;
+      dailySummaryOption.toDate = toDate || 0;
+    }
     if (source) dailySummaryOption.source = source;
     if (destination) dailySummaryOption.destination = destination;
 
     const result = await getDailySummary(dailySummaryOption);
-    setDailyData(result);
+    if (!result.hasError) {
+      setDailyData(result);
+    }
     setLoading(false);
   }
 
@@ -76,8 +87,26 @@ function ChartBarBox(props: PropsType) {
   }, [days]);
 
   useEffect(() => {
+    if (dateRange?.from && dateRange.to) {
+      fetchDailySummaryData(
+        getStartOfDayUTCTimestamp(dateRange.from),
+        getEndOfDayUTCTimestamp(dateRange.to),
+      );
+    } else {
+      fetchDailySummaryData();
+    }
+  }, [dateRange]);
+
+  useEffect(() => {
     setLoading(true);
-    fetchDailySummaryData();
+    if (dateRange?.from && dateRange.to) {
+      fetchDailySummaryData(
+        getStartOfDayUTCTimestamp(dateRange.from),
+        getEndOfDayUTCTimestamp(dateRange.to),
+      );
+    } else {
+      fetchDailySummaryData();
+    }
   }, [filter]);
 
   const handleApplyFilter = (newFilter: FilterBarChart) => {
@@ -211,6 +240,7 @@ function ChartBarBox(props: PropsType) {
                       data={chartData}
                       days={days}
                       buckets={buckets}
+                      dateRange={dateRange}
                       colorBlockchainMap={colorBlockchainMap}
                     />
                   )}
@@ -252,6 +282,7 @@ function ChartBarBox(props: PropsType) {
                     height={height}
                     data={chartData}
                     days={days}
+                    dateRange={dateRange}
                     buckets={buckets}
                     colorBlockchainMap={colorBlockchainMap}
                   />

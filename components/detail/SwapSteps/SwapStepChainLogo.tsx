@@ -9,8 +9,6 @@ function SwapStepChainLogo(props: SwapStepChainLogoProps) {
   const { shortName: blockchainShortName, logo: blockchainLogo } =
     blockchainData;
 
-  console.log('logo', logo);
-
   return (
     <div className="relative mr-5">
       <img

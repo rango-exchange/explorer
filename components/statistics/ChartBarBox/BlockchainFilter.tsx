@@ -26,7 +26,7 @@ function BlockchainFilter(props: BlockchainFilterProps) {
   };
 
   return (
-    <div className="w-full h-full overflow-y-scroll">
+    <div className="w-full h-full">
       <div className="flex items-center rounded-soft h-[40px] mb-10 px-5 bg-surfacesBackground ">
         <SearchIcon className="mr-10 text-neutral-400" />
         <input
@@ -35,32 +35,34 @@ function BlockchainFilter(props: BlockchainFilterProps) {
           onChange={(e) => setSearchedFor(e.target.value)}
         />
       </div>
-      {filteredList.map((option, index) => (
-        <Fragment key={option.name}>
-          <button
-            className="w-full py-15 px-5 flex items-center justify-between rounded-micro hover:bg-hoverBackground"
-            type="button"
-            onClick={() => handleSelect(option.name)}>
-            <div className="flex items-start justify-start">
-              <div className="w-[20px] h-[20px] relative mr-5">
-                <Image
-                  src={option.logo}
-                  alt={option.displayName}
-                  title={option.displayName}
-                  fill={true}
-                />
+      <div className="h-[calc(75vh-114px)] overflow-y-scroll">
+        {filteredList.map((option, index) => (
+          <Fragment key={option.name}>
+            <button
+              className="w-full py-15 px-5 flex items-center justify-between rounded-micro hover:bg-hoverBackground"
+              type="button"
+              onClick={() => handleSelect(option.name)}>
+              <div className="flex items-start justify-start">
+                <div className="w-[20px] h-[20px] relative mr-5">
+                  <Image
+                    src={option.logo}
+                    alt={option.displayName}
+                    title={option.displayName}
+                    fill={true}
+                  />
+                </div>
+                <div className="text-14">{option.shortName}</div>
               </div>
-              <div className="text-14">{option.shortName}</div>
-            </div>
-            {selectedBlockchain && selectedBlockchain === option.name && (
-              <CheckIcon className="text-secondary-500" size="12px" />
+              {selectedBlockchain && selectedBlockchain === option.name && (
+                <CheckIcon className="text-secondary-500" size="12px" />
+              )}
+            </button>
+            {index !== filteredList.length - 1 && (
+              <div className="w-full h-[1px] bg-neutral-300"></div>
             )}
-          </button>
-          {index !== filteredList.length - 1 && (
-            <div className="w-full h-[1px] bg-neutral-300"></div>
-          )}
-        </Fragment>
-      ))}
+          </Fragment>
+        ))}
+      </div>
     </div>
   );
 }

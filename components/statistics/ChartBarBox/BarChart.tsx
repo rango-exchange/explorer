@@ -9,13 +9,14 @@ import {
   DEFAULT_MARGIN,
   DesktopBottomAxisData,
   barChartColors,
+  getAxisDayCount,
   getTotalValueDates,
   mobileBottomAxisData,
 } from './ChartBarBox.helper';
 import { AmountConverter, compactNumberFormat } from 'utils/amountConverter';
 import dayjs from 'dayjs';
 import utc from 'dayjs/plugin/utc';
-import React, { Fragment, useEffect, useRef } from 'react';
+import React, { Fragment, useEffect, useMemo, useRef } from 'react';
 
 import { BarStack } from '@visx/shape';
 
@@ -25,6 +26,7 @@ import { AxisBottom, AxisLeft } from '@visx/axis';
 import { scaleBand, scaleLinear, scaleOrdinal } from '@visx/scale';
 import { useTooltip, useTooltipInPortal } from '@visx/tooltip';
 import { localPoint } from '@visx/event';
+import { StatisticDaysFilter } from 'types';
 
 dayjs.extend(utc);
 
@@ -38,11 +40,16 @@ const BarChart = (props: BarChartProps) => {
     margin = DEFAULT_MARGIN,
     colorBlockchainMap,
     buckets,
+    dateRange,
   } = props;
 
   let tooltipTimeout: number;
-  const tooltipRef = useRef<HTMLInputElement>(null);
 
+  const tooltipRef = useRef<HTMLInputElement>(null);
+  const axisDays = useMemo(
+    () => getAxisDayCount(days, dateRange),
+    [days, dateRange],
+  );
   // bounds
   const xMax = width - margin.left - 20;
   const yMax = height - margin.top - 30;
@@ -51,14 +58,15 @@ const BarChart = (props: BarChartProps) => {
   // accessors
   const getDate = (d: BarStackDataType) => d.date;
 
-  // handle bottom axis data
   const allDate = data.map(getDate);
+
+  // handle bottom axis data
   const bottomAxisData = isMobile
     ? mobileBottomAxisData
     : DesktopBottomAxisData;
 
   const { intervalBottomAxis, numBottomAxis, startBottomAxis } =
-    bottomAxisData[days];
+    bottomAxisData[axisDays as StatisticDaysFilter];
 
   // Function to generate tick values at intervals of 5, starting from the 5th element
   const generateTickValues = (dates: string[]) => {
@@ -85,8 +93,8 @@ const BarChart = (props: BarChartProps) => {
   // scales
   const dateScale = scaleBand<string>({
     domain: data.map(getDate),
-    paddingInner: days === 7 ? 0.3 : 0.5,
-    paddingOuter: days === 7 ? 0.3 : 0,
+    paddingInner: axisDays === 7 ? 0.3 : 0.5,
+    paddingOuter: axisDays === 90 ? 0 : 0.3,
   });
 
   const totalValue = Math.max(...totalValueDates);
