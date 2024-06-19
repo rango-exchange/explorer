@@ -46,13 +46,15 @@ function SankeyChartBox(props: PropsType) {
       </div>
       <div className="w-full flex items-start flex-col md:flex-row mt-20">
         <div className="w-full h-[300px] md:h-[486px] pr-20">
-          <SankeyChart
-            data={data}
-            labels={labels}
-            priority={priority}
-            blockchainDataMap={blockchainDataMap}
-            blockchainColorMap={blockchainColorMap}
-          />
+          {data && data.length > 0 && (
+            <SankeyChart
+              data={data}
+              labels={labels}
+              priority={priority}
+              blockchainDataMap={blockchainDataMap}
+              blockchainColorMap={blockchainColorMap}
+            />
+          )}
         </div>
         <div className="w-full md:w-[250px] rounded-normal grid grid-cols-3 md:block mt-20 md:mt-0 md:bg-surfacesBackground md:py-10 md:px-20">
           {Array.from(blockchainColorMap).map((blockchainColorItem, index) => {
