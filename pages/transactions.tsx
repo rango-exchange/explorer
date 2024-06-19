@@ -51,7 +51,7 @@ function Transactions() {
   return data && data?.hasError ? (
     <Error />
   ) : (
-    <Layout title="Transactions">
+    <Layout hasSearchInput title="Transactions">
       <div>
         <div className="w-full flex justify-center">
           {data && (
