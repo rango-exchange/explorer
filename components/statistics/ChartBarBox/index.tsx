@@ -2,7 +2,12 @@ import React, { useEffect, useMemo, useState } from 'react';
 import { FilterBarChart, PropsType } from './ChartBarBox.type';
 import { numberWithCommas } from 'utils/amountConverter';
 import { SelectBlockchain } from 'components/common/SelectBlockchain';
-import { BreakDownList, DailySummaryOption, DailySummaryType } from 'types';
+import {
+  BreakDownList,
+  DailySummaryOption,
+  DailySummaryType,
+  StatisticDaysFilter,
+} from 'types';
 import { getDailySummary } from 'services';
 import dynamic from 'next/dynamic';
 import { Select } from 'components/common/Select';
@@ -11,6 +16,7 @@ import { getBarChartData } from './ChartBarBox.helper';
 import { ActiveFilterIcon, FilterIcon, LoadingIcon } from 'components/icons';
 import ModalFilter from './ModalFilter';
 import ParentSize from '@visx/responsive/lib/components/ParentSize';
+import { DEFAULT_STATISTIC_DAYS } from 'constant';
 
 const BarChart = dynamic(() => import('./BarChart'), {
   ssr: false,
@@ -35,6 +41,9 @@ function ChartBarBox(props: PropsType) {
   const [dailyData, setDailyData] = useState<DailySummaryType[]>(dailySummary);
   const [loading, setLoading] = useState<boolean>(false);
   const [showFilterModal, setShowFilterModal] = useState<boolean>(false);
+  const [currentDays, setCurrentDays] = useState<StatisticDaysFilter>(
+    DEFAULT_STATISTIC_DAYS,
+  );
 
   const { source, destination, breakDownBy } = filter;
 
@@ -59,7 +68,7 @@ function ChartBarBox(props: PropsType) {
 
   async function fetchDailySummaryData() {
     const dailySummaryOption: DailySummaryOption = {
-      days: days,
+      days: currentDays,
       breakDownBy: breakDownBy as BreakDownList,
     };
     if (source) dailySummaryOption.source = source;
@@ -67,13 +76,16 @@ function ChartBarBox(props: PropsType) {
 
     const result = await getDailySummary(dailySummaryOption);
     setDailyData(result);
-    setLoading(false);
   }
 
   useEffect(() => {
     setLoading(true);
-    fetchDailySummaryData();
+    setCurrentDays(days);
   }, [days]);
+
+  useEffect(() => {
+    fetchDailySummaryData();
+  }, [currentDays]);
 
   useEffect(() => {
     setLoading(true);
@@ -91,16 +103,15 @@ function ChartBarBox(props: PropsType) {
     (!!destination && breakDownBy === BreakDownList['Destination chain'])
   );
 
-  const { chartData, colorBlockchainMap, buckets } = useMemo(
-    () =>
-      getBarChartData({
-        dailyData,
-        isStackBar,
-        type,
-      }),
-
-    [type, dailyData, isStackBar],
-  );
+  const { chartData, colorBlockchainMap, buckets } = useMemo(() => {
+    const result = getBarChartData({
+      dailyData,
+      isStackBar,
+      type,
+    });
+    setLoading(false);
+    return result;
+  }, [type, dailyData, isStackBar]);
 
   return (
     <div
@@ -201,7 +212,7 @@ function ChartBarBox(props: PropsType) {
         {isStackBar && (
           <>
             <div className="w-full px-20  md:pr-30 md:pl-0 h-[230px] md:h-[475px]">
-              {!loading && (
+              {!loading && chartData?.length && (
                 <ParentSize>
                   {({ width, height }) => (
                     <BarChart
@@ -209,7 +220,7 @@ function ChartBarBox(props: PropsType) {
                       width={width}
                       height={height}
                       data={chartData}
-                      days={days}
+                      days={currentDays}
                       buckets={buckets}
                       colorBlockchainMap={colorBlockchainMap}
                     />
@@ -243,7 +254,7 @@ function ChartBarBox(props: PropsType) {
 
         {!isStackBar && (
           <div className="w-full px-20 md:px-0 md:pt-12 h-[230px] md:h-[475px]">
-            {!loading && (
+            {!loading && chartData?.length && (
               <ParentSize>
                 {({ width, height }) => (
                   <BarChart
@@ -251,7 +262,7 @@ function ChartBarBox(props: PropsType) {
                     width={width}
                     height={height}
                     data={chartData}
-                    days={days}
+                    days={currentDays}
                     buckets={buckets}
                     colorBlockchainMap={colorBlockchainMap}
                   />
