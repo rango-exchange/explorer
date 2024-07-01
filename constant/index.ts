@@ -1,4 +1,4 @@
-import { StatisticDaysFilter } from 'types';
+import { BreakDownList, StatisticDaysFilter } from 'types';
 
 export const MATCH_TYPE = {
   ADDRESS: 'ADDRESS',
@@ -22,3 +22,5 @@ export const DEFAULT_TOKEN_LOGO =
   'https://app.rango.exchange/coins/unknown.png';
 
 export const DEFAULT_STATISTIC_DAYS: StatisticDaysFilter = 90;
+export const DEFAULT_STATISTIC_BREAK_DOWN_FILTER =
+  BreakDownList['Source chain'];

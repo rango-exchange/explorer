@@ -9,7 +9,6 @@ import Layout from 'components/common/Layout';
 import Error from 'components/common/Error';
 import { BlockchainMeta } from 'types/meta';
 import {
-  BreakDownList,
   DailySummaryType,
   StatisticDaysFilter,
   TopListSummaryType,
@@ -17,7 +16,11 @@ import {
 import Link from 'next/link';
 import { ChevronRightIcon, LoadingIcon } from 'components/icons';
 import { useEffect, useState } from 'react';
-import { DEFAULT_STATISTIC_DAYS } from 'constant';
+import {
+  DEFAULT_STATISTIC_BREAK_DOWN_FILTER,
+  DEFAULT_STATISTIC_DAYS,
+} from 'constant';
+
 import TopList from 'components/statistics/TopList';
 import ChartBarBox from 'components/statistics/ChartBarBox';
 import SankeyChartBox from 'components/statistics/SankeyChartBox';
@@ -190,7 +193,7 @@ export const getServerSideProps: GetServerSideProps<PropsType> = async () => {
   const blockchains = await getBlockchains();
   const dailySummary = await getDailySummary({
     days: DEFAULT_STATISTIC_DAYS,
-    breakDownBy: BreakDownList.None,
+    breakDownBy: DEFAULT_STATISTIC_BREAK_DOWN_FILTER,
   });
 
   const topListSummary = await getTopListSummary(DEFAULT_STATISTIC_DAYS);

@@ -10,6 +10,7 @@ import { ChevronRightIcon, CloseIcon } from 'components/icons';
 import { BreakDownList } from 'types';
 import { Button } from 'components/common/Button';
 import BlockchainFilter from './BlockchainFilter';
+import { DEFAULT_STATISTIC_BREAK_DOWN_FILTER } from 'constant';
 
 function ModalFilter(props: ModalFilterType) {
   const { blockchains, selectedFilter, open, onClose, onApply } = props;
@@ -107,7 +108,7 @@ function ModalFilter(props: ModalFilterType) {
           <button
             onClick={() =>
               setFilter({
-                breakDownBy: BreakDownList.None,
+                breakDownBy: DEFAULT_STATISTIC_BREAK_DOWN_FILTER,
                 destination: '',
                 source: '',
               })
