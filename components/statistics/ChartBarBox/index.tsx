@@ -4,17 +4,14 @@ import { numberWithCommas } from 'utils/amountConverter';
 import { SelectBlockchain } from 'components/common/SelectBlockchain';
 import { BreakDownList, DailySummaryOption, DailySummaryType } from 'types';
 import { getDailySummary } from 'services';
-import dynamic from 'next/dynamic';
 import { Select } from 'components/common/Select';
 import { OptionType } from 'components/common/Select/Select.types';
 import { getBarChartData } from './ChartBarBox.helper';
 import { ActiveFilterIcon, FilterIcon, LoadingIcon } from 'components/icons';
 import ModalFilter from './ModalFilter';
 import ParentSize from '@visx/responsive/lib/components/ParentSize';
-
-const BarChart = dynamic(() => import('./BarChart'), {
-  ssr: false,
-});
+import { DEFAULT_STATISTIC_BREAK_DOWN_FILTER } from 'constant';
+import BarChart from './BarChart';
 
 function ChartBarBox(props: PropsType) {
   const {
@@ -30,7 +27,7 @@ function ChartBarBox(props: PropsType) {
   const [filter, setFilter] = useState<FilterBarChart>({
     source: '',
     destination: '',
-    breakDownBy: BreakDownList.None,
+    breakDownBy: DEFAULT_STATISTIC_BREAK_DOWN_FILTER,
   });
   const [dailyData, setDailyData] = useState<DailySummaryType[]>(dailySummary);
   const [loading, setLoading] = useState<boolean>(false);
@@ -55,7 +52,10 @@ function ChartBarBox(props: PropsType) {
     },
   );
 
-  const hasFilter = source || destination || breakDownBy !== BreakDownList.None;
+  const hasFilter =
+    source ||
+    destination ||
+    breakDownBy !== DEFAULT_STATISTIC_BREAK_DOWN_FILTER;
 
   async function fetchDailySummaryData() {
     const dailySummaryOption: DailySummaryOption = {
@@ -218,25 +218,27 @@ function ChartBarBox(props: PropsType) {
               )}
             </div>
             <div className="w-full rounded-normal px-20 md:w-[250px] grid grid-cols-3 md:block h-[140px] md:h-[475px] md:bg-surfacesBackground">
-              {Array.from(colorBlockchainMap).map((mapItem, index) => {
-                const [blockchainItem, blockchainColor] = mapItem;
-                return (
-                  <React.Fragment key={blockchainItem}>
-                    <div className="flex items-center justify-start py-10">
-                      <span
-                        style={{ backgroundColor: blockchainColor }}
-                        className={`w-[10px] h-[10px] rounded-full mr-5`}></span>
-                      <span className="text-10 font-medium md:font-normal md:text-14">
-                        {blockchainItem}
-                      </span>
-                    </div>
+              {!loading &&
+                chartData?.length &&
+                Array.from(colorBlockchainMap).map((mapItem, index) => {
+                  const [blockchainItem, blockchainColor] = mapItem;
+                  return (
+                    <React.Fragment key={blockchainItem}>
+                      <div className="flex items-center justify-start py-10">
+                        <span
+                          style={{ backgroundColor: blockchainColor }}
+                          className={`w-[10px] h-[10px] rounded-full mr-5`}></span>
+                        <span className="text-10 font-medium md:font-normal md:text-14">
+                          {blockchainItem}
+                        </span>
+                      </div>
 
-                    {index !== colorBlockchainMap.size - 1 && (
-                      <div className="h-[1px] hidden md:block w-full bg-neutral-300"></div>
-                    )}
-                  </React.Fragment>
-                );
-              })}
+                      {index !== colorBlockchainMap.size - 1 && (
+                        <div className="h-[1px] hidden md:block w-full bg-neutral-300"></div>
+                      )}
+                    </React.Fragment>
+                  );
+                })}
             </div>
           </>
         )}
