@@ -2,9 +2,13 @@ import React, { useEffect, useMemo, useState } from 'react';
 import { FilterBarChart, PropsType } from './ChartBarBox.type';
 import { numberWithCommas } from 'utils/amountConverter';
 import { SelectBlockchain } from 'components/common/SelectBlockchain';
-import { BreakDownList, DailySummaryOption, DailySummaryType } from 'types';
+import {
+  BreakDownList,
+  DailySummaryOption,
+  DailySummaryType,
+  StatisticDaysFilter,
+} from 'types';
 import { getDailySummary } from 'services';
-import dynamic from 'next/dynamic';
 import { Select } from 'components/common/Select';
 import { OptionType } from 'components/common/Select/Select.types';
 import { getBarChartData } from './ChartBarBox.helper';
@@ -15,10 +19,12 @@ import {
   getEndOfDayUTCTimestamp,
   getStartOfDayUTCTimestamp,
 } from 'utils/common';
+import {
+  DEFAULT_STATISTIC_BREAK_DOWN_FILTER,
+  DEFAULT_STATISTIC_DAYS,
+} from 'constant';
 
-const BarChart = dynamic(() => import('./BarChart'), {
-  ssr: false,
-});
+import BarChart from './BarChart';
 
 function ChartBarBox(props: PropsType) {
   const {
@@ -35,11 +41,14 @@ function ChartBarBox(props: PropsType) {
   const [filter, setFilter] = useState<FilterBarChart>({
     source: '',
     destination: '',
-    breakDownBy: BreakDownList.None,
+    breakDownBy: DEFAULT_STATISTIC_BREAK_DOWN_FILTER,
   });
   const [dailyData, setDailyData] = useState<DailySummaryType[]>(dailySummary);
   const [loading, setLoading] = useState<boolean>(false);
   const [showFilterModal, setShowFilterModal] = useState<boolean>(false);
+  const [currentDays, setCurrentDays] = useState<StatisticDaysFilter>(
+    DEFAULT_STATISTIC_DAYS,
+  );
 
   const { source, destination, breakDownBy } = filter;
 
@@ -60,11 +69,14 @@ function ChartBarBox(props: PropsType) {
     },
   );
 
-  const hasFilter = source || destination || breakDownBy !== BreakDownList.None;
+  const hasFilter =
+    source ||
+    destination ||
+    breakDownBy !== DEFAULT_STATISTIC_BREAK_DOWN_FILTER;
 
   async function fetchDailySummaryData(fromDate?: number, toDate?: number) {
     const dailySummaryOption: DailySummaryOption = {
-      days: days,
+      days: currentDays,
       breakDownBy: breakDownBy as BreakDownList,
     };
     if (fromDate && toDate) {
@@ -78,13 +90,16 @@ function ChartBarBox(props: PropsType) {
     if (!result.hasError) {
       setDailyData(result);
     }
-    setLoading(false);
   }
 
   useEffect(() => {
     setLoading(true);
-    fetchDailySummaryData();
+    setCurrentDays(days);
   }, [days]);
+
+  useEffect(() => {
+    fetchDailySummaryData();
+  }, [currentDays]);
 
   useEffect(() => {
     if (dateRange?.from && dateRange.to) {
@@ -120,16 +135,15 @@ function ChartBarBox(props: PropsType) {
     (!!destination && breakDownBy === BreakDownList['Destination chain'])
   );
 
-  const { chartData, colorBlockchainMap, buckets } = useMemo(
-    () =>
-      getBarChartData({
-        dailyData,
-        isStackBar,
-        type,
-      }),
-
-    [type, dailyData, isStackBar],
-  );
+  const { chartData, colorBlockchainMap, buckets } = useMemo(() => {
+    const result = getBarChartData({
+      dailyData,
+      isStackBar,
+      type,
+    });
+    setLoading(false);
+    return result;
+  }, [type, dailyData, isStackBar]);
 
   return (
     <div
@@ -230,7 +244,7 @@ function ChartBarBox(props: PropsType) {
         {isStackBar && (
           <>
             <div className="w-full px-20  md:pr-30 md:pl-0 h-[230px] md:h-[475px]">
-              {!loading && (
+              {!loading && chartData?.length && (
                 <ParentSize>
                   {({ width, height }) => (
                     <BarChart
@@ -238,7 +252,7 @@ function ChartBarBox(props: PropsType) {
                       width={width}
                       height={height}
                       data={chartData}
-                      days={days}
+                      days={currentDays}
                       buckets={buckets}
                       dateRange={dateRange}
                       colorBlockchainMap={colorBlockchainMap}
@@ -248,32 +262,34 @@ function ChartBarBox(props: PropsType) {
               )}
             </div>
             <div className="w-full rounded-normal px-20 md:w-[250px] grid grid-cols-3 md:block h-[140px] md:h-[475px] md:bg-surfacesBackground">
-              {Array.from(colorBlockchainMap).map((mapItem, index) => {
-                const [blockchainItem, blockchainColor] = mapItem;
-                return (
-                  <React.Fragment key={blockchainItem}>
-                    <div className="flex items-center justify-start py-10">
-                      <span
-                        style={{ backgroundColor: blockchainColor }}
-                        className={`w-[10px] h-[10px] rounded-full mr-5`}></span>
-                      <span className="text-10 font-medium md:font-normal md:text-14">
-                        {blockchainItem}
-                      </span>
-                    </div>
+              {!loading &&
+                chartData?.length &&
+                Array.from(colorBlockchainMap).map((mapItem, index) => {
+                  const [blockchainItem, blockchainColor] = mapItem;
+                  return (
+                    <React.Fragment key={blockchainItem}>
+                      <div className="flex items-center justify-start py-10">
+                        <span
+                          style={{ backgroundColor: blockchainColor }}
+                          className={`w-[10px] h-[10px] rounded-full mr-5`}></span>
+                        <span className="text-10 font-medium md:font-normal md:text-14">
+                          {blockchainItem}
+                        </span>
+                      </div>
 
-                    {index !== colorBlockchainMap.size - 1 && (
-                      <div className="h-[1px] hidden md:block w-full bg-neutral-300"></div>
-                    )}
-                  </React.Fragment>
-                );
-              })}
+                      {index !== colorBlockchainMap.size - 1 && (
+                        <div className="h-[1px] hidden md:block w-full bg-neutral-300"></div>
+                      )}
+                    </React.Fragment>
+                  );
+                })}
             </div>
           </>
         )}
 
         {!isStackBar && (
           <div className="w-full px-20 md:px-0 md:pt-12 h-[230px] md:h-[475px]">
-            {!loading && (
+            {!loading && chartData?.length && (
               <ParentSize>
                 {({ width, height }) => (
                   <BarChart
@@ -281,7 +297,7 @@ function ChartBarBox(props: PropsType) {
                     width={width}
                     height={height}
                     data={chartData}
-                    days={days}
+                    days={currentDays}
                     dateRange={dateRange}
                     buckets={buckets}
                     colorBlockchainMap={colorBlockchainMap}
