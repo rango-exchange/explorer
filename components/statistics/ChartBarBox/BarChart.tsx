@@ -57,7 +57,7 @@ const BarChart = (props: BarChartProps) => {
   const isMobile = width <= 640;
   // accessors
   const getDate = (d: BarStackDataType) => d.date;
-
+  // handle bottom axis data
   const allDate = data.map(getDate);
 
   // handle bottom axis data
@@ -93,8 +93,8 @@ const BarChart = (props: BarChartProps) => {
   // scales
   const dateScale = scaleBand<string>({
     domain: data.map(getDate),
-    paddingInner: axisDays === 7 ? 0.3 : 0.5,
-    paddingOuter: axisDays === 90 ? 0 : 0.3,
+    paddingInner: axisDays === 7 ? 0.3 : 0.46,
+    paddingOuter: axisDays === 90 ? 1 : 0.3,
   });
 
   const totalValue = Math.max(...totalValueDates);
@@ -144,7 +144,7 @@ const BarChart = (props: BarChartProps) => {
     };
   }, [tooltipRef]);
 
-  dateScale.rangeRound([0, xMax]);
+  dateScale.range([0, xMax]);
   valueScale.range([yMax, 0]);
 
   if (width < 10) return null;

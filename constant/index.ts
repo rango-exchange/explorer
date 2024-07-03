@@ -1,4 +1,4 @@
-import { StatisticDaysFilter } from 'types';
+import { BreakDownList, StatisticDaysFilter } from 'types';
 
 export const MATCH_TYPE = {
   ADDRESS: 'ADDRESS',
@@ -24,3 +24,5 @@ export const DEFAULT_TOKEN_LOGO =
 export const DEFAULT_STATISTIC_DAYS: StatisticDaysFilter = 90;
 
 export const MOBILE_BREAK_POINT = 640;
+export const DEFAULT_STATISTIC_BREAK_DOWN_FILTER =
+  BreakDownList['Source chain'];
