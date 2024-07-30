@@ -58,6 +58,9 @@ const Chart = (props: ChartProps) => {
         orientation="left"
         hideAxisLine
         hideTicks
+        label={label}
+        labelClassName="fill-neutral-800 text-10 font-normal"
+        labelOffset={20}
         numTicks={3}
         tickComponent={(props) => <CustomTick {...props} />}
       />
