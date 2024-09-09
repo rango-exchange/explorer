@@ -6,6 +6,12 @@ import { API_URL, SEARCH_RESULT_OFFSET } from '../constant';
 export const getLastSwaps = async () =>
   await fetch(
     `${API_URL}/scanner/tx/latest?count=20&apiKey=${process.env.NEXT_PUBLIC_API_KEY}`,
+    {
+      next: {
+        revalidate: 30, // 30 seconds cache
+        tags: ['txs'],
+      },
+    },
   )
     .then(async (res) => await res.json())
     .then((data) => data?.transactions || data)
@@ -17,6 +23,12 @@ export const getLastSwaps = async () =>
 export const getSummary = async () =>
   await fetch(
     `${API_URL}/scanner/summary?apiKey=${process.env.NEXT_PUBLIC_API_KEY}`,
+    {
+      next: {
+        revalidate: 3_600, // 1 hour cache
+        tags: ['stats'],
+      },
+    },
   )
     .then(async (res) => await res.json())
     .then((data) => data)
@@ -65,7 +77,12 @@ export const getDailySummary = async (options: DailySummaryOption) => {
   if (source) dailySummaryURL += `&source=${source}`;
   if (destination) dailySummaryURL += `&destination=${destination}`;
 
-  return await fetch(dailySummaryURL)
+  return await fetch(dailySummaryURL, {
+    next: {
+      revalidate: 3_600, // 1 hour cache
+      tags: ['stats'],
+    },
+  })
     .then(async (res) => await res.json())
     .then((data) => data?.stats || data)
     .catch((error) => {
@@ -77,6 +94,12 @@ export const getDailySummary = async (options: DailySummaryOption) => {
 export const getTopListSummary = async (days: number) =>
   await fetch(
     `${API_URL}/scanner/summary/top-lists?days=${days}&apiKey=${process.env.NEXT_PUBLIC_API_KEY}`,
+    {
+      next: {
+        revalidate: 3_600, // 1 hour cache
+        tags: ['stats'],
+      },
+    },
   )
     .then(async (res) => await res.json())
     .then((data) => data)
@@ -88,6 +111,12 @@ export const getTopListSummary = async (days: number) =>
 export const getBlockchains = async () => {
   return await fetch(
     `${API_URL}/meta/blockchains?apiKey=${process.env.NEXT_PUBLIC_API_KEY}`,
+    {
+      next: {
+        revalidate: 86_400, // 1 day cache
+        tags: ['meta'],
+      },
+    },
   )
     .then(async (res) => await res.json())
     .then((data) => data)
