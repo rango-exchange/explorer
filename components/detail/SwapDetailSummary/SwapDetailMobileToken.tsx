@@ -3,7 +3,7 @@ import ButtonCopyIcon from 'components/common/ButtonCopyIcon';
 import { SwapDetailItem } from './SwapDetail.type';
 import Link from 'next/link';
 import { DEFAULT_TOKEN_LOGO } from 'constant';
-import Image from 'next/image';
+import Image from 'next/legacy/image';
 import { SearchIcon } from 'components/icons';
 import rango from 'public/logo.png';
 

@@ -1,4 +1,4 @@
-import Image from 'next/image';
+import Image from 'next/legacy/image';
 import { SelectBlockchainProps } from './SelectBlockchainProps.types';
 import { useEffect, useRef, useState } from 'react';
 import {

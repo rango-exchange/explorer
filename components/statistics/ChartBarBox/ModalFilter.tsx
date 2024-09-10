@@ -5,7 +5,7 @@ import {
   BlockchainFilterType,
 } from './ChartBarBox.type';
 import { Modal } from 'components/common/modal';
-import Image from 'next/image';
+import Image from 'next/legacy/image';
 import { ChevronRightIcon, CloseIcon } from 'components/icons';
 import { BreakDownList } from 'types';
 import { Button } from 'components/common/Button';

@@ -1,6 +1,6 @@
 import React, { Fragment, useState } from 'react';
 import { BlockchainFilterProps } from './ChartBarBox.type';
-import Image from 'next/image';
+import Image from 'next/legacy/image';
 import { CheckIcon, SearchIcon } from 'components/icons';
 import { containsText } from 'utils/common';
 

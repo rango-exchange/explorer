@@ -1,4 +1,4 @@
-import Image from 'next/image';
+import Image from 'next/legacy/image';
 import Link from 'next/link';
 import coloredLogo from 'public/logo.svg';
 import rangoLogo from 'public/logo-with-text.svg';

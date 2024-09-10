@@ -1,5 +1,5 @@
 import NotFoundImage from 'public/img/notFound.png';
-import Image from 'next/image';
+import Image from 'next/legacy/image';
 import { PropsType } from './NotFound.type';
 import Link from 'next/link';
 

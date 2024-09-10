@@ -2,7 +2,7 @@ import Link from 'next/link';
 import { SwapDetailItem } from './SwapDetail.type';
 import ButtonCopyIcon from 'components/common/ButtonCopyIcon';
 import { SearchIcon } from 'components/icons';
-import Image from 'next/image';
+import Image from 'next/legacy/image';
 import logo from 'public/logo.png';
 import Tooltip from 'components/common/Tooltip';
 
