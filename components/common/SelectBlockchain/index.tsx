@@ -1,4 +1,4 @@
-import Image from 'next/legacy/image';
+import Image from 'next/image';
 import { SelectBlockchainProps } from './SelectBlockchainProps.types';
 import { useEffect, useRef, useState } from 'react';
 import {
@@ -74,6 +74,10 @@ export function SelectBlockchain(props: SelectBlockchainProps) {
                     alt={selectedBlockchain.displayName}
                     title={selectedBlockchain.displayName}
                     fill
+                    style={{
+                      maxWidth: '100%',
+                      height: 'auto',
+                    }}
                   />
                 </div>
                 <div>{selectedBlockchain.shortName}</div>
@@ -130,6 +134,10 @@ export function SelectBlockchain(props: SelectBlockchainProps) {
                     alt={option.displayName}
                     title={option.displayName}
                     fill={true}
+                    style={{
+                      maxWidth: '100%',
+                      height: 'auto',
+                    }}
                   />
                 </div>
                 <div className="text-14">{option.shortName}</div>

@@ -1,5 +1,5 @@
 import Layout from 'components/common/Layout';
-import Image from 'next/legacy/image';
+import Image from 'next/image';
 import Link from 'next/link';
 import pageNotFoundImage from 'public/img/404.png';
 
@@ -14,6 +14,10 @@ function NotFoundPage() {
             src={pageNotFoundImage}
             className="max-w-[240px] md:max-w-max mx-auto"
             alt="404"
+            style={{
+              maxWidth: '100%',
+              height: 'auto',
+            }}
           />
         </div>
         <div className="text-18 md:text-45 mt-30 md:mt-50 text-primary-500 font-semibold">

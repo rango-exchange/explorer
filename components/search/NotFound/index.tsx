@@ -1,5 +1,5 @@
 import NotFoundImage from 'public/img/notFound.png';
-import Image from 'next/legacy/image';
+import Image from 'next/image';
 import { PropsType } from './NotFound.type';
 import Link from 'next/link';
 
@@ -14,6 +14,10 @@ function NotFound(props: PropsType) {
           src={NotFoundImage}
           className="max-w-[240px] md:max-w-max mx-auto"
           alt="Not Found"
+          style={{
+            maxWidth: '100%',
+            height: 'auto',
+          }}
         />
       </div>
       <div className="text-18 md:text-45 mt-30 md:mt-50 text-center text-primary-500 font-semibold">

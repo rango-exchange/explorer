@@ -5,7 +5,7 @@ import {
   BlockchainFilterType,
 } from './ChartBarBox.type';
 import { Modal } from 'components/common/modal';
-import Image from 'next/legacy/image';
+import Image from 'next/image';
 import { ChevronRightIcon, CloseIcon } from 'components/icons';
 import { BreakDownList } from 'types';
 import { Button } from 'components/common/Button';
@@ -143,6 +143,10 @@ function ModalFilter(props: ModalFilterType) {
                             alt={selectedSourceBlockchain.displayName}
                             title={selectedSourceBlockchain.displayName}
                             fill
+                            style={{
+                              maxWidth: '100%',
+                              height: 'auto',
+                            }}
                           />
                         </div>
                         <div>{selectedSourceBlockchain.shortName}</div>
@@ -193,6 +197,10 @@ function ModalFilter(props: ModalFilterType) {
                             alt={selectedDestinationBlockchain.displayName}
                             title={selectedDestinationBlockchain.displayName}
                             fill
+                            style={{
+                              maxWidth: '100%',
+                              height: 'auto',
+                            }}
                           />
                         </div>
                         <div>{selectedDestinationBlockchain.shortName}</div>

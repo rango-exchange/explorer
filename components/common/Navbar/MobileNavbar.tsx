@@ -1,4 +1,4 @@
-import Image from 'next/legacy/image';
+import Image from 'next/image';
 import Link from 'next/link';
 import coloredLogo from 'public/logo.svg';
 import rangoLogo from 'public/logo-with-text.svg';
@@ -43,7 +43,11 @@ function MobileNavbar(props: DeviceProps) {
               <Image
                 src={theme === 'dark' ? coloredLogo : rangoLogo}
                 alt="Rango logo"
-                layout="responsive"
+                sizes="100vw"
+                style={{
+                  width: '100%',
+                  height: 'auto',
+                }}
               />
             </Link>
 

@@ -1,6 +1,6 @@
 import React, { Fragment, useState } from 'react';
 import { BlockchainFilterProps } from './ChartBarBox.type';
-import Image from 'next/legacy/image';
+import Image from 'next/image';
 import { CheckIcon, SearchIcon } from 'components/icons';
 import { containsText } from 'utils/common';
 
@@ -48,6 +48,10 @@ function BlockchainFilter(props: BlockchainFilterProps) {
                   alt={option.displayName}
                   title={option.displayName}
                   fill={true}
+                  style={{
+                    maxWidth: '100%',
+                    height: 'auto',
+                  }}
                 />
               </div>
               <div className="text-14">{option.shortName}</div>

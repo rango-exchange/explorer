@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import Image from 'next/legacy/image';
+import Image from 'next/image';
 import Link from 'next/link';
 
 import rangoLogo from 'public/logo.svg';
@@ -44,12 +44,20 @@ function MobileMenu(props: MobileMenuProps) {
           />
           <div
             className={`fixed top-0 z-10 right-0 flex h-full w-10/12 flex-col items-center justify-between overflow-x-auto rounded-l-large bg-baseForeground px-20 py-30  pt-[1.875rem] 
-            animate-menu
-            ${active ? 'animate-mount-menu' : ''}`}>
+          animate-menu
+          ${active ? 'animate-mount-menu' : ''}`}>
             <nav className="w-full">
               <div className="flex w-full items-center justify-between pb-6">
                 <Link className="relative w-24" href="/">
-                  <Image src={rangoLogo} alt="Rango logo" layout="responsive" />
+                  <Image
+                    src={rangoLogo}
+                    alt="Rango logo"
+                    sizes="100vw"
+                    style={{
+                      width: '100%',
+                      height: 'auto',
+                    }}
+                  />
                 </Link>
                 <div />
               </div>
@@ -63,11 +71,11 @@ function MobileMenu(props: MobileMenuProps) {
                           target={link.openInNewTab ? '_blank' : '_self'}
                           rel={link.openInNewTab ? 'noreferrer' : 'none'}
                           className={`flex w-full items-center justify-between py-4 text-16 font-medium	 
-                  ${
-                    pathname === link.location
-                      ? 'text-secondary-500'
-                      : 'text-primary-500'
-                  }`}>
+                ${
+                  pathname === link.location
+                    ? 'text-secondary-500'
+                    : 'text-primary-500'
+                }`}>
                           <span>{link.title}</span>
                         </Link>
                       ) : (

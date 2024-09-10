@@ -3,7 +3,7 @@ import ButtonCopyIcon from 'components/common/ButtonCopyIcon';
 import { SwapDetailItem } from './SwapDetail.type';
 import Link from 'next/link';
 import { DEFAULT_TOKEN_LOGO } from 'constant';
-import Image from 'next/legacy/image';
+import Image from 'next/image';
 import { SearchIcon } from 'components/icons';
 import rango from 'public/logo.png';
 
@@ -64,7 +64,11 @@ function SwapDetailMobileToken(props: SwapDetailItem) {
               src={rango}
               className="!w-[18px] !h-[18px]"
               alt="Rango logo"
-              layout="responsive"
+              sizes="100vw"
+              style={{
+                width: '100%',
+                height: 'auto',
+              }}
             />
             <div className="bg-white absolute p-0.5 rounded-full -right-1.5	-bottom-1.5">
               <SearchIcon
