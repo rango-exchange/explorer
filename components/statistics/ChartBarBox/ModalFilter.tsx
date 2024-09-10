@@ -145,7 +145,6 @@ function ModalFilter(props: ModalFilterType) {
                             fill
                             style={{
                               maxWidth: '100%',
-                              height: 'auto',
                             }}
                           />
                         </div>
@@ -199,7 +198,6 @@ function ModalFilter(props: ModalFilterType) {
                             fill
                             style={{
                               maxWidth: '100%',
-                              height: 'auto',
                             }}
                           />
                         </div>

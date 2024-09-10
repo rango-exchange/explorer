@@ -76,7 +76,6 @@ export function SelectBlockchain(props: SelectBlockchainProps) {
                     fill
                     style={{
                       maxWidth: '100%',
-                      height: 'auto',
                     }}
                   />
                 </div>
@@ -133,10 +132,9 @@ export function SelectBlockchain(props: SelectBlockchainProps) {
                     src={option.logo}
                     alt={option.displayName}
                     title={option.displayName}
-                    fill={true}
+                    fill
                     style={{
                       maxWidth: '100%',
-                      height: 'auto',
                     }}
                   />
                 </div>
