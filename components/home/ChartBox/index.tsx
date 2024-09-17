@@ -60,7 +60,7 @@ function ChartBox(props: PropsType) {
         <Chart
           days={currentDays}
           data={[...data]}
-          label="Number of Transactions"
+          label="Number of transactions"
         />
       </div>
     </div>
