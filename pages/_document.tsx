@@ -10,7 +10,7 @@ import Document, {
 
 const description = 'Track all transactions on Rango Exchange';
 const socialTitle = 'Rango Exchange Explorer';
-const BASE_URL = 'https://scan.rango.exchange';
+const BASE_URL = 'https://explorer.rango.exchange';
 const APP_NAME = 'Rango Exchange Explorer';
 
 class MyDocument extends Document {
@@ -38,7 +38,7 @@ class MyDocument extends Document {
           <meta name="twitter:creator" content="@rangoexchange" />
           <meta
             name="twitter:image"
-            content="https://scan.rango.exchange/preview.jpg"
+            content="https://explorer.rango.exchange/preview.jpg"
           />
 
           <meta property="og:title" content={socialTitle} />
@@ -46,7 +46,7 @@ class MyDocument extends Document {
           <meta property="og:url" content={`${BASE_URL}/`} />
           <meta
             property="og:image"
-            content="https://scan.rango.exchange/preview.jpg"
+            content="https://explorer.rango.exchange/preview.jpg"
           />
           <meta property="og:image:alt" content="Rango Exchange Explorer" />
           <meta property="og:description" content={description} />
