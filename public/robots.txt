@@ -1,0 +1,5 @@
+# *
+User-agent: *
+
+# Sitemaps
+Sitemap: https://explorer.rango.exchange/sitemap.xml
