@@ -1,8 +1,6 @@
 import { DateRange } from 'react-day-picker';
 import { DailySummaryType, StatisticDaysFilter } from 'types';
 import { BlockchainMeta } from 'types/meta';
-import { SeriesPoint } from '@visx/shape/lib/types';
-
 export type ChartType = 'transaction' | 'volume';
 
 export interface PropsType {
@@ -41,36 +39,4 @@ export interface FilterBarChart {
   breakDownBy: string;
 }
 
-export type BarStackDataType = {
-  [key: string]: string;
-};
-
-export type ColorBlockchainMapType = Map<string, string>;
-
-export interface BarChartProps {
-  data: BarStackDataType[];
-  type: ChartType;
-  days: StatisticDaysFilter;
-  width: number;
-  height: number;
-  colorBlockchainMap: ColorBlockchainMapType;
-  buckets: string[];
-  dateRange?: DateRange | undefined;
-  margin?: { top: number; right: number; bottom: number; left: number };
-}
-
 export type BreakDownType = 'None' | 'Source chain' | 'Destination chain';
-
-export type TooltipDataType = {
-  bar: {
-    bar: SeriesPoint<BarStackDataType>;
-    key: string;
-    index: number;
-    height: number;
-    width: number;
-    x: number;
-    y: number;
-    color: string;
-  };
-  hoveredIndex: number;
-};

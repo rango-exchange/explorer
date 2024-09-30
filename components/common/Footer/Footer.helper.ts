@@ -15,17 +15,17 @@ export const products: ListItemProps[] = [
     openInNewTab: true,
   },
   {
-    location: './apis',
+    location: 'https://rango.exchange/apis',
     title: 'SDK',
     openInNewTab: false,
   },
   {
-    location: './apis',
+    location: 'https://rango.exchange/apis',
     title: 'API',
     openInNewTab: false,
   },
   {
-    location: './widget',
+    location: 'https://rango.exchange/widget',
     title: 'Widget',
     openInNewTab: false,
   },
@@ -33,7 +33,8 @@ export const products: ListItemProps[] = [
 
 export const documentation: ListItemProps[] = [
   {
-    location: 'https://docs.rango.exchange/integration-quick-start/overview',
+    location:
+      'https://docs.rango.exchange/api-integration/basic-api-single-step',
     title: 'SDK Docs',
     openInNewTab: true,
   },
