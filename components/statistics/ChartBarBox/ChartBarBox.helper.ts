@@ -1,32 +1,8 @@
-import { buildChartTheme } from '@visx/xychart';
-import {
-  BarStackDataType,
-  ChartType,
-  ColorBlockchainMapType,
-} from './ChartBarBox.type';
 import { DailySummaryType } from 'types';
-import { getDaysDifference } from 'utils/common';
-import { DateRange } from 'react-day-picker';
+import type { BarStackDataType, ColorBucketMapType } from '@rango-dev/charts';
+import { ChartType } from './ChartBarBox.type';
 
 export const BAR_CHART_BLOCKCHAIN_NUMBER = 10;
-
-export const DEFAULT_MARGIN = { top: 40, right: 0, bottom: 0, left: 20 };
-
-export const transactionTheme = buildChartTheme({
-  backgroundColor: 'transparent',
-  colors: ['#469BF5', '#F17606'],
-  gridColor: '#469BF5',
-  tickLength: 8,
-  gridColorDark: '',
-});
-
-export const volumeTheme = buildChartTheme({
-  backgroundColor: 'transparent',
-  colors: ['#F17606', '#469BF5'],
-  gridColor: '#469BF5',
-  tickLength: 8,
-  gridColorDark: '',
-});
 
 export const barChartColors: string[] = [
   '#469BF5',
@@ -43,40 +19,14 @@ export const barChartColors: string[] = [
   '#F4C932',
 ];
 
-export const mobileBottomAxisData = {
-  7: { numBottomAxis: 3, startBottomAxis: 1, intervalBottomAxis: 2 },
-  30: { numBottomAxis: 3, startBottomAxis: 3, intervalBottomAxis: 10 },
-  90: { numBottomAxis: 3, startBottomAxis: 10, intervalBottomAxis: 30 },
-};
-
-export const DesktopBottomAxisData = {
-  7: { numBottomAxis: 7, startBottomAxis: 0, intervalBottomAxis: 1 },
-  30: { numBottomAxis: 6, startBottomAxis: 4, intervalBottomAxis: 5 },
-  90: { numBottomAxis: 8, startBottomAxis: 5, intervalBottomAxis: 10 },
-};
-
-export const getAxisDayCount = (
-  days: number,
-  dateRange: DateRange | undefined,
-) => {
-  if (dateRange?.from && dateRange?.to) {
-    const daysDiff = getDaysDifference(dateRange.from, dateRange.to);
-    if (daysDiff < 15) return 7;
-    if (daysDiff < 50) return 30;
-    return 90;
-  }
-
-  return days;
-};
-
-export const getBarChartData = (chartOption: {
+export const prepareBarChartData = (chartOption: {
   dailyData: DailySummaryType[];
   isStackBar: boolean;
   type: ChartType;
 }) => {
   const { dailyData, isStackBar, type } = chartOption;
   const chartData: BarStackDataType[] = [];
-  const colorBlockchainMap: ColorBlockchainMapType = new Map();
+  const colorBlockchainMap: ColorBucketMapType = new Map();
   const buckets: string[] = [];
 
   if (!isStackBar) {
@@ -172,22 +122,4 @@ export const getBarChartData = (chartOption: {
   });
 
   return { chartData, colorBlockchainMap, buckets };
-};
-
-export const getTotalValueDates = (
-  data: BarStackDataType[],
-  buckets: string[],
-) => {
-  const totalValueDates = data.reduce((accumulator, currentData) => {
-    const totalValuePerDate = buckets.reduce((dailyTotal, currentBucket) => {
-      dailyTotal += !isNaN(Number(currentData[currentBucket]))
-        ? Number(currentData[currentBucket])
-        : 0;
-      return dailyTotal;
-    }, 0);
-    accumulator.push(totalValuePerDate);
-    return accumulator;
-  }, [] as number[]);
-
-  return totalValueDates;
 };

@@ -11,7 +11,7 @@ import {
 import { getDailySummary } from 'services';
 import { Select } from 'components/common/Select';
 import { OptionType } from 'components/common/Select/Select.types';
-import { getBarChartData } from './ChartBarBox.helper';
+import { prepareBarChartData } from './ChartBarBox.helper';
 import { ActiveFilterIcon, FilterIcon, LoadingIcon } from 'components/icons';
 import ModalFilter from './ModalFilter';
 import ParentSize from '@visx/responsive/lib/components/ParentSize';
@@ -23,8 +23,7 @@ import {
   DEFAULT_STATISTIC_BREAK_DOWN_FILTER,
   DEFAULT_STATISTIC_DAYS,
 } from 'constant';
-
-import BarChart from './BarChart';
+import { BarChart } from '@rango-dev/charts';
 
 function ChartBarBox(props: PropsType) {
   const {
@@ -136,7 +135,7 @@ function ChartBarBox(props: PropsType) {
   );
 
   const { chartData, colorBlockchainMap, buckets } = useMemo(() => {
-    const result = getBarChartData({
+    const result = prepareBarChartData({
       dailyData,
       isStackBar,
       type,
@@ -248,14 +247,14 @@ function ChartBarBox(props: PropsType) {
                 <ParentSize>
                   {({ width, height }) => (
                     <BarChart
-                      type={type}
                       width={width}
                       height={height}
                       data={chartData}
-                      days={currentDays}
                       buckets={buckets}
-                      dateRange={dateRange}
-                      colorBlockchainMap={colorBlockchainMap}
+                      colorBucketMap={colorBlockchainMap}
+                      getLabel={(value) =>
+                        type === 'volume' ? `$${value}` : value
+                      }
                     />
                   )}
                 </ParentSize>
@@ -293,14 +292,14 @@ function ChartBarBox(props: PropsType) {
               <ParentSize>
                 {({ width, height }) => (
                   <BarChart
-                    type={type}
                     width={width}
                     height={height}
                     data={chartData}
-                    days={currentDays}
-                    dateRange={dateRange}
                     buckets={buckets}
-                    colorBlockchainMap={colorBlockchainMap}
+                    colorBucketMap={colorBlockchainMap}
+                    getLabel={(value) =>
+                      type === 'volume' ? `$ ${value}` : value
+                    }
                   />
                 )}
               </ParentSize>
