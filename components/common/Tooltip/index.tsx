@@ -1,3 +1,5 @@
+'use client';
+
 import React, { PropsWithChildren, useState } from 'react';
 import { PropsType } from './Tooltip.type';
 

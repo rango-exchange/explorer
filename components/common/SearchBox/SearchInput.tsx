@@ -1,4 +1,6 @@
-import { useRouter } from 'next/router';
+'use client';
+
+import { useRouter } from 'next/navigation';
 import { FormEvent, MouseEvent, useEffect, useRef, useState } from 'react';
 import { Button } from '../Button';
 import { CloseIcon, PasteIcon, SearchIcon } from 'components/icons';
@@ -17,10 +19,9 @@ function SearchInput(props: PropTypes) {
   ) => {
     e.preventDefault();
     if (query) {
-      router.push({
-        pathname: '/search',
-        query: { query },
-      });
+      const params = new URLSearchParams();
+      params.set('query', query);
+      router.push(`/search?${params.toString()}`, {});
     }
   };
 

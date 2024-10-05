@@ -3,7 +3,7 @@ import type { PropsWithChildren } from 'react';
 import React, { useEffect, useState } from 'react';
 import { createPortal } from 'react-dom';
 
-import { PropTypes } from './modal.types';
+import { PropTypes } from './Modal.types';
 import { CloseIcon } from 'components/icons';
 
 const CLOSED_DELAY = 400;

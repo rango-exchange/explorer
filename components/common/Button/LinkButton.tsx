@@ -1,3 +1,5 @@
+'use client';
+
 /* eslint-disable @typescript-eslint/restrict-plus-operands */
 import Link from 'next/link';
 import { LinkButtonProps } from './Button.types';

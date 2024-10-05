@@ -1,8 +1,10 @@
 import { SvgIconPropsWithChildren } from '../SvgIcon';
 
 export type RefreshButtonProps = {
-  onClick: (() => void) | undefined;
-  refreshTime: number;
+  elapsedTime: number;
+  isRefreshInProgress: boolean;
+  handleRefreshInProgressEnd: () => void;
+  handleClick: () => void;
 };
 
 export type RefreshProgressButtonProps = SvgIconPropsWithChildren & {

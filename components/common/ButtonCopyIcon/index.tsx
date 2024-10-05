@@ -1,3 +1,5 @@
+'use client';
+
 import { CopyIcon, CheckIcon } from 'components/icons';
 import { PropsType } from './ButtonCopyIcon.type';
 import { CopyText } from 'utils/common';

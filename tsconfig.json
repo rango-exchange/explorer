@@ -15,7 +15,12 @@
     "baseUrl": "./",
     "jsx": "preserve",
     "incremental": true,
-    "allowSyntheticDefaultImports": true
+    "allowSyntheticDefaultImports": true,
+    "plugins": [
+      {
+        "name": "next"
+      }
+    ]
   },
   "include": [
     "next-env.d.ts",
@@ -24,7 +29,8 @@
     "components/home/Summary/SummaryItem.tss",
     "next.config.js",
     "tailwind.config.js",
-    "postcss.config.js"
+    "postcss.config.js",
+    ".next/types/**/*.ts"
   ],
   "exclude": ["node_modules"]
 }

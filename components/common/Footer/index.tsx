@@ -1,11 +1,11 @@
-import { documentation, products, socialMedia } from './Footer.helper';
+import { documentation, products, socialMedia } from './Footer.constants';
 import ListItem from './ListItem';
-import { LinkButton } from 'components/common/Button/LinkButton';
+import { LinkButton } from '../Button/LinkButton';
 
-function Footer() {
+export function Footer() {
   return (
-    <footer className="relative flex w-full flex-col">
-      <div className="w-full bg-neutral-500 flex flex-col items-center">
+    <footer className="w-full">
+      <div className="bg-neutral-500 flex flex-col items-center">
         <div className="container px-25 py-30 md:p-50 flex flex-col items-center">
           <div className="text-baseForeground text-center text-18 md:text-45 font-semibold">
             Start secure swaps across blockchains
@@ -21,6 +21,7 @@ function Footer() {
           </LinkButton>
         </div>
       </div>
+
       <div className="w-full bg-baseBackground pt-40 md:pt-[100px]">
         <div className="relative w-full bg-footer-mask bg-contain bg-right-bottom bg-no-repeat pb-16 md:bg-[right_1.5rem]">
           <div className="mx-auto flex container  flex-col justify-between px-30 md:flex-row md:px-0">
@@ -41,8 +42,8 @@ function Footer() {
                   Products
                 </h3>
                 <ul className="w-full">
-                  {products.map((link, index) => (
-                    <ListItem key={index} {...link} />
+                  {products.map((link) => (
+                    <ListItem key={link.title} {...link} />
                   ))}
                 </ul>
               </div>
@@ -51,8 +52,8 @@ function Footer() {
                   Documentation
                 </h3>
                 <ul className="w-full">
-                  {documentation.map((link, index) => (
-                    <ListItem key={index} {...link} />
+                  {documentation.map((link) => (
+                    <ListItem key={link.title} {...link} />
                   ))}
                 </ul>
               </div>
@@ -62,8 +63,8 @@ function Footer() {
                 Social Media
               </h3>
               <ul className="w-full">
-                {socialMedia.map((link, index) => (
-                  <ListItem key={index} {...link} />
+                {socialMedia.map((link) => (
+                  <ListItem key={link.title} {...link} />
                 ))}
               </ul>
             </div>
@@ -71,11 +72,9 @@ function Footer() {
         </div>
       </div>
 
-      <span className="w-full bg-neutral-500 p-2.5 text-center text-10 md:text-16 text-baseForeground md:text-base md:leading-6">
+      <div className="w-full bg-neutral-500 p-2.5 text-center text-10 md:text-16 text-baseForeground md:text-base md:leading-6">
         Copyright © 2024 Rango Exchange. All rights reserved.
-      </span>
+      </div>
     </footer>
   );
 }
-
-export default Footer;
