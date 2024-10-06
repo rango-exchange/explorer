@@ -5,6 +5,11 @@ import {
   DEFAULT_STATISTIC_DAYS,
 } from 'constant';
 import StatisticsPageContent from './_components/StatisticsPageContent';
+import { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'Statistics',
+};
 
 export default async function StatisticsPage() {
   const blockchainsPromise = getBlockchains();

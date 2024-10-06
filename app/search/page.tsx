@@ -3,6 +3,16 @@ import { notFound, redirect } from 'next/navigation';
 import { getSearchResult, getWalletSwaps } from 'services';
 import Result from './_components/Result';
 
+export async function generateMetadata({
+  searchParams,
+}: {
+  searchParams: { query: string };
+}) {
+  return {
+    title: `Address ${searchParams.query}`,
+  };
+}
+
 const Page = async ({
   searchParams,
 }: {

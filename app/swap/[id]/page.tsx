@@ -5,6 +5,12 @@ import { getTxDetails } from 'services';
 import SwapDetailSummary from './_components/SwapDetailSummary';
 import SwapSteps from './_components/SwapSteps';
 
+export async function generateMetadata({ params }: { params: { id: string } }) {
+  return {
+    title: `Swap ${params.id}`,
+  };
+}
+
 const Page = async ({ params }: { params: { id: string } }) => {
   const details = await getTxDetails(params.id);
 
