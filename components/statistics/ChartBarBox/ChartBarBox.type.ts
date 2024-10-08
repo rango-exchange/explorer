@@ -1,6 +1,6 @@
 import { DailySummaryType, StatisticDaysFilter } from 'types';
 import { BlockchainMeta } from 'types/meta';
-export type ChartType = 'transaction' | 'volume';
+export type ChartType = 'Transaction' | 'Volume';
 
 export interface PropsType {
   days: StatisticDaysFilter;
