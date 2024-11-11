@@ -34,7 +34,7 @@ const Chart = (props: ChartProps) => {
   const currentPeriodKey = `Current ${currentFilter ? currentFilter.name : ''}`;
   const prevPeriodKey = `Prev ${currentFilter ? currentFilter.name : ''}`;
   // Update the date property of each item in prevWeek with the corresponding item from deepCopyCurrentWeek
-  if (prevPeriod && currentPeriod)
+  if (prevPeriod && prevPeriod.length > 0 && currentPeriod)
     prevPeriod.forEach((item, index) => {
       prevPeriod[index].date = currentPeriod[index]?.date;
     });
@@ -98,13 +98,15 @@ const Chart = (props: ChartProps) => {
           {days !== 90 && currentPeriod && prevPeriod && (
             <>
               {/* previous chart only for week and month */}
-              <AnimatedLineSeries
-                curve={curveMonotoneX}
-                dataKey={prevPeriodKey}
-                data={prevPeriod}
-                xAccessor={(d) => d.date}
-                yAccessor={(d) => d.count}
-              />
+              {prevPeriod.length > 0 && (
+                <AnimatedLineSeries
+                  curve={curveMonotoneX}
+                  dataKey={prevPeriodKey}
+                  data={prevPeriod}
+                  xAccessor={(d) => d.date}
+                  yAccessor={(d) => d.count}
+                />
+              )}
 
               {/* current chart only for week and month */}
               <AreaSeries
@@ -159,26 +161,31 @@ const Chart = (props: ChartProps) => {
                 </span>
                 {currentPeriod && prevPeriod ? (
                   <div>
-                    <div className="flex items-center mr-20">
-                      <span
-                        className={`w-[0.25rem] md:w-[0.375rem] h-[0.25rem] md:h-[0.375rem] mr-5 rounded-full bg-secondary-500`}></span>
-                      Current:
-                      <span className="text-baseForeground pl-1">
-                        {AmountConverter(
-                          tooltipData.datumByKey[currentPeriodKey].datum.count,
-                        )}
-                      </span>
-                    </div>
-                    <div className="flex items-center">
-                      <span
-                        className={`w-[0.25rem] md:w-[0.375rem] h-[0.25rem] md:h-[0.375rem] mr-5 rounded-full bg-primary-600`}></span>
-                      Previous:
-                      <span className="text-baseForeground pl-1">
-                        {AmountConverter(
-                          tooltipData.datumByKey[prevPeriodKey].datum.count,
-                        )}
-                      </span>
-                    </div>
+                    {currentPeriod && (
+                      <div className="flex items-center mr-20">
+                        <span
+                          className={`w-[0.25rem] md:w-[0.375rem] h-[0.25rem] md:h-[0.375rem] mr-5 rounded-full bg-secondary-500`}></span>
+                        Current:
+                        <span className="text-baseForeground pl-1">
+                          {AmountConverter(
+                            tooltipData.datumByKey[currentPeriodKey].datum
+                              .count,
+                          )}
+                        </span>
+                      </div>
+                    )}
+                    {prevPeriod.length > 0 && (
+                      <div className="flex items-center">
+                        <span
+                          className={`w-[0.25rem] md:w-[0.375rem] h-[0.25rem] md:h-[0.375rem] mr-5 rounded-full bg-primary-600`}></span>
+                        Previous:
+                        <span className="text-baseForeground pl-1">
+                          {AmountConverter(
+                            tooltipData.datumByKey[prevPeriodKey].datum.count,
+                          )}
+                        </span>
+                      </div>
+                    )}
                   </div>
                 ) : (
                   <div className="flex items-center">
