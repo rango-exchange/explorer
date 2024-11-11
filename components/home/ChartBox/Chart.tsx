@@ -161,14 +161,14 @@ const Chart = (props: ChartProps) => {
                 </span>
                 {currentPeriod && prevPeriod ? (
                   <div>
-                    {currentPeriod && (
+                    {currentPeriod.length > 0 && (
                       <div className="flex items-center mr-20">
                         <span
                           className={`w-[0.25rem] md:w-[0.375rem] h-[0.25rem] md:h-[0.375rem] mr-5 rounded-full bg-secondary-500`}></span>
                         Current:
                         <span className="text-baseForeground pl-1">
                           {AmountConverter(
-                            tooltipData.datumByKey[currentPeriodKey].datum
+                            tooltipData.datumByKey[currentPeriodKey]?.datum
                               .count,
                           )}
                         </span>
@@ -181,7 +181,7 @@ const Chart = (props: ChartProps) => {
                         Previous:
                         <span className="text-baseForeground pl-1">
                           {AmountConverter(
-                            tooltipData.datumByKey[prevPeriodKey].datum.count,
+                            tooltipData.datumByKey[prevPeriodKey]?.datum.count,
                           )}
                         </span>
                       </div>
