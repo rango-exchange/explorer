@@ -11,7 +11,6 @@ import {
 import { getDailySummary } from 'services';
 import { Select } from 'components/common/Select';
 import { OptionType } from 'components/common/Select/Select.types';
-import { prepareBarChartData } from './ChartBarBox.helper';
 import { ActiveFilterIcon, FilterIcon, LoadingIcon } from 'components/icons';
 import ModalFilter from './ModalFilter';
 import ParentSize from '@visx/responsive/lib/components/ParentSize';
@@ -19,7 +18,8 @@ import {
   DEFAULT_STATISTIC_BREAK_DOWN_FILTER,
   DEFAULT_STATISTIC_DAYS,
 } from 'constant';
-import { BarChart } from '@rango-dev/charts';
+import { BarChart, prepareBarChartData } from '@rango-dev/charts';
+import { barChartColors } from './ChartBarBox.helper';
 
 function ChartBarBox(props: PropsType) {
   const {
@@ -31,7 +31,7 @@ function ChartBarBox(props: PropsType) {
     description,
     className = '',
   } = props;
-
+  const isTransactionType = type === 'Transaction';
   const [filter, setFilter] = useState<FilterBarChart>({
     source: '',
     destination: '',
@@ -50,7 +50,7 @@ function ChartBarBox(props: PropsType) {
     dailyData &&
     dailyData
       .map((dailyItem) =>
-        type === 'transaction' ? dailyItem.count : dailyItem.volume,
+        isTransactionType ? dailyItem.count : dailyItem.volume,
       )
       .reduce((accumulator, currentValue) => accumulator + currentValue, 0);
 
@@ -104,12 +104,17 @@ function ChartBarBox(props: PropsType) {
     (!!source && breakDownBy === BreakDownList['Source chain']) ||
     (!!destination && breakDownBy === BreakDownList['Destination chain'])
   );
+  const barChartColor = isTransactionType ? ['#469BF5'] : ['#8B62FF'];
 
-  const { chartData, colorBlockchainMap, buckets } = useMemo(() => {
+  const { chartData, colorBucketMap, buckets } = useMemo(() => {
     const result = prepareBarChartData({
-      dailyData,
-      isStackBar,
-      type,
+      dailyData: dailyData.map((item) => ({
+        date: item.date,
+        bucket: item.bucket,
+        value: isTransactionType ? item.count : item.volume,
+      })),
+      label: type,
+      barChartColors: isStackBar ? barChartColors : barChartColor,
     });
     setLoading(false);
     return result;
@@ -123,7 +128,7 @@ function ChartBarBox(props: PropsType) {
           <div className="flex w-full md:w-auto md:h-[48px] items-center justify-between md:start text-18 md:text-32 font-medium md:font-semibold text-primary-500">
             <div className="flex items-center">
               <span>
-                {type === 'volume' && '$'}
+                {!isTransactionType && '$'}
                 {numberWithCommas(Math.ceil(totalValue))}
               </span>
               {loading && (
@@ -222,9 +227,9 @@ function ChartBarBox(props: PropsType) {
                       height={height}
                       data={chartData}
                       buckets={buckets}
-                      colorBucketMap={colorBlockchainMap}
+                      colorBucketMap={colorBucketMap}
                       getLabel={(value) =>
-                        type === 'volume' ? `$${value}` : value
+                        !isTransactionType ? `$${value}` : value
                       }
                     />
                   )}
@@ -234,7 +239,7 @@ function ChartBarBox(props: PropsType) {
             <div className="w-full rounded-normal px-20 md:w-[250px] grid grid-cols-3 md:block h-[140px] md:h-[475px] md:bg-surfacesBackground">
               {!loading &&
                 chartData?.length &&
-                Array.from(colorBlockchainMap).map((mapItem, index) => {
+                Array.from(colorBucketMap).map((mapItem, index) => {
                   const [blockchainItem, blockchainColor] = mapItem;
                   return (
                     <React.Fragment key={blockchainItem}>
@@ -247,7 +252,7 @@ function ChartBarBox(props: PropsType) {
                         </span>
                       </div>
 
-                      {index !== colorBlockchainMap.size - 1 && (
+                      {index !== colorBucketMap.size - 1 && (
                         <div className="h-[1px] hidden md:block w-full bg-neutral-300"></div>
                       )}
                     </React.Fragment>
@@ -267,9 +272,9 @@ function ChartBarBox(props: PropsType) {
                     height={height}
                     data={chartData}
                     buckets={buckets}
-                    colorBucketMap={colorBlockchainMap}
+                    colorBucketMap={colorBucketMap}
                     getLabel={(value) =>
-                      type === 'volume' ? `$ ${value}` : value
+                      !isTransactionType ? `$ ${value}` : value
                     }
                   />
                 )}

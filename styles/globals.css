@@ -247,3 +247,10 @@ span.ripple {
     background-size: 100% 100%;
   }
 }
+
+.visx-tooltip{
+  box-shadow: rgba(130, 130, 130, 0.2) 0px 5px 20px 0px !important;
+}
+.visx-tooltip div{
+  box-shadow: none !important;
+}
