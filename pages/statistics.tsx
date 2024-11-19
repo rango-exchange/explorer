@@ -116,14 +116,14 @@ function Statistics(props: PropsType) {
           <ChartBarBox
             days={currentDays}
             blockchains={blockchains}
-            type="transaction"
+            type="Transaction"
             dailySummary={dailySummary}
             title="Transaction"
             description="Number of transactions by day"
             className="mb-10 md:mb-15"
           />
           <ChartBarBox
-            type="volume"
+            type="Volume"
             blockchains={blockchains}
             days={currentDays}
             dailySummary={dailySummary}
