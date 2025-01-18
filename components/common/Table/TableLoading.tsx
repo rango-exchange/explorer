@@ -2,6 +2,7 @@ import { useId } from 'react';
 import TableHead from './TableHead';
 import { Skeleton } from '../Skeleton';
 import Link from 'next/link';
+import isMobile from 'is-mobile';
 
 function TableLoading() {
   const id = useId();
@@ -13,7 +14,7 @@ function TableLoading() {
             Search Results
           </h2>
           <div className="text-12 md:text-16 text-neutral-800">
-            <Skeleton width={300} height={10} />
+            <Skeleton width={300} height={isMobile() ? 18 : 24} />
           </div>
         </div>
         <div className="md:mt-25">
