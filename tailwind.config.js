@@ -1,9 +1,6 @@
 module.exports = {
   darkMode: 'false',
-  content: [
-    './pages/**/*.{js,ts,jsx,tsx}',
-    './components/**/*.{js,ts,jsx,tsx}',
-  ],
+  content: ['./src/**/*.{js,ts,jsx,tsx,mdx}'],
   theme: {
     borderWidth: {
       DEFAULT: '1px',
