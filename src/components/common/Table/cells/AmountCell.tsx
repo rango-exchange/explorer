@@ -37,6 +37,10 @@ function AmountCell(props: CellProps) {
     return acc;
   }, 0);
 
+  const realPercentage = usdToRealAmount
+    ? realChangePercentage
+    : expectedChangePercentage;
+
   return (
     <div className="flex flex-col md:col-span-2 justify-center items-start md:p-15 lg:p-20">
       <div className="md:hidden text-12 mt-10 text-primary-500">
@@ -52,13 +56,7 @@ function AmountCell(props: CellProps) {
               ? `$${usdToRealAmount.toFixed(2)}`
               : `~$${usdToExpectedAmount?.toFixed(2)}`}
           </span>
-          <span>
-            {usdToRealAmount
-              ? `(${realChangePercentage}%)`
-              : expectedChangePercentage
-                ? `(${expectedChangePercentage}%)`
-                : ''}
-          </span>
+          {!!realPercentage && <span> ({realPercentage}%) </span>}
         </div>
       )}
       <div className="text-12 md:text-14 flex items-center">
