@@ -22,7 +22,7 @@ function ChartBox(props: PropsType) {
               <button
                 key={`day-filter-${filterItem.days}`}
                 onClick={() => setCurrentDays(filterItem.days)}
-                className={`text-10 w-[86px] md:w-[90px] md:text-14 rounded-soft px-15 py-5 md:py-10 font-normal	 ${
+                className={`text-10 flex-1 md:flex-initial md:w-[90px] md:text-14 rounded-soft px-15 py-5 md:py-10 font-normal	 ${
                   currentDays === filterItem.days
                     ? 'bg-secondary-500 text-baseForeground'
                     : 'bg-transparent text-neutral-200'
