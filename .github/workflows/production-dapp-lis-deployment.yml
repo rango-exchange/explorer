@@ -1,0 +1,31 @@
+name: Vercel Dapp Lis Production Deployment
+env:
+  VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+  VERCEL_PROJECT_ID: ${{ secrets.VERCEL_DAPP_LIS_EXPLORER_PROJECT_ID }}
+  NEXT_PUBLIC_BASE_URL: ${{ secrets.NEXT_PUBLIC_BASE_URL }}
+  NEXT_PUBLIC_API_KEY: ${{ secrets.NEXT_DAPP_LIS_EXPLORER_PUBLIC_API_KEY }}
+  NEXT_PUBLIC_SECRET_KEY: ${{ secrets.NEXT_DAPP_LIS_EXPLORER_PUBLIC_SECRET_KEY }}
+on:
+  push:
+    branches:
+      - dapp-main
+jobs:
+  Deploy-Dapp-LIS-Production:
+    runs-on: ubuntu-latest
+    environment:
+      name: dapp-lis-production
+      url: ${{ steps.seturl.outputs.url }}
+    steps:
+      - uses: actions/checkout@v2
+      - name: Install Vercel CLI
+        run: npm install --global vercel@latest
+      - name: Pull Vercel Environment Information
+        run: vercel pull --yes --environment=production --token=${{ secrets.VERCEL_TOKEN }}
+      - name: Build Project Artifacts
+        run: vercel build --prod --token=${{ secrets.VERCEL_TOKEN }}
+      - name: Deploy Project Artifacts to Vercel
+        run: vercel deploy --prebuilt --prod --token=${{ secrets.VERCEL_TOKEN }} | tee deploy.log
+      - id: seturl
+        name: Set preview url
+        run: echo "url=$(tail -1 deploy.log)">> $GITHUB_OUTPUT
+      - run: echo "${{ steps.seturl.outputs.url }}"
