@@ -1,7 +1,7 @@
 import { DateRange } from 'react-day-picker';
 import { DailySummaryType, StatisticDaysFilter } from 'types';
 import { BlockchainMeta } from 'types/meta';
-export type ChartType = 'transaction' | 'volume';
+export type ChartType = 'transaction' | 'volume' | 'unique-wallets';
 
 export interface PropsType {
   days: StatisticDaysFilter;

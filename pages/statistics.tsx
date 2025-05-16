@@ -260,6 +260,17 @@ function Statistics(props: PropsType) {
             dailySummary={dailySummary}
             title="Volume"
             description="Transfer Volume by day"
+            className="mb-10 md:mb-15"
+          />
+
+          <ChartBarBox
+            type="unique-wallets"
+            blockchains={blockchains}
+            dateRange={dateRange}
+            days={currentDays}
+            dailySummary={dailySummary}
+            title="Unique Wallets"
+            description="Unique wallets per day"
           />
 
           <div className="grid grid-cols-1 md:grid-cols-3 mt-20 md:mt-25 gap-10 md:gap-15">

@@ -30,22 +30,41 @@ export const prepareBarChartData = (chartOption: {
   const buckets: string[] = [];
 
   if (!isStackBar) {
+    let key: string;
+    if (type === 'transaction') key = 'Transactions';
+    else if (type === 'volume') key = 'Volume';
+    else if (type === 'unique-wallets') key = 'Unique Wallets';
+    else
+      throw new Error(
+        "Unsupported type for preparing data when it's not stackbar",
+      );
+
     dailyData.forEach((dailyItem) => {
       const dataItem: BarStackDataType = { date: dailyItem.date };
-      dataItem[type === 'transaction' ? 'Transactions' : 'Volume'] =
-        type === 'transaction'
-          ? dailyItem.count.toString()
-          : dailyItem.volume.toString();
+
+      let value: string;
+      if (type === 'transaction') value = dailyItem.count.toString();
+      else if (type === 'volume') value = dailyItem.volume.toString();
+      else if (type === 'unique-wallets')
+        value = dailyItem.uniqueWallets.toString();
+      else
+        throw new Error(
+          "Unsupported type for preparing data when it's not stackbar",
+        );
+
+      dataItem[key] = value;
 
       chartData.push(dataItem);
     });
 
-    colorBlockchainMap.set(
-      type === 'transaction' ? 'Transactions' : 'Volume',
-      type === 'transaction' ? '#469BF5' : '#8B62FF',
-    );
+    let color: string;
+    if (type === 'volume') color = '#8B62FF';
+    if (type === 'unique-wallets') color = '#f4c932';
+    else color = '#469BF5'; // transaction type
 
-    buckets.push(type === 'transaction' ? 'Transactions' : 'Volume');
+    colorBlockchainMap.set(key, color);
+
+    buckets.push(key);
 
     return { chartData, colorBlockchainMap, buckets };
   }
@@ -54,8 +73,13 @@ export const prepareBarChartData = (chartOption: {
   const sumBlockchainMap = new Map<string, number>();
   dailyData.forEach((dailyItem) => {
     const sum = sumBlockchainMap.get(dailyItem.bucket) || 0;
-    const newValue =
-      type === 'transaction' ? dailyItem.count : dailyItem.volume;
+
+    let newValue: number;
+    if (type === 'transaction') newValue = dailyItem.count;
+    else if (type === 'volume') newValue = dailyItem.volume;
+    else if (type === 'unique-wallets') newValue = dailyItem.uniqueWallets;
+    else throw new Error('Unsupported type for preparing data');
+
     sumBlockchainMap.set(dailyItem.bucket, sum + newValue);
   });
 
@@ -95,8 +119,14 @@ export const prepareBarChartData = (chartOption: {
     dateDailyList
       .filter((dailyItem) => topBlockchain.includes(dailyItem.bucket))
       .forEach((topDailyItem) => {
-        const bucketValue =
-          type === 'transaction' ? topDailyItem.count : topDailyItem.volume;
+        let bucketValue: number;
+        if (type === 'transaction') bucketValue = topDailyItem.count;
+        else if (type === 'volume') bucketValue = topDailyItem.volume;
+        else if (type === 'unique-wallets')
+          bucketValue = topDailyItem.uniqueWallets;
+        else
+          throw new Error('Unsupported type for preparing data and stack bar');
+
         dataItem[topDailyItem.bucket] = bucketValue
           ? bucketValue.toString()
           : '0';
@@ -111,9 +141,15 @@ export const prepareBarChartData = (chartOption: {
     );
 
     const othersValue = otherBlockchains
-      .map((dailyItem) =>
-        type === 'transaction' ? dailyItem.count : dailyItem.volume,
-      )
+      .map((dailyItem) => {
+        if (type === 'transaction') return dailyItem.count;
+        else if (type === 'volume') return dailyItem.volume;
+        else if (type === 'unique-wallets') return dailyItem.uniqueWallets;
+        else
+          throw new Error(
+            'Unsupported type for preparing data and others value',
+          );
+      })
       .reduce((accumulator, currentValue) => accumulator + currentValue, 0);
 
     dataItem['Others'] = othersValue.toString();

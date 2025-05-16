@@ -54,9 +54,14 @@ function ChartBarBox(props: PropsType) {
   const totalValue =
     dailyData &&
     dailyData
-      .map((dailyItem) =>
-        type === 'transaction' ? dailyItem.count : dailyItem.volume,
-      )
+      .map((dailyItem) => {
+        if (type === 'transaction') return dailyItem.count;
+        else if (type === 'volume') return dailyItem.volume;
+        else if (type == 'unique-wallets') return dailyItem.uniqueWallets;
+        else {
+          throw new Error("Type hasn't been defined for the component.");
+        }
+      })
       .reduce((accumulator, currentValue) => accumulator + currentValue, 0);
 
   const breakDownOptions: OptionType[] = Object.keys(BreakDownList).map(
