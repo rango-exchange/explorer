@@ -181,7 +181,7 @@ function Statistics(props: PropsType) {
                       key={`day-filter-${dayItem}`}
                       onClick={() => setCurrentDays(dayItem)}
                       className={`text-12 md:w-[90px] h-[26px] flex items-center justify-center md:h-auto md:text-14 rounded-soft px-15 py-5 font-normal	 ${
-                        currentDays === dayItem
+                        currentDays === dayItem && !dateRange?.from
                           ? 'bg-secondary-500 text-baseForeground'
                           : 'bg-transparent text-neutral-200'
                       }`}>
