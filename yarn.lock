@@ -766,12 +766,12 @@
   resolved "https://registry.yarnpkg.com/@radix-ui/rect/-/rect-1.1.0.tgz#f817d1d3265ac5415dadc67edab30ae196696438"
   integrity sha512-A9+lCBZoaMJlVKcRBz2YByCG+Cp2t6nAnMnNba+XiWxnj6r4JUFqfsgwocMBZU9LPtdxC6wB56ySYpc7LQIoJg==
 
-"@rango-dev/charts@^0.1.1-next.0":
-  version "0.1.1-next.0"
-  resolved "https://registry.yarnpkg.com/@rango-dev/charts/-/charts-0.1.1-next.0.tgz#c1b12ef33a290afa618bff7f43b2aeba14a7906b"
-  integrity sha512-EGlD9hmejNnCxKkUW43bAsp3uTcM4M6qPoz5GCfaP6PWT6WhoF1WT838AP2AO3yYg77tRpoFx1Xs5M6TjFEdVQ==
+"@rango-dev/charts@^0.8.2-next.8":
+  version "0.8.2-next.8"
+  resolved "https://registry.yarnpkg.com/@rango-dev/charts/-/charts-0.8.2-next.8.tgz#d65faaef56003bed1d86231e6c58afebf6d20fc7"
+  integrity sha512-t2ITJkGi9DjWvCh+nMmnIuYGvy/jeEE8CN266CtCDkJXwRhxvrihQQ+y2CBpP0S4QdCieYN5K3YVmZW6kTvfTQ==
   dependencies:
-    "@rango-dev/ui" "^0.37.1-next.2"
+    "@rango-dev/ui" "^0.46.2-next.7"
     "@visx/axis" "2.18.0"
     "@visx/event" "2.17.0"
     "@visx/grid" "2.18.0"
@@ -780,10 +780,10 @@
     "@visx/tooltip" "2.17.0"
     dayjs "^1.11.6"
 
-"@rango-dev/ui@^0.37.1-next.2":
-  version "0.37.1-next.4"
-  resolved "https://registry.yarnpkg.com/@rango-dev/ui/-/ui-0.37.1-next.4.tgz#9b706c5bcd90d506bf627952a61b5fbaf0e0b0a6"
-  integrity sha512-7RL2kI2KbEAJZ2QjJsw39QYuD4RUw+peMXy5wa4Tfxso0bWiWlKi+4J8qX44OypyWU6jKLceSQjG+Dh6CiKaMQ==
+"@rango-dev/ui@^0.46.2-next.7":
+  version "0.46.2-next.7"
+  resolved "https://registry.yarnpkg.com/@rango-dev/ui/-/ui-0.46.2-next.7.tgz#eb96d03108d4b1283e008f197cdcbffd615ee1aa"
+  integrity sha512-/DESoyfRHbIMatBAvs3iRMlvZSEXiP3u5t0eC9Nf9stXcCKd/tRk/RV0fphkQWVb/nwiS6TVmxu9M5GtrimvaA==
   dependencies:
     "@radix-ui/react-checkbox" "^1.0.1"
     "@radix-ui/react-collapsible" "^1.0.3"
@@ -792,27 +792,30 @@
     "@radix-ui/react-select" "^2.0.0"
     "@radix-ui/react-switch" "^1.0.1"
     "@radix-ui/react-tooltip" "^1.0.2"
-    "@rango-dev/wallets-shared" "^0.36.1-next.1"
+    "@rango-dev/wallets-shared" "^0.44.2-next.5"
     "@stitches/react" "^1.2.8"
     copy-to-clipboard "^3.3.3"
-    rango-types "^0.1.69"
+    rango-types "^0.1.84"
     react-virtuoso "^4.6.2"
 
-"@rango-dev/wallets-core@^0.37.1-next.1":
-  version "0.37.1-next.1"
-  resolved "https://registry.yarnpkg.com/@rango-dev/wallets-core/-/wallets-core-0.37.1-next.1.tgz#8b7015330c1430d661bb316970fb2cd84c63bb49"
-  integrity sha512-AOYvUO7kModmX59ITOWW/CeIvyeVLKQSEdfwYtkxz/DMLiCkJCap6pOCT5tKANUcB1eN1ng+eusej3e3RzJblQ==
+"@rango-dev/wallets-core@^0.43.1-next.4":
+  version "0.43.1-next.4"
+  resolved "https://registry.yarnpkg.com/@rango-dev/wallets-core/-/wallets-core-0.43.1-next.4.tgz#3d1380feb8b26e06a4cbdd401871b6c9646945f6"
+  integrity sha512-Aa5fcRO035xIQjeLAHo7ndK+LLbWAiWXWKe6OA3ZFY7vfoW57L2WO6HQDKGb2y7tPVsJdldgYIeZnwcs2f0A3g==
   dependencies:
-    rango-types "^0.1.69"
+    caip "^1.1.1"
+    immer "^10.0.4"
+    rango-types "^0.1.84"
+    zustand "^4.5.2"
 
-"@rango-dev/wallets-shared@^0.36.1-next.1":
-  version "0.36.1-next.2"
-  resolved "https://registry.yarnpkg.com/@rango-dev/wallets-shared/-/wallets-shared-0.36.1-next.2.tgz#accb5bb7c4ea59232693edb2fa537b47bfbc2828"
-  integrity sha512-q4+0UKiETQe3e0ZAdqtAIbGRwG5QoGtmsyvobnG75hzmmQ0JxvgZKZfXdnklxE2PxoRY7kOcIMidBSY/Va1ZmA==
+"@rango-dev/wallets-shared@^0.44.2-next.5":
+  version "0.44.2-next.5"
+  resolved "https://registry.yarnpkg.com/@rango-dev/wallets-shared/-/wallets-shared-0.44.2-next.5.tgz#b92359d983f01e8d714851682a1917fda521b1be"
+  integrity sha512-zpJ9gy+/JD8LXH5Wzr+m/E34nDj5iyjwwHQwozpV1M9Oa2++stYWmRXQ7hYJwCVFswbJagHnLT9KCe1pzisYcQ==
   dependencies:
-    "@rango-dev/wallets-core" "^0.37.1-next.1"
+    "@rango-dev/wallets-core" "^0.43.1-next.4"
     ethers "^6.13.2"
-    rango-types "^0.1.69"
+    rango-types "^0.1.84"
 
 "@react-spring/animated@~9.7.4":
   version "9.7.4"
@@ -1777,6 +1780,11 @@ busboy@1.6.0:
   integrity sha512-8SFQbg/0hQ9xy3UNTB0YEnsNBbWfhf7RtnzpL7TkBiTBRfrQ9Fxcnz7VJsleJpyp6rVLvXiuORqjlHi5q+PYuA==
   dependencies:
     streamsearch "^1.1.0"
+
+caip@^1.1.1:
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/caip/-/caip-1.1.1.tgz#c2c2b598b5e052d72c35c8d81b31f864e19c61e3"
+  integrity sha512-a3v5lteUUOoyRI0U6qe5ayCCGkF2mCmJ5zQMDnOD2vRjgRg6sm9p8TsRC2h4D4beyqRN9RYniphAPnj/+jQC6g==
 
 call-bind@^1.0.2, call-bind@^1.0.5, call-bind@^1.0.6, call-bind@^1.0.7:
   version "1.0.7"
@@ -3179,6 +3187,11 @@ ignore@^5.1.1, ignore@^5.2.0, ignore@^5.2.4:
   resolved "https://registry.yarnpkg.com/ignore/-/ignore-5.3.2.tgz#3cd40e729f3643fd87cb04e50bf0eb722bc596f5"
   integrity sha512-hsBTNUqQTDwkWtcdYI2i06Y/nUBEsNEDJKjWdigLvegy8kDuJAS8uRlpkkcQpyEXL0Z/pjDy5HBmMjRCJ2gq+g==
 
+immer@^10.0.4:
+  version "10.1.1"
+  resolved "https://registry.yarnpkg.com/immer/-/immer-10.1.1.tgz#206f344ea372d8ea176891545ee53ccc062db7bc"
+  integrity sha512-s2MPrmjovJcoMaHtx6K11Ra7oD05NT97w1IC5zpMkT6Atjr7H8LjaDd81iIxUYpMKSRRNMJE703M1Fhr/TctHw==
+
 immutable@^4.0.0:
   version "4.3.7"
   resolved "https://registry.yarnpkg.com/immutable/-/immutable-4.3.7.tgz#c70145fc90d89fb02021e65c84eb0226e4e5a381"
@@ -4187,10 +4200,10 @@ queue-microtask@^1.2.2:
   resolved "https://registry.yarnpkg.com/queue-microtask/-/queue-microtask-1.2.3.tgz#4929228bbc724dfac43e0efb058caf7b6cfb6243"
   integrity sha512-NuaNSa6flKT5JaSYQzJok04JzTL1CA6aGhv5rfLW3PgqA+M2ChpZQnAC8h8i4ZFkBS8X5RqkDBHA7r4hej3K9A==
 
-rango-types@^0.1.69:
-  version "0.1.74"
-  resolved "https://registry.yarnpkg.com/rango-types/-/rango-types-0.1.74.tgz#a6049242ce60f5d84d638c70650735529979a8dd"
-  integrity sha512-sMWGAxNF2Yv/PG3eTL01FoHEVf40VEypt1VqPP0HkIwo+gR8WGhEL3JFkAo0UE3gJ7rjgwmMLziAMu1zwwJ+ng==
+rango-types@^0.1.84:
+  version "0.1.84"
+  resolved "https://registry.yarnpkg.com/rango-types/-/rango-types-0.1.84.tgz#c79f5ccd0aee5debb679488d092d5488425955f1"
+  integrity sha512-qHlil6XTvuQq/+5dkCBhTGsjiVkQ+ihg4XkO/rU/3/IFcXd93CEKelMME19RX8Da0LZTqls0bx9K5FVw0QDc9Q==
 
 react-day-picker@^8.10.1:
   version "8.10.1"
@@ -4532,16 +4545,8 @@ string-argv@~0.3.2:
   resolved "https://registry.yarnpkg.com/string-argv/-/string-argv-0.3.2.tgz#2b6d0ef24b656274d957d54e0a4bbf6153dc02b6"
   integrity sha512-aqD2Q0144Z+/RqG52NeHEkZauTAUWJO8c6yTftGJKO3Tja5tUgIfmIl6kExvhtxSDP7fXB6DvzkfMpCd/F3G+Q==
 
-"string-width-cjs@npm:string-width@^4.2.0":
-  version "4.2.3"
-  resolved "https://registry.yarnpkg.com/string-width/-/string-width-4.2.3.tgz#269c7117d27b05ad2e536830a8ec895ef9c6d010"
-  integrity sha512-wKyQRQpjJ0sIp62ErSZdGsjMJWsap5oRNihHhu6G7JVO/9jIB6UyevL+tXuOqrng8j/cxKTWyWUwvSTriiZz/g==
-  dependencies:
-    emoji-regex "^8.0.0"
-    is-fullwidth-code-point "^3.0.0"
-    strip-ansi "^6.0.1"
-
-string-width@^4.1.0:
+"string-width-cjs@npm:string-width@^4.2.0", string-width@^4.1.0:
+  name string-width-cjs
   version "4.2.3"
   resolved "https://registry.yarnpkg.com/string-width/-/string-width-4.2.3.tgz#269c7117d27b05ad2e536830a8ec895ef9c6d010"
   integrity sha512-wKyQRQpjJ0sIp62ErSZdGsjMJWsap5oRNihHhu6G7JVO/9jIB6UyevL+tXuOqrng8j/cxKTWyWUwvSTriiZz/g==
@@ -4630,14 +4635,7 @@ string.prototype.trimstart@^1.0.8:
     define-properties "^1.2.1"
     es-object-atoms "^1.0.0"
 
-"strip-ansi-cjs@npm:strip-ansi@^6.0.1":
-  version "6.0.1"
-  resolved "https://registry.yarnpkg.com/strip-ansi/-/strip-ansi-6.0.1.tgz#9e26c63d30f53443e9489495b2105d37b67a85d9"
-  integrity sha512-Y38VPSHcqkFrCpFnQ9vuSXmquuv5oXOKpGeT6aGrr3o3Gc9AlVa6JBfUSOCnbxGGZF+/0ooI7KrPuUSztUdU5A==
-  dependencies:
-    ansi-regex "^5.0.1"
-
-strip-ansi@^6.0.0, strip-ansi@^6.0.1:
+"strip-ansi-cjs@npm:strip-ansi@^6.0.1", strip-ansi@^6.0.0, strip-ansi@^6.0.1:
   version "6.0.1"
   resolved "https://registry.yarnpkg.com/strip-ansi/-/strip-ansi-6.0.1.tgz#9e26c63d30f53443e9489495b2105d37b67a85d9"
   integrity sha512-Y38VPSHcqkFrCpFnQ9vuSXmquuv5oXOKpGeT6aGrr3o3Gc9AlVa6JBfUSOCnbxGGZF+/0ooI7KrPuUSztUdU5A==
@@ -4953,6 +4951,11 @@ use-sidecar@^1.1.2:
     detect-node-es "^1.1.0"
     tslib "^2.0.0"
 
+use-sync-external-store@^1.2.2:
+  version "1.5.0"
+  resolved "https://registry.yarnpkg.com/use-sync-external-store/-/use-sync-external-store-1.5.0.tgz#55122e2a3edd2a6c106174c27485e0fd59bcfca0"
+  integrity sha512-Rb46I4cGGVBmjamjphe8L/UnvJD+uPPtTkNvX5mZgqdbavhI4EbgIWJiIHXJ8bc/i9EQGPRh4DwEURJ552Do0A==
+
 util-deprecate@^1.0.2:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/util-deprecate/-/util-deprecate-1.0.2.tgz#450d4dc9fa70de732762fbd2d4a28981419a0ccf"
@@ -5079,3 +5082,10 @@ yocto-queue@^0.1.0:
   version "0.1.0"
   resolved "https://registry.yarnpkg.com/yocto-queue/-/yocto-queue-0.1.0.tgz#0294eb3dee05028d31ee1a5fa2c556a6aaf10a1b"
   integrity sha512-rVksvsnNCdJ/ohGc6xgPwyN8eheCxsiLM8mxuE/t/mOVqJewPuO1miLpTHQiRgTKCLexL4MeAFVagts7HmNZ2Q==
+
+zustand@^4.5.2:
+  version "4.5.7"
+  resolved "https://registry.yarnpkg.com/zustand/-/zustand-4.5.7.tgz#7d6bb2026a142415dd8be8891d7870e6dbe65f55"
+  integrity sha512-CHOUy7mu3lbD6o6LJLfllpjkzhHXSBlX8B9+qPddUsIfeF5S/UZ5q0kmCsnRqT1UHFQZchNFDDzMbQsuesHWlw==
+  dependencies:
+    use-sync-external-store "^1.2.2"

@@ -2,6 +2,7 @@ import { GetServerSideProps } from 'next';
 import {
   getBlockchains,
   getDailySummary,
+  getExplorerConfig,
   getTopListSummary,
 } from '../services';
 
@@ -39,17 +40,25 @@ import {
   getStartOfDayUTCTimestamp,
 } from 'utils/common';
 
+interface ExplorerConfig {
+  timeRangeEnabled: boolean;
+  maxTimeRange: number;
+}
+
 interface PropsType {
   dailySummary: DailySummaryType[];
   initialTopListSummary: TopListSummaryType;
   blockchains: BlockchainMeta[];
   status: number;
+  config: ExplorerConfig;
 }
 
 const statisticDaysFilter: StatisticDaysFilter[] = [7, 30, 90];
 
 function Statistics(props: PropsType) {
-  const { dailySummary, initialTopListSummary, blockchains, status } = props;
+  const { dailySummary, initialTopListSummary, blockchains, status, config } =
+    props;
+  const isExtentedRangeEnabled = config.timeRangeEnabled;
   const blockchainDataMap = new Map<string, BlockchainMeta>();
   const [loading, setLoading] = useState<boolean>(false);
   const { isMobile } = useMainContext();
@@ -164,7 +173,8 @@ function Statistics(props: PropsType) {
                   className="hidden md:block text-secondary-500 animate-spin mr-10"
                 />
               )}
-              <div className="w-full md:w-[280px] grid grid-cols-3 md:flex items-center bg-baseForeground p-5 rounded-soft md:rounded-normal">
+              <div
+                className={`w-full grid grid-cols-3 md:flex items-center bg-baseForeground p-5 rounded-soft md:rounded-normal ${isExtentedRangeEnabled ? 'md:w-[380px]' : 'md:w-[280px]'}`}>
                 {statisticDaysFilter.map((dayItem) => {
                   return (
                     <button
@@ -179,6 +189,21 @@ function Statistics(props: PropsType) {
                     </button>
                   );
                 })}
+
+                {isExtentedRangeEnabled && (
+                  <button
+                    key={'day-filter-all'}
+                    onClick={() => {
+                      setCurrentDays(config.maxTimeRange);
+                    }}
+                    className={`text-12 md:w-[90px] h-[26px] flex items-center justify-center md:h-auto md:text-14 rounded-soft px-15 py-5 font-normal	 ${
+                      currentDays === config.maxTimeRange
+                        ? 'bg-secondary-500 text-baseForeground'
+                        : 'bg-transparent text-neutral-200'
+                    }`}>
+                    All Time
+                  </button>
+                )}
               </div>
               <div ref={ref} className="relative w-full md:w-auto">
                 <button
@@ -236,6 +261,11 @@ function Statistics(props: PropsType) {
                   <PopoverDatePicker
                     onApply={handleSelectDatePicker}
                     selectedRange={dateRange}
+                    options={{
+                      maximumAcceptableDays: isExtentedRangeEnabled
+                        ? config.maxTimeRange
+                        : undefined,
+                    }}
                   />
                 )}
               </div>
@@ -263,16 +293,18 @@ function Statistics(props: PropsType) {
             className="mb-10 md:mb-15"
           />
 
-          <ChartBarBox
-            type="unique-wallets"
-            blockchains={blockchains}
-            dateRange={dateRange}
-            days={currentDays}
-            dailySummary={dailySummary}
-            title="Unique Wallets"
-            description="Unique wallets per day"
-          />
-
+          {/* TODO: This is not a good assumption here, we need to get a specific field from backend and config */}
+          {isExtentedRangeEnabled && (
+            <ChartBarBox
+              type="unique-wallets"
+              blockchains={blockchains}
+              dateRange={dateRange}
+              days={currentDays}
+              dailySummary={dailySummary}
+              title="Unique Wallets"
+              description="Unique wallets per day"
+            />
+          )}
           <div className="grid grid-cols-1 md:grid-cols-3 mt-20 md:mt-25 gap-10 md:gap-15">
             <TopList
               blockchainDataMap={blockchainDataMap}
@@ -340,6 +372,7 @@ function Statistics(props: PropsType) {
 
 export const getServerSideProps: GetServerSideProps<PropsType> = async () => {
   const blockchains = await getBlockchains();
+  const explorerConfig = await getExplorerConfig();
   const dailySummary = await getDailySummary({
     days: DEFAULT_STATISTIC_DAYS,
     breakDownBy: DEFAULT_STATISTIC_BREAK_DOWN_FILTER,
@@ -355,10 +388,12 @@ export const getServerSideProps: GetServerSideProps<PropsType> = async () => {
       initialTopListSummary: topListSummary.hasError ? {} : topListSummary,
       status:
         blockchains?.hasError ||
+        explorerConfig?.hasError ||
         dailySummary?.hasError ||
         topListSummary?.hasError
           ? 1
           : 0,
+      config: explorerConfig,
     },
   };
 };

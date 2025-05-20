@@ -4,7 +4,7 @@ import { PopoverDatePickerType } from './PopoverDatePicker.type';
 import { useEffect, useState } from 'react';
 
 function PopoverDatePicker(props: PopoverDatePickerType) {
-  const { onApply, selectedRange, className = '' } = props;
+  const { onApply, selectedRange, className = '', options } = props;
   const [dateRange, setDateRange] = useState<DateRange | undefined>(
     selectedRange,
   );
@@ -35,7 +35,11 @@ function PopoverDatePicker(props: PopoverDatePickerType) {
         Date Picker
       </div>
 
-      <RangeDatePicker dateRange={dateRange} setDateRange={setDateRange} />
+      <RangeDatePicker
+        dateRange={dateRange}
+        setDateRange={setDateRange}
+        options={options}
+      />
 
       <div className="hidden md:flex items-center justify-between p-15 mt-20">
         <button

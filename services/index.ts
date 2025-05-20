@@ -133,3 +133,15 @@ export const getTransactions = async (
       return { hasError: true, status: error };
     });
 };
+
+export const getExplorerConfig = async () => {
+  return await fetch(
+    `${API_URL}/scanner/config?apiKey=${process.env.NEXT_PUBLIC_API_KEY}&token=${process.env.NEXT_PUBLIC_SECRET_KEY}`,
+  )
+    .then(async (res) => await res.json())
+    .then((data) => data)
+    .catch((error) => {
+      console.error('There was an error!', error);
+      return { hasError: true, status: error };
+    });
+};

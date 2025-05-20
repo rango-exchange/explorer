@@ -60,4 +60,5 @@ export interface TopListSummaryType {
   topPathsByVolume: BlockchainPathMap[];
 }
 
-export type StatisticDaysFilter = 7 | 30 | 90;
+// eslint-disable-next-line @typescript-eslint/ban-types
+export type StatisticDaysFilter = 7 | 30 | 90 | (number & {});

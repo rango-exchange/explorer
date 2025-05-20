@@ -12,8 +12,12 @@ import { isAfter } from 'date-fns';
 import CustomDayContent from './CustomDayContent';
 import { getDaysDifference } from 'utils/common';
 
+const DEFAULT_RANGE_LIMITATION = 120;
+
 function RangeDatePicker(props: DatePickerProps) {
-  const { dateRange, setDateRange } = props;
+  const { dateRange, setDateRange, options } = props;
+  const maximumAcceptableDays =
+    options?.maximumAcceptableDays || DEFAULT_RANGE_LIMITATION;
 
   const [currentDateHover, setCurrentDateHover] = useState<
     Date | null | undefined
@@ -26,7 +30,7 @@ function RangeDatePicker(props: DatePickerProps) {
     }
 
     if (dateRange?.from && !dateRange.to) {
-      return getDaysDifference(dateRange.from, date) >= 120;
+      return getDaysDifference(dateRange.from, date) >= maximumAcceptableDays;
     }
 
     return false;
