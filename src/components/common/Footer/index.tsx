@@ -1,8 +1,11 @@
 import { documentation, products, socialMedia } from './Footer.constants';
 import ListItem from './ListItem';
 import { LinkButton } from '../Button/LinkButton';
+import { getSummary } from 'src/services';
 
-export function Footer() {
+export async function Footer() {
+  const summary = await getSummary();
+
   return (
     <footer className="w-full">
       <div className="bg-neutral-500 flex flex-col items-center">
@@ -11,8 +14,11 @@ export function Footer() {
             Start secure swaps across blockchains
           </div>
           <div className="text-14 md:text-18 font-medium mt-15 md:mt-0 text-center text-neutral-200">
-            Swap across 64+ blockchains and 100+ DEX/Bridge Protocols in a
-            simple UI
+            Swap across {summary.supportedChains}+ blockchains and{' '}
+            {Math.trunc(
+              (summary.supportedBridges + summary.supportedDexes) / 10,
+            ) * 10}
+            + DEX/Bridge Protocols in a simple UI
           </div>
           <LinkButton
             className="mt-35 md:mt-[60px] w-[257px]"
