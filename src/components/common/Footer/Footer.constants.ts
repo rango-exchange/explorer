@@ -15,12 +15,12 @@ export const products: ListItemProps[] = [
     openInNewTab: true,
   },
   {
-    location: 'https://rango.exchange/apis',
+    location: 'https://rango.exchange/sdk-apis',
     title: 'SDK',
     openInNewTab: false,
   },
   {
-    location: 'https://rango.exchange/apis',
+    location: 'https://rango.exchange/sdk-apis',
     title: 'API',
     openInNewTab: false,
   },
