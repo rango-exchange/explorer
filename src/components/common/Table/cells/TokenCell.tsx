@@ -38,19 +38,33 @@ function TokenCell(props: CellProps) {
   const tokenName = symbol || name;
 
   useEffect(() => {
-    const element = tokenNameRef.current;
-    if (!element) return;
+    const checkOverflow = () => {
+      const element = tokenNameRef.current;
+      if (!element) return;
 
-    const isOverflowing = element.scrollWidth > element.clientWidth;
-    setShowTokenNameTooltip(isOverflowing);
+      const isOverflowing = element.scrollWidth > element.clientWidth;
+      setShowTokenNameTooltip(isOverflowing);
+    };
+
+    checkOverflow();
+
+    window.addEventListener('resize', checkOverflow);
+    return () => window.removeEventListener('resize', checkOverflow);
   }, [tokenNameRef]);
 
   useEffect(() => {
-    const element = amountRef.current;
-    if (!element) return;
+    const checkOverflow = () => {
+      const element = amountRef.current;
+      if (!element) return;
 
-    const isOverflowing = element.scrollWidth > element.clientWidth;
-    setShowAmountTooltip(isOverflowing);
+      const isOverflowing = element.scrollWidth > element.clientWidth;
+      setShowAmountTooltip(isOverflowing);
+    };
+
+    checkOverflow();
+
+    window.addEventListener('resize', checkOverflow);
+    return () => window.removeEventListener('resize', checkOverflow);
   }, [amountRef]);
 
   return (
@@ -75,7 +89,7 @@ function TokenCell(props: CellProps) {
         </div>
         <div className="flex flex-col items-start justify-center">
           <div className="text-14 leading-14 md:leading-16 md:text-16 flex items-center gap-1">
-            <div className="flex flex-row justify-center">
+            <div className="flex flex-row justify-center gap-0.5">
               <span
                 ref={amountRef}
                 className={`max-w-36 md:max-w-16 truncate ${
@@ -89,7 +103,7 @@ function TokenCell(props: CellProps) {
                 </Tooltip>
               )}
             </div>
-            <div className="flex flex-row justify-center">
+            <div className="flex flex-row justify-center gap-0.5">
               <span
                 ref={tokenNameRef}
                 className={`max-w-11 truncate ${
