@@ -15,7 +15,12 @@ export async function generateMetadata({
     title: `Address ${searchParams.query}`,
   };
 }
-
+/*
+ *
+ * NOTE:
+ * The code has been developed with a wrong assumption here which is always the first item in the result of `getSearchResult` is the one we should detect the type of `query` with.
+ * If there is more than one result, we should let the user select the one looking for.
+ */
 const Page = async ({
   searchParams,
 }: {
@@ -36,7 +41,13 @@ const Page = async ({
     redirect(`/swap/${query}`);
   }
 
-  if (result[0].matchType === MATCH_TYPE.TXHASH) {
+  // HOTFIX: We priotorize transaction hash. check the note on top of the function.
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const matchedWithTxHash = result?.find((item: any) => {
+    return item.matchType === MATCH_TYPE.TXHASH;
+  });
+
+  if (matchedWithTxHash) {
     const { requestId } = result[0];
     if (requestId) redirect(`/swap/${requestId}`);
   }
