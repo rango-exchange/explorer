@@ -6,15 +6,13 @@ import { CellProps } from '../Table.type';
 import { InfoIcon } from 'src/components/icons';
 import Tooltip from '../../Tooltip';
 import { useEffect, useRef, useState } from 'react';
+const TOKEN_NAME_TOOLTIP_THRESHOLD = 4;
 
 function TokenCell(props: CellProps) {
   const { swapItem, column } = props;
   const { stepsSummary } = swapItem;
-  const tokenNameRef = useRef<HTMLDivElement>(null);
   const amountRef = useRef<HTMLDivElement>(null);
   const [showAmountTooltip, setShowAmountTooltip] = useState(false);
-
-  const [showTokenNameTooltip, setShowTokenNameTooltip] = useState(false);
 
   const firstStep = stepsSummary.length ? stepsSummary[0] : null;
   const lastStep = stepsSummary.length
@@ -36,21 +34,6 @@ function TokenCell(props: CellProps) {
     Number(token?.realAmount || token?.expectedAmount).toFixed(3),
   );
   const tokenName = symbol || name;
-
-  useEffect(() => {
-    const checkOverflow = () => {
-      const element = tokenNameRef.current;
-      if (!element) return;
-
-      const isOverflowing = element.scrollWidth > element.clientWidth;
-      setShowTokenNameTooltip(isOverflowing);
-    };
-
-    checkOverflow();
-
-    window.addEventListener('resize', checkOverflow);
-    return () => window.removeEventListener('resize', checkOverflow);
-  }, [tokenNameRef]);
 
   useEffect(() => {
     const checkOverflow = () => {
@@ -105,13 +88,12 @@ function TokenCell(props: CellProps) {
             </div>
             <div className="flex flex-row justify-center gap-0.5">
               <span
-                ref={tokenNameRef}
                 className={`max-w-11 truncate ${
                   token?.realAmount ? 'text-primary-500' : 'text-neutral-400'
                 }`}>
                 {tokenName}
               </span>
-              {tokenName && showTokenNameTooltip && (
+              {tokenName && tokenName.length > TOKEN_NAME_TOOLTIP_THRESHOLD && (
                 <Tooltip label={tokenName}>
                   <InfoIcon color="gray" size="12" />
                 </Tooltip>
