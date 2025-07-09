@@ -60,30 +60,34 @@ function TokenCell(props: CellProps) {
         </div>
         <div className="flex flex-col items-start justify-center w-full min-w-0">
           <div className="text-14 leading-14 md:leading-16 md:text-16 flex items-center gap-1 w-full min-w-0">
-            <span
-              ref={amountRef}
-              className={`truncate ${
-                token?.realAmount ? 'text-primary-500' : 'text-neutral-400'
-              }`}>
-              {`${!token?.realAmount ? '~' : ''}${roundedAmount}`}
-            </span>
-            {amount && showAmountTooltip && (
-              <Tooltip label={amount.toString()}>
-                <InfoIcon color="gray" size="12" />
-              </Tooltip>
-            )}
-            <span
-              ref={tokenNameRef}
-              className={`max-w-14 truncate ${
-                token?.realAmount ? 'text-primary-500' : 'text-neutral-400'
-              }`}>
-              {tokenName}
-            </span>
-            {tokenName && showTokenNameTooltip && (
-              <Tooltip label={tokenName}>
-                <InfoIcon color="gray" size="12" />
-              </Tooltip>
-            )}
+            <div className="flex items-center gap-0.5 min-w-0">
+              <span
+                ref={amountRef}
+                className={`truncate ${
+                  token?.realAmount ? 'text-primary-500' : 'text-neutral-400'
+                }`}>
+                {`${!token?.realAmount ? '~' : ''}${roundedAmount}`}
+              </span>
+              {amount && showAmountTooltip && (
+                <Tooltip label={amount.toString()}>
+                  <InfoIcon color="gray" size="12" />
+                </Tooltip>
+              )}
+            </div>
+            <div className="flex items-center gap-0.5">
+              <span
+                ref={tokenNameRef}
+                className={`max-w-14 truncate ${
+                  token?.realAmount ? 'text-primary-500' : 'text-neutral-400'
+                }`}>
+                {tokenName}
+              </span>
+              {tokenName && showTokenNameTooltip && (
+                <Tooltip label={tokenName}>
+                  <InfoIcon color="gray" size="12" />
+                </Tooltip>
+              )}
+            </div>
           </div>
           <div className="text-12 leading-12 md:leading-14 md:mt-5 md:text-14 text-neutral-400">
             {blockchainShortName}

@@ -7,13 +7,13 @@ function useIsTruncated(ref: RefObject<HTMLElement>): boolean {
     const element = ref.current;
     if (!element) return;
 
-    const checkOverflow = () => {
+    const resizeObserver = new ResizeObserver(() => {
       setIsTruncated(element.scrollWidth > element.clientWidth);
-    };
+    });
 
-    checkOverflow();
-    window.addEventListener('resize', checkOverflow);
-    return () => window.removeEventListener('resize', checkOverflow);
+    resizeObserver.observe(element);
+
+    return () => resizeObserver.disconnect();
   }, [ref]);
 
   return isTruncated;
