@@ -48,7 +48,7 @@ const Page = async ({
   });
 
   if (matchedWithTxHash) {
-    const { requestId } = result[0];
+    const { requestId } = matchedWithTxHash;
     if (requestId) redirect(`/swap/${requestId}`);
   }
 
