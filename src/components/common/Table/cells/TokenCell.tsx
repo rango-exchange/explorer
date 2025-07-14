@@ -45,7 +45,7 @@ function TokenCell(props: CellProps) {
       ) : (
         <div className="md:hidden ml-[0.875rem] h-[10px] border-l border-neutral-400"></div>
       )}
-      <div className="flex md:col-span-2 items-start md:max-w-48 md:items-center md:p-15 lg:p-20">
+      <div className="flex md:col-span-2 items-start md:max-w-48 md:items-center md:py-15 lg:py-20">
         <div className="relative mr-10 shrink-0">
           <img
             src={logo || DEFAULT_TOKEN_LOGO}
