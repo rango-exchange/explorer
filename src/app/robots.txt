@@ -1,0 +1,8 @@
+User-Agent: *
+Allow: /
+
+# Host
+Host: https://rango.exchange
+
+# Sitemaps
+Sitemap: https://rango.exchange/sitemap.xml
