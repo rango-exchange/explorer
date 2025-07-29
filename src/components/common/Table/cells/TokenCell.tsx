@@ -74,10 +74,10 @@ function TokenCell(props: CellProps) {
                 </Tooltip>
               )}
             </div>
-            <div className="flex items-center gap-0.5">
+            <div className="flex items-center gap-0.5 min-w-0">
               <span
                 ref={tokenNameRef}
-                className={`max-w-14 truncate ${
+                className={`lg:max-w-14 truncate ${
                   token?.realAmount ? 'text-primary-500' : 'text-neutral-400'
                 }`}>
                 {tokenName}
