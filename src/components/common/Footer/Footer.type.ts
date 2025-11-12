@@ -5,4 +5,5 @@ export interface ListItemProps {
   openInNewTab: boolean;
   title: string;
   icon?: React.ComponentType<SvgIconProps>;
+  className?: string;
 }
