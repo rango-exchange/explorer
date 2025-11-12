@@ -53,6 +53,12 @@ export const documentation: ListItemProps[] = [
     title: 'Widget Playground',
     openInNewTab: true,
   },
+  {
+    location: '',
+    title: 'Cookie Setting',
+    className: 'cky-banner-element',
+    openInNewTab: false,
+  },
 ];
 
 export const socialMedia: ListItemProps[] = [
