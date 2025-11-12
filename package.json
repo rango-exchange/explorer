@@ -11,6 +11,9 @@
     "prepare": "husky install",
     "build:icons": "svgr svgs/resources/ --config-file svgs/configs/.svgrrc.default.cjs && prettier -w ./components/icons"
   },
+  "engines": {
+    "node": "20.x"
+  },
   "dependencies": {
     "@artsy/fresnel": "^7.1.3",
     "@lingui/react": "^4.11.4",
