@@ -17,6 +17,7 @@ function SwapDetailAddress(props: SwapDetailItem) {
     <div className="flex col-span-3 items-center h-[3.75rem] p-18">
       <Link
         href={wallet?.explorer}
+        prefetch={false}
         target="_blank"
         className="text-secondary-500 mr-5 max-w-[80%] text-ellipsis overflow-hidden whitespace-nowrap">
         {wallet?.address || '-'}
@@ -26,6 +27,7 @@ function SwapDetailAddress(props: SwapDetailItem) {
       )}
       {wallet?.address && (
         <Link
+          prefetch={false}
           className={`ml-1.5 flex items-center relative`}
           href={`/search?query=${wallet?.address}`}>
           <Tooltip label={'Search wallet transactions'}>

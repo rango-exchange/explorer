@@ -45,7 +45,11 @@ function TransactionURL(props: TransactionURLProps) {
                   text={url}
                 />
                 <Tooltip label="View Transaction">
-                  <Link href={url} target="_blank" onClick={handleClick}>
+                  <Link
+                    prefetch={false}
+                    href={url}
+                    target="_blank"
+                    onClick={handleClick}>
                     <LinkIcon className="text-neutral-400 hover:text-hoverIcon" />
                   </Link>
                 </Tooltip>

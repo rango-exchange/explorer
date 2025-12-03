@@ -73,6 +73,7 @@ function TransactionURLMobileItem(props: TransactionURLItemProps) {
             </button>
             <Link
               onClick={handleLink}
+              prefetch={false}
               href={url}
               target="_blank"
               className="flex items-center py-10 px-15 hover:bg-surfacesBackground ">

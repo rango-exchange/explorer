@@ -17,11 +17,13 @@ function Pagination(props: PropsType) {
       {page > 0 && totalPage > 1 ? (
         <>
           <Link
+            prefetch={false}
             href={`/search?query=${query}&page=0`}
             className="flex items-center rounded-micro justify-center w-[2.25rem] md:w-[2.5rem] h-[2.25rem] md:h-[2.5rem] text-neutral-400 bg-surfacesBackground hover:text-hoverIcon hover:bg-hoverBackground cursor-pointer">
             <FirstPageIcon size="0.625rem" />
           </Link>
           <Link
+            prefetch={false}
             href={`/search?query=${query}&page=${page - 1}`}
             className="flex items-center mx-5 md:mx-10 rounded-micro justify-center w-[2.25rem] md:w-[2.5rem] h-[2.25rem] md:h-[2.5rem] text-neutral-400 bg-surfacesBackground hover:text-hoverIcon hover:bg-hoverBackground cursor-pointer">
             <PrevPageIcon />
@@ -44,11 +46,13 @@ function Pagination(props: PropsType) {
       {page + 1 < totalPage && totalPage > 1 ? (
         <>
           <Link
+            prefetch={false}
             href={`/search?query=${query}&page=${page + 1}`}
             className="flex items-center mx-5 md:mx-10 rounded-micro justify-center w-[2.25rem] md:w-[2.5rem] h-[2.25rem] md:h-[2.5rem] text-neutral-400 bg-surfacesBackground hover:text-hoverIcon hover:bg-hoverBackground cursor-pointer">
             <NextPageIcon />
           </Link>
           <Link
+            prefetch={false}
             href={`/search?query=${query}&page=${totalPage - 1}`}
             className="flex items-center rounded-micro justify-center w-[2.25rem] md:w-[2.5rem] h-[2.25rem] md:h-[2.5rem] text-neutral-400 bg-surfacesBackground hover:text-hoverIcon hover:bg-hoverBackground cursor-pointer">
             <LastPageIcon size="0.625rem" />

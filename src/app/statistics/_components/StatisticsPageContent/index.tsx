@@ -65,7 +65,10 @@ function StatisticsPageContent(props: PropsType) {
       <div className="container px-25 md:px-0 pt-30 md:py-50">
         <div className="w-full mb-20 md:0 md:py-10 md:py-20 flex flex-col md:flex-row md:items-center md:justify-between">
           <div className="items-center flex mb-5 md:mb-0">
-            <Link className="text-neutral-800 text-10 md:text-16" href="/">
+            <Link
+              prefetch={false}
+              className="text-neutral-800 text-10 md:text-16"
+              href="/">
               Home
             </Link>
             <ChevronRightIcon className="mx-5 text-neutral-800" />
