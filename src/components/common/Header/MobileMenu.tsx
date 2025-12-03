@@ -48,7 +48,7 @@ function MobileMenu(props: MobileMenuProps) {
             ${active ? 'animate-mount-menu' : ''}`}>
             <nav className="w-full">
               <div className="flex w-full items-center justify-between pb-6">
-                <Link className="relative w-24" href="/">
+                <Link prefetch={false} className="relative w-24" href="/">
                   <Image src={rangoLogo} alt="Rango logo" layout="responsive" />
                 </Link>
                 <div />
@@ -60,6 +60,7 @@ function MobileMenu(props: MobileMenuProps) {
                       {link.type === 'link' ? (
                         <Link
                           href={link.location}
+                          prefetch={false}
                           target={link.openInNewTab ? '_blank' : '_self'}
                           rel={link.openInNewTab ? 'noreferrer' : 'none'}
                           className={`flex w-full items-center justify-between py-4 text-16 font-medium	 
@@ -113,6 +114,7 @@ function MobileMenu(props: MobileMenuProps) {
                                 className="flex items-center py-2.5 pl-2 text-12 text-neutral-400"
                                 key={index}>
                                 <Link
+                                  prefetch={false}
                                   href={item.location}
                                   target={
                                     item.openInNewTab ? '_blank' : '_self'

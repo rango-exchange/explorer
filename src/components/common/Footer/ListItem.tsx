@@ -7,6 +7,7 @@ function ListItem(props: ListItemProps) {
     <li className="item-center flex pb-2.5 text-12 md:text-16 md:font-medium	leading-[0.8rem] text-neutral-200 md:text-16 md:leading-5	">
       {Icon && <Icon className="text-neutral-200" />}
       <Link
+        prefetch={false}
         target={openInNewTab ? '_blank' : '_self'}
         rel={openInNewTab ? 'noreferrer' : 'none'}
         className={`${className || ''} ${Icon ? 'ml-1' : ''}`}

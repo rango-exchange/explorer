@@ -42,7 +42,7 @@ function MobileNavbar(props: DeviceProps) {
       <div className={'flex items-center justify-between'}>
         {renderChildren ? (
           <>
-            <Link href="/" className="relatives w-[4.75rem] ">
+            <Link prefetch={false} href="/" className="relatives w-[4.75rem] ">
               <Image
                 src={theme === 'dark' ? coloredLogo : rangoLogo}
                 alt="Rango logo"

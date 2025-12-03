@@ -27,7 +27,10 @@ function DesktopHeader(props: DeviceProps) {
       {renderChildren ? (
         <>
           <div className="flex justify-center	items-center gap-9">
-            <Link className="relative w-[3.8rem] md:w-[7.7rem]" href="/">
+            <Link
+              prefetch={false}
+              className="relative w-[3.8rem] md:w-[7.7rem]"
+              href="/">
               <Image
                 src={theme === 'dark' ? coloredLogo : rangoLogo}
                 alt="Rango logo"
@@ -62,6 +65,7 @@ function DesktopHeader(props: DeviceProps) {
                   onMouseOver={() => setShowSubMenu(link.id)}>
                   {link.type === 'link' ? (
                     <Link
+                      prefetch={false}
                       rel={link.openInNewTab ? 'noreferrer' : 'none'}
                       target={link.openInNewTab ? '_blank' : '_self'}
                       href={link.location}>

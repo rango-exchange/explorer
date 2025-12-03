@@ -19,6 +19,7 @@ function SwapStepAddress(props: SwapStepItemValueProps) {
         <Link
           target="_blank"
           href={explorer}
+          prefetch={false}
           onClick={handleClick}
           className="text-14 md:text-16 text-secondary-500 mr-5">
           {address?.length > 20 ? `${address.slice(0, 20)}...` : address}

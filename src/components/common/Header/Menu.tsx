@@ -38,6 +38,7 @@ function Menu(props: MenuProps) {
                 }`}
                 key={index}>
                 <Link
+                  prefetch={false}
                   target={item.openInNewTab ? '_blank' : '_self'}
                   rel={item.openInNewTab ? 'noreferrer' : 'none'}
                   className="flex items-center hover:text-secondary-500"
