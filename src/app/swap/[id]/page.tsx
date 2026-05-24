@@ -7,6 +7,7 @@ import { Suspense } from 'react';
 export async function generateMetadata({ params }: { params: { id: string } }) {
   return {
     title: `Swap ${params.id}`,
+    robots: { index: false, follow: false },
   };
 }
 
