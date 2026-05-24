@@ -13,6 +13,7 @@ export async function generateMetadata({
 }) {
   return {
     title: `Address ${searchParams.query}`,
+    robots: { index: false, follow: false },
   };
 }
 /*
