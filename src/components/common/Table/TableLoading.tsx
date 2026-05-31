@@ -109,6 +109,7 @@ function TableLoading(props: TableLoadingProps) {
                       />
                     </div>
                     <Link
+                      prefetch={false}
                       href="#"
                       className={`w-full md:hidden text-center rounded-micro mt-30 border border-primary-600 py-10 text-primary-600 text-16 font-semibold`}>
                       Detail

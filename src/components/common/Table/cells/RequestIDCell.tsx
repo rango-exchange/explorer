@@ -19,6 +19,7 @@ function RequestIDCell(props: CellProps) {
         <Tooltip label={requestId}>
           <Link
             href={`/swap/${requestId}`}
+            prefetch={false}
             className="text-14 md:text-16 text-primary-500 mr-5 hover:underline hover:text-secondary-500">
             {`${requestId.slice(0, 8)}...${requestId.slice(
               requestId.length - 8,

@@ -51,6 +51,7 @@ function SwapDetailMobileToken(props: SwapDetailItem) {
         </div>
         <div className="flex items-center">
           <Link
+            prefetch={false}
             href={wallet?.explorer}
             target="_blank"
             className="text-14 text-secondary-500 mr-5">
@@ -58,6 +59,7 @@ function SwapDetailMobileToken(props: SwapDetailItem) {
           </Link>
           <ButtonCopyIcon text={wallet?.address} />
           <Link
+            prefetch={false}
             className={`ml-1.5 flex items-center relative`}
             href={`/search?query=${wallet?.address}`}>
             <Image
