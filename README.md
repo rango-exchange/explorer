@@ -25,3 +25,35 @@ To learn more about Next.js, take a look at the following resources:
 
 You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
 
+
+
+## Release
+
+Ensure you have the latest commits:
+```shell
+git checkout next
+git pull
+git checkout main
+git pull
+```
+
+then, merge the next branch into main and bump the version:
+```shell
+git merge --no-ff next
+yarn version
+```
+
+Push the changes:
+```shell
+git push --tags
+git push
+```
+
+Finally, merge `main` back into `next` so both branches stay in sync:
+```shell
+git checkout main
+git pull
+git checkout next
+git merge --no-ff main
+git push
+```
